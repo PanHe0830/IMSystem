@@ -21,12 +21,18 @@
     <ClCompile Include="src\Server.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\MySQL.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Server.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="src\Message.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MySQL.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
