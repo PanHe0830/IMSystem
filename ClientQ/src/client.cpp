@@ -9,7 +9,6 @@ Client::Client()
         qDebug() << "Net init error";
         return;
     }
-    SendMessage();
 }
 
 Client::~Client()
@@ -56,7 +55,7 @@ bool Client::InitNet()
 
 bool Client::SendMessage()
 {
-    CRegister reg;
+    CRegister_REQ reg;
     memcpy(&reg.msg,"client register",sizeof(reg.msg));
     memcpy(&reg.msgPass,"client register password",sizeof(reg.msgPass));
     // 发送数据到服务器

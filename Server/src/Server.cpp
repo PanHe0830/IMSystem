@@ -131,10 +131,10 @@ void Server::HandMsg()
 
     switch (head.MsgCode)
     {
-    case CLIENT_COMMIT:
+    case CLIENT_COMMIT_REQ:
         HandleCommit(clientSocket, head);
         break;
-    case CLIENT_REGISTER:
+    case CLIENT_REGISTER_REQ:
         HandleRegister(clientSocket,head);
         break;
     default:
@@ -152,7 +152,7 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
 {
     std::cout << "HandleRegister" << std::endl;
 
-    CRegister registerData;
+    CRegister_REQ registerData;
     int bytesRead = 0;
     while (bytesRead < head.nSize - sizeof(head)) {
         int result = recv(clientSocket, ((char*)&registerData) + bytesRead + sizeof(head), head.nSize - bytesRead - sizeof(head), 0);
