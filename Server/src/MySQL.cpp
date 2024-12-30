@@ -12,6 +12,7 @@ MySQL::~MySQL()
 
 bool MySQL::MySqlInit()
 {
+	isInit = true;
 	mysql =  mysql_init(nullptr);
 	if (mysql == nullptr)
 	{
@@ -71,6 +72,7 @@ MYSQL_RES* MySQL::MySqlGetResult()
 
 void MySQL::MySqlColse()
 {
+	isInit = false;
 	mysql_close(mysql);
 	return;
 }
@@ -82,27 +84,22 @@ void MySQL::MySqlFreeResult(MYSQL_RES* res)
 	return;
 }
 
-
-
-MYSQL_RES* result = NULL;
-MYSQL_ROW  row = NULL;
-int num_rows, num_fields;
-result = mysql_store_result(&mysql);
-num_rows = mysql_num_rows(result);
-num_fields = mysql_num_fields(result);
-printf("行数：%d,列数:%d\n", num_rows, num_fields);
-
-for (int i = 0; i < num_rows; i++)
+void MySQL::MySqlPrintfResult(MYSQL_RES* result)
 {
-	row = mysql_fetch_row(result);//从结果集中获取下一行
-	for (int j = 0; j < num_fields; j++)
+	if (result == nullptr) return;
+	MYSQL_ROW  row = NULL;
+	unsigned int num_rows, num_fields;
+	num_rows = mysql_num_rows(result);
+	num_fields = mysql_num_fields(result);
+	printf("行数：%d,列数:%d\n", num_rows, num_fields);
+	
+	for (unsigned int i = 0; i < num_rows; i++)
 	{
-		printf("%s\t", row[j]);
+		row = mysql_fetch_row(result);//从结果集中获取一行
+		for (unsigned int j = 0; j < num_fields; j++)
+		{
+			printf("%s\t", row[j]);
+		}
+		printf("\n");
 	}
-	printf("\n");
 }
-————————————————
-
-版权声明：本文为博主原创文章，遵循 CC 4.0 BY - SA 版权协议，转载请附上原文出处链接和本声明。
-
-原文链接：https ://blog.csdn.net/JMW1407/article/details/107612185

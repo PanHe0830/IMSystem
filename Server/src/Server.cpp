@@ -10,6 +10,18 @@ Server::Server()
 	{
 		std::cout << "当前网络初始化失败" << std::endl;
 	}
+
+    m_SqlOption = new MySQL();
+    if (!m_SqlOption->MySqlInit())
+    {
+        std::cout << "数据库初始化失败" << std::endl;
+        return;
+    }
+    if (m_SqlOption->MySqlConnent("127.0.0.1", "root", "125801ph", "IMDataBase", 3306) == nullptr)
+    {
+        std::cout << "数据库连接失败" << std::endl;
+        return;
+    }
 }
 
 Server::~Server()
@@ -17,6 +29,16 @@ Server::~Server()
     closesocket(clientSocket);
     closesocket(serverSocket);
     WSACleanup();
+
+    if (m_SqlOption)
+    {
+        if (m_SqlOption->GetIsInit() == true)
+        {
+            m_SqlOption->MySqlColse();
+        }
+        delete m_SqlOption;
+        m_SqlOption = nullptr;
+    }
 }
 
 bool Server::InitNet()
@@ -77,16 +99,8 @@ bool Server::ClientConnent()
 
     std::cout << "Client connected!" << std::endl;
 
-    MsgHead head;
-    recv(clientSocket, (char*)&head, sizeof(head), 0);
-
-    HandMsg(head.MsgCode, head);
-
-    //char buffer[2048];
-    //recv(clientSocket , buffer , sizeof(buffer),0);
-    //CRegister reg;
-    //memcpy(&reg, buffer, sizeof(CRegister));
-
+    std::thread thread(&Server::HandMsg,this);
+    thread.join();
 
 #if 0
     int recvSize;
@@ -110,12 +124,15 @@ bool Server::ClientConnent()
     return true;
 }
 
-void Server::HandMsg(int code , MsgHead& head)
+void Server::HandMsg()
 {
-    switch (code)
+    MsgHead head;
+    recv(clientSocket, (char*)&head, sizeof(head), 0);
+
+    switch (head.MsgCode)
     {
     case CLIENT_COMMIT:
-        HandleCommit(code, head);
+        HandleCommit(clientSocket, head);
         break;
     case CLIENT_REGISTER:
         HandleRegister(clientSocket,head);
@@ -126,20 +143,15 @@ void Server::HandMsg(int code , MsgHead& head)
     }
 }
 
-void Server::HandleCommit(int clientSocket, MsgHead& head)
+void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
 {
     std::cout << "HandleCommit" << std::endl;
 }
 
-void Server::HandleRegister(int clientSocket , MsgHead& head)
+void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
 {
     std::cout << "HandleRegister" << std::endl;
-    
-    //head.nSize = ntohl(head.nSize);
-    //if (head.nSize != sizeof(CRegister))
-    //{
-    //    return;
-    //}
+
     CRegister registerData;
     int bytesRead = 0;
     while (bytesRead < head.nSize - sizeof(head)) {

@@ -10,7 +10,8 @@ class MySQL
 public:
 	MySQL();
 	~MySQL();
-private:
+
+public:
 	/**
 	*	@name		InitMySql
 	*	@function	初始化数据库
@@ -84,10 +85,20 @@ private:
 	*/
 	void MySqlFreeResult(MYSQL_RES* res);
 
-	void MySql
+	/**
+	*	@name		MySqlPrintfResult
+	*	@function	打印结果集的内容
+	*	@author		PH
+	*	@return
+	*	@param		result - 结果集
+	*	@note
+	*/
+	void MySqlPrintfResult(MYSQL_RES* result);
 
+	inline bool GetIsInit() { return isInit; };
 private:
 	MYSQL* mysql;//数据库句柄
+	bool isInit = false;
 };
 
 #endif

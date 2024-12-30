@@ -4,6 +4,8 @@
 #include <WinSock2.h>
 #include <iostream>
 #include <vector>
+
+#include "MySQL.h"
 #include "Message.h"
 
 class Server
@@ -21,18 +23,20 @@ public:
 	bool ClientConnent();
 private:
 	// 接收对应的数据并进行处理
-	void HandMsg(int code, MsgHead& head);
+	void HandMsg();
 	// 处理登录功能
-	void HandleCommit(int clientSocket, MsgHead& head);
+	void HandleCommit(SOCKET clientSocket, MsgHead& head);
 	// 处理注册功能
-	void HandleRegister(int clientSocket, MsgHead& head);
+	void HandleRegister(SOCKET clientSocket, MsgHead& head);
 
 private:
 	WSADATA wsaData;
 	SOCKET serverSocket, clientSocket;
 	sockaddr_in serverAddr, clientAddr;
 	int clientAddrSize = sizeof(clientAddr);
-	std::vector<int> ClientSocket; // 存储客户端的socket
+	std::vector<SOCKET> ClientSocket; // 存储客户端的socket
+
+	MySQL* m_SqlOption;
 };
 
 #endif __SERVER__
