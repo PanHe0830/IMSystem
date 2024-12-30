@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "D:\\VS Project\\Communciation\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\MySQL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\MySQL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\Server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\Server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\MySQL.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\MySQL.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\Server.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\Server.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\Server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\Server.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\Message.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\Message.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\MySQL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|solutionrelative:src\\MySQL.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F472DD7-6521-4D60-AF72-8A896426A107}|Server.vcxproj|D:\\VS Project\\Communciation\\Server\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -33,7 +33,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -41,40 +41,42 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "MySQL.cpp",
+              "DocumentMoniker": "D:\\VS Project\\Communciation\\Server\\src\\MySQL.cpp",
+              "RelativeDocumentMoniker": "src\\MySQL.cpp",
+              "ToolTip": "D:\\VS Project\\Communciation\\Server\\src\\MySQL.cpp",
+              "RelativeToolTip": "src\\MySQL.cpp",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAawB4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-12-29T08:49:50.549Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MySQL.h",
               "DocumentMoniker": "D:\\VS Project\\Communciation\\Server\\src\\MySQL.h",
               "RelativeDocumentMoniker": "src\\MySQL.h",
               "ToolTip": "D:\\VS Project\\Communciation\\Server\\src\\MySQL.h",
               "RelativeToolTip": "src\\MySQL.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAEsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-12-29T08:39:08.231Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Message.h",
-              "DocumentMoniker": "D:\\VS Project\\Communciation\\Server\\src\\Message.h",
-              "RelativeDocumentMoniker": "src\\Message.h",
-              "ToolTip": "D:\\VS Project\\Communciation\\Server\\src\\Message.h",
-              "RelativeToolTip": "src\\Message.h",
-              "ViewState": "AgIAABwAAAAAAAAAAAAawC8AAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-28T08:22:11.668Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Server.h",
               "DocumentMoniker": "D:\\VS Project\\Communciation\\Server\\src\\Server.h",
               "RelativeDocumentMoniker": "src\\Server.h",
               "ToolTip": "D:\\VS Project\\Communciation\\Server\\src\\Server.h",
               "RelativeToolTip": "src\\Server.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAawBsAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-26T06:22:40.048Z"
+              "WhenOpened": "2024-12-26T06:22:40.048Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -88,15 +90,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Server.cpp",
               "DocumentMoniker": "D:\\VS Project\\Communciation\\Server\\src\\Server.cpp",
               "RelativeDocumentMoniker": "src\\Server.cpp",
               "ToolTip": "D:\\VS Project\\Communciation\\Server\\src\\Server.cpp",
               "RelativeToolTip": "src\\Server.cpp",
-              "ViewState": "AgIAAEkAAAAAAAAAAAAqwFgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-24T10:01:41.356Z"
+              "WhenOpened": "2024-12-24T10:01:41.356Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
