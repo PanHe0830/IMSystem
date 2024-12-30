@@ -3,5 +3,4 @@ Server/middle directory
 Server/lib
 Server/Server.sln
 Server/Server.vcxproj.user
-Server/Server.vcxproj.filters
 Server/.vs
