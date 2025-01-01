@@ -3,3 +3,12 @@ Server/middle directory
 Server/Server.sln
 Server/Server.vcxproj.user
 Server/.vs
+
+Client/.vs/
+Client/Client.sln
+
+ClientQ/.qtc_clangd/
+ClientQ/Client.pro.user
+ClientQ/bin/
+ClientQ/debug/
+ClientQ/release/
