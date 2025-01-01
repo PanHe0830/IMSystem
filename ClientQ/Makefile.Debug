@@ -530,6 +530,7 @@ bin\debug\moc\moc_imsystem.cpp: src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject_impl.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbindingstorage.h \
 		src\client.h \
+		src\Message.h \
 		src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMainWindow \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmainwindow.h \
@@ -809,6 +810,7 @@ bin\debug\objects\main.obj: src\main.cpp D:\QT\6.8.0\msvc2019_64\include\QtWidge
 		src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QObject \
 		src\client.h \
+		src\Message.h \
 		src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMainWindow \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmainwindow.h \
@@ -1030,33 +1032,16 @@ bin\debug\objects\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtabwidget.h \
 		bin\release\ui\ui_mainwindow.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtCore\QVariant \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QApplication \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qapplication.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLabel \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlabel.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qframe.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpicture.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLineEdit \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlineedit.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextcursor.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextformat.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMenuBar \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmenubar.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmenu.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QPushButton \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\QScreen \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QDebug \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QPushButton \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QString
 
 bin\debug\objects\client.obj: src\client.cpp src\client.h \
+		src\Message.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QDebug \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdebug.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainerfwd.h \
@@ -1163,8 +1148,7 @@ bin\debug\objects\client.obj: src\client.cpp src\client.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qshareddata_impl.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qset.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qhash.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvarlengtharray.h \
-		src\Message.h
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvarlengtharray.h
 
 bin\debug\objects\imsystem.obj: src\imsystem.cpp src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QObject \
@@ -1268,6 +1252,7 @@ bin\debug\objects\imsystem.obj: src\imsystem.cpp src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject_impl.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbindingstorage.h \
 		src\client.h \
+		src\Message.h \
 		src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMainWindow \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmainwindow.h \
@@ -1356,7 +1341,8 @@ bin\debug\objects\imsystem.obj: src\imsystem.cpp src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qinputmethod.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlocale.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtabwidget.h
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtabwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QDebug
 
 bin\debug\objects\qrc_Image.obj: debug\qrc_Image.cpp 
 
