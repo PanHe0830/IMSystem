@@ -29,6 +29,11 @@ private slots:
     // 注册按钮
     void ButtonRegisterClicked();
 
+signals:
+    void SIG_SendCommitREQ(QString account , QString password);
+
+    void SIG_SendRegisterREQ();
+
 private:
     Ui::MainWindow *ui;
 };

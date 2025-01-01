@@ -13,6 +13,11 @@ public:
     IMSystem();
     ~IMSystem();
 
+private slots:
+    void slot_CommitREQ(QString account , QString password);
+
+    void slot_RegisterREQ();
+
 private:
     Client* m_Client; // 客户端网络指针
     MainWindow* m_RegisterInterface; // 客户端登录界面

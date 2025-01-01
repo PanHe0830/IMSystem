@@ -46,12 +46,14 @@ DEFINES += _WINSOCK_DEPRECATED_NO_WARNINGS
 SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/mainwindow.cpp \
-    $$PWD/src/client.cpp
+    $$PWD/src/client.cpp \
+    src/imsystem.cpp
 
 HEADERS += \
     $$PWD/src/mainwindow.h \
     $$PWD/src/client.h \
-    src/Message.h
+    src/Message.h \
+    src/imsystem.h
 
 FORMS += \
     mainwindow.ui

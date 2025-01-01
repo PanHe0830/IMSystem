@@ -28,6 +28,15 @@ private:
 	void HandleCommit(SOCKET clientSocket, MsgHead& head);
 	// 处理注册功能
 	void HandleRegister(SOCKET clientSocket, MsgHead& head);
+	// 创建随机数
+	long GetRandomNum();
+
+private:
+	// 接收消息
+	bool RecvMessages(SOCKET clientSocket,char* buffer, MsgHead& head);
+	
+	// 发送消息
+	bool SendMessages(SOCKET clientSocket, char* buffer);
 
 private:
 	WSADATA wsaData;

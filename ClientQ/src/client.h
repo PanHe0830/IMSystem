@@ -3,6 +3,7 @@
 
 #include <winsock2.h>
 #include <WS2tcpip.h>
+#include "Message.h"
 
 class Client
 {
@@ -15,8 +16,10 @@ private:
     // 初始化socket
     bool InitNet();
 
-    //
-    bool SendMessage();
+public:
+    bool client_SendMessage(char* buffer);
+
+    bool client_RecvMessage(char* buffer , MsgHead& head);
 
 private:
     WSADATA wsaData;

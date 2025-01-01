@@ -1,6 +1,8 @@
 #include "Server.h"
 #include <iostream>
 #include <thread>
+#include <random>
+#include <string>
 
 #pragma comment(lib,"ws2_32.lib")
 
@@ -126,21 +128,24 @@ bool Server::ClientConnent()
 
 void Server::HandMsg()
 {
-    MsgHead head;
-    recv(clientSocket, (char*)&head, sizeof(head), 0);
-
-    switch (head.MsgCode)
+    while (1)
     {
-    case CLIENT_COMMIT_REQ:
-        HandleCommit(clientSocket, head);
-        break;
-    case CLIENT_REGISTER_REQ:
-        HandleRegister(clientSocket,head);
-        break;
-    default:
-        std::cout << "code not exist" << std::endl;
-        break;
-    }
+        MsgHead head;
+        recv(clientSocket, (char*)&head, sizeof(head), 0);
+
+        switch (head.MsgCode)
+        {
+        case CLIENT_COMMIT_REQ:
+            HandleCommit(clientSocket, head);
+            break;
+        case CLIENT_REGISTER_REQ:
+            HandleRegister(clientSocket, head);
+            break;
+        default:
+            std::cout << "code not exist" << std::endl;
+            break;
+        }
+}
 }
 
 void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
@@ -153,15 +158,73 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
     std::cout << "HandleRegister" << std::endl;
 
     CRegister_REQ registerData;
+    
+    if (!RecvMessages(clientSocket, (char*)&registerData, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+   
+    // 
+    long account = 0;
+    while (m_SqlOption->MySqlGetResult() != nullptr)
+    {
+        account = GetRandomNum();
+        std::string sqlStr = "select * from account where numAccount = ";
+        std::string accountstr = std::to_string(account);
+        sqlStr = sqlStr + accountstr + ";";
+        m_SqlOption->MySqlQuery(sqlStr.c_str());
+    }
+    "insert into account (numAccount , numPassWord) values(3 , 4);";
+    std::string insertSql = "insert into account (numAccount , numPassWord) values(";
+    std::string newStr = insertSql + std::to_string(account) + "," + std::string(registerData.passWord) + ");";
+
+    if (!m_SqlOption->MySqlQuery(newStr.c_str()))
+    {
+        std::cout << "sql failed" << std::endl;
+    }
+    
+    CRegister_ACK registerAck;
+
+    if (!SendMessages(clientSocket, (char*)&registerAck))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+}
+
+long Server::GetRandomNum()
+{
+    // 创建一个随机数引擎
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // 设置随机数范围，生成9位数的随机数
+    std::uniform_int_distribution<> dist(100000000, 999999999);
+
+    // 生成一个9位的随机数
+    return dist(gen);
+}
+
+bool Server::RecvMessages(SOCKET clientSocket , char* buffer , MsgHead& head)
+{
     int bytesRead = 0;
     while (bytesRead < head.nSize - sizeof(head)) {
-        int result = recv(clientSocket, ((char*)&registerData) + bytesRead + sizeof(head), head.nSize - bytesRead - sizeof(head), 0);
+        int result = recv(clientSocket, buffer + bytesRead + sizeof(head), head.nSize - bytesRead - sizeof(head), 0);
         if (result <= 0) {
             perror("Failed to receive CRegister data");
-            exit(EXIT_FAILURE);
+            return false;
         }
         bytesRead += result;
     }
-    std::cout << "Received msg: " << registerData.msg << "\n";
-    std::cout << "Received msgPass: " << registerData.msgPass << "\n";
+    return true;
+}
+
+bool Server::SendMessages(SOCKET clientSocket, char* buffer)
+{
+    if (send(clientSocket, buffer, strlen(buffer), 0) == SOCKET_ERROR) {
+        std::cerr << "Send failed!" << std::endl;
+        return false;
+    }
+    return true;
 }

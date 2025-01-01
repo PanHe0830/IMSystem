@@ -57,9 +57,12 @@ void MainWindow::ButtonCommitClicked()
     QString account = ui->le_account->text();
     QString password = ui->le_password->text();
 
+    emit SIG_SendCommitREQ(account,password);
+
 }
 
 void MainWindow::ButtonRegisterClicked()
 {
     // 点击注册按钮
+    emit SIG_SendRegisterREQ();
 }

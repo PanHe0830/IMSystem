@@ -1,5 +1,0 @@
-﻿  main.cpp
-D:\VS Project\Communciation\Client\src\main.cpp(48,43): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
-D:\VS Project\Communciation\Client\src\main.cpp(33,34): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
-D:\VS Project\Communciation\Client\src\main.cpp(13,10): warning C4101: “sendBuffer”: 未引用的局部变量
-  Client.vcxproj -> D:\VS Project\Communciation\Client\bin\Client.exe

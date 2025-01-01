@@ -25,12 +25,10 @@ struct CRegister_REQ
     {
         head.MsgCode = CLIENT_REGISTER_REQ;
         head.nSize = sizeof(CRegister_REQ);
-        memset(&msg, 0, sizeof(msg));
-        memset(&msgPass, 0, sizeof(msg));
+        memset(&passWord, 0, sizeof(passWord));
     }
     MsgHead head;
-    char msg[200];
-    char msgPass[200];
+    char passWord[20];
 };
 
 // 客户端注册回复消息
@@ -52,8 +50,12 @@ struct CCommit_REQ
     {
         head.MsgCode = CLIENT_COMMIT_REQ;
         head.nSize = sizeof(CCommit_REQ);
+        memset(&account, 0, sizeof(account));
+        memset(&password, 0, sizeof(password));
     }
     MsgHead head;
+    char account[20];
+    char password[20];
 };
 
 // 客户端登录回复消息
