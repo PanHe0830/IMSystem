@@ -13,6 +13,13 @@ public:
     IMSystem();
     ~IMSystem();
 
+private:
+    void HandleMessage();
+
+    void HandleCommitACK(SOCKET serverClient , MsgHead& head);
+
+    void HandleRegisterACK(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 

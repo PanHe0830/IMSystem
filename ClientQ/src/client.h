@@ -17,13 +17,15 @@ private:
     bool InitNet();
 
 public:
-    bool client_SendMessage(char* buffer);
+    bool client_SendMessage(char* buffer  , long size);
 
     bool client_RecvMessage(char* buffer , MsgHead& head);
 
+public:
+    SOCKET clientSocket;
+
 private:
     WSADATA wsaData;
-    SOCKET clientSocket;
     sockaddr_in serverAddr;
     char sendBuffer[512];
     char recvBuffer[512];

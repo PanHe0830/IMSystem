@@ -53,37 +53,34 @@ bool Client::InitNet()
     return true;
 }
 
-bool Client::client_SendMessage(char* buffer)
+bool Client::client_SendMessage(char* buffer , long size)
 {
     // 发送数据到服务器
-    if (send(clientSocket, buffer, sizeof(buffer) + 1, 0) == SOCKET_ERROR) {
-        qDebug() << "Send failed!";
-        closesocket(clientSocket);
-        WSACleanup();
-        return false;
+    qDebug() << size;
+    int sendbytes = 0;
+    while(sendbytes < size)
+    {
+        int senddatas = send(clientSocket, buffer, size, 0);
+        if(senddatas < 0)
+        {
+            qDebug() << "Send failed!";
+            closesocket(clientSocket);
+            WSACleanup();
+            return false;
+        }
+        sendbytes += senddatas;
     }
     return true;
 }
 
 bool Client::client_RecvMessage(char* buffer , MsgHead& head)
 {
-    // 接收服务器返回的数据
-    //recvSize = recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
-    //if (recvSize == SOCKET_ERROR) {
-    //    qDebug() << "Receive failed!";
-    //    return false;
-    //}
-    //else {
-    //    recvBuffer[recvSize] = '\0';  // 确保接收到的数据以'\0'结尾
-    //    qDebug() << "Received from server: " << recvBuffer;
-    //}
-
     int bytesRead = 0;
     while (bytesRead < head.nSize - sizeof(head)) {
         int result = recv(clientSocket, buffer + bytesRead + sizeof(head), head.nSize - bytesRead - sizeof(head), 0);
         if (result <= 0) {
             perror("Failed to receive CRegister data");
-            exit(EXIT_FAILURE);
+            return false;
         }
         bytesRead += result;
     }

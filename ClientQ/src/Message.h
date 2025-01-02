@@ -30,6 +30,7 @@ struct CRegister_REQ
     char passWord[20];
 };
 
+
 // 客户端注册回复消息
 struct CRegister_ACK
 {
@@ -37,8 +38,10 @@ struct CRegister_ACK
     {
         head.MsgCode = CLIENT_REGISTER_ACK;
         head.nSize = sizeof(CRegister_ACK);
+        memset(&Account, 0, sizeof(Account));
     }
     MsgHead head;
+    char Account[20];
 };
 
 

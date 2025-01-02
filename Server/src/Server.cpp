@@ -141,11 +141,8 @@ void Server::HandMsg()
         case CLIENT_REGISTER_REQ:
             HandleRegister(clientSocket, head);
             break;
-        default:
-            std::cout << "code not exist" << std::endl;
-            break;
         }
-}
+    }
 }
 
 void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
@@ -158,7 +155,6 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
     std::cout << "HandleRegister" << std::endl;
 
     CRegister_REQ registerData;
-    
     if (!RecvMessages(clientSocket, (char*)&registerData, head))
     {
         std::cout << "接收消息失败" << std::endl;
@@ -167,15 +163,15 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
    
     // 
     long account = 0;
-    while (m_SqlOption->MySqlGetResult() != nullptr)
+    do
     {
         account = GetRandomNum();
         std::string sqlStr = "select * from account where numAccount = ";
         std::string accountstr = std::to_string(account);
         sqlStr = sqlStr + accountstr + ";";
         m_SqlOption->MySqlQuery(sqlStr.c_str());
-    }
-    "insert into account (numAccount , numPassWord) values(3 , 4);";
+    } while (m_SqlOption->MySqlGetResult() == nullptr);
+
     std::string insertSql = "insert into account (numAccount , numPassWord) values(";
     std::string newStr = insertSql + std::to_string(account) + "," + std::string(registerData.passWord) + ");";
 
@@ -185,8 +181,9 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
     }
     
     CRegister_ACK registerAck;
+    memcpy(&registerAck.Account, std::to_string(account).c_str(),sizeof(registerAck.Account));
 
-    if (!SendMessages(clientSocket, (char*)&registerAck))
+    if (!SendMessages(clientSocket, (char*)&registerAck , sizeof(registerAck)))
     {
         std::cout << "接收消息失败" << std::endl;
         return;
@@ -208,6 +205,7 @@ long Server::GetRandomNum()
 
 bool Server::RecvMessages(SOCKET clientSocket , char* buffer , MsgHead& head)
 {
+    std::cout << sizeof(head);
     int bytesRead = 0;
     while (bytesRead < head.nSize - sizeof(head)) {
         int result = recv(clientSocket, buffer + bytesRead + sizeof(head), head.nSize - bytesRead - sizeof(head), 0);
@@ -220,11 +218,17 @@ bool Server::RecvMessages(SOCKET clientSocket , char* buffer , MsgHead& head)
     return true;
 }
 
-bool Server::SendMessages(SOCKET clientSocket, char* buffer)
+bool Server::SendMessages(SOCKET clientSocket, char* buffer , long size)
 {
-    if (send(clientSocket, buffer, strlen(buffer), 0) == SOCKET_ERROR) {
-        std::cerr << "Send failed!" << std::endl;
-        return false;
+    int sendbytes = 0;
+    while (sendbytes < size)
+    {
+        int senddatas = send(clientSocket, buffer, size, 0);
+        if (senddatas < 0)
+        {
+            return false;
+        }
+        sendbytes += senddatas;
     }
     return true;
 }

@@ -38,8 +38,10 @@ struct CRegister_ACK
     {
         head.MsgCode = CLIENT_REGISTER_ACK;
         head.nSize = sizeof(CRegister_ACK);
+        memset(&Account, 0, sizeof(Account));
     }
     MsgHead head;
+    char Account[20];
 };
 
 

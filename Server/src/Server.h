@@ -36,7 +36,7 @@ private:
 	bool RecvMessages(SOCKET clientSocket,char* buffer, MsgHead& head);
 	
 	// ·¢ËÍÏûÏ¢
-	bool SendMessages(SOCKET clientSocket, char* buffer);
+	bool SendMessages(SOCKET clientSocket, char* buffer, long size);
 
 private:
 	WSADATA wsaData;
