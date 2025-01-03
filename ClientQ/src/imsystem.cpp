@@ -7,11 +7,16 @@
 IMSystem::IMSystem()
 {
     m_Client = new Client();
-    m_RegisterInterface = new MainWindow();
-    m_RegisterInterface->show();
+    m_CommitInterface = new MainWindow();
+    m_CommitInterface->show();
 
-    connect(m_RegisterInterface,&MainWindow::SIG_SendCommitREQ , this , &IMSystem::slot_CommitREQ);
-    connect(m_RegisterInterface,&MainWindow::SIG_SendRegisterREQ , this , &IMSystem::slot_RegisterREQ);
+    connect(m_CommitInterface,&MainWindow::SIG_SendCommitREQ , this , &IMSystem::slot_CommitREQ);
+    connect(m_CommitInterface,&MainWindow::SIG_SendRegisterREQ , this , &IMSystem::slot_ShowRegisterInterface);
+    connect(this,&IMSystem::SIG_Account , m_CommitInterface , &MainWindow::slot_setAccount);
+
+    m_RegisterInterface = new Register();
+
+    connect(m_RegisterInterface , &Register::SIG_NewPassWord , this , &IMSystem::slot_RegisterREQ);
 
     std::thread thread(&IMSystem::HandleMessage,this);
     thread.detach();
@@ -24,10 +29,10 @@ IMSystem::~IMSystem()
         delete m_Client;
         m_Client = nullptr;
     }
-    if(m_RegisterInterface)
+    if(m_CommitInterface)
     {
-        delete m_RegisterInterface;
-        m_RegisterInterface = nullptr;
+        delete m_CommitInterface;
+        m_CommitInterface = nullptr;
     }
 }
 
@@ -67,6 +72,8 @@ void IMSystem::HandleRegisterACK(SOCKET serverClient, MsgHead &head)
 
     qDebug() << "HandleRegisterACK 接收成功";
     qDebug() << regAck.Account;
+
+    emit SIG_Account(QString(regAck.Account));
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)
@@ -84,26 +91,21 @@ void IMSystem::slot_CommitREQ(QString account, QString password)
     }
 }
 
-void IMSystem::slot_RegisterREQ()
+void IMSystem::slot_RegisterREQ(QString passWord)
 {
     qDebug() << "slot_RegisterREQ";
     CRegister_REQ reg;
-    memcpy(&reg.passWord , "123456789" , sizeof(reg.passWord));
+    memcpy(&reg.passWord , passWord.toStdString().c_str() , sizeof(reg.passWord));
 
     qDebug() << sizeof(reg);
     if(!m_Client->client_SendMessage((char*)&reg,sizeof(reg)))
     {
         qDebug() << "发送成功";
+        m_RegisterInterface->close();
     }
+}
 
-    //int sendbytes = 0;
-    //while(sendbytes < sizeof(reg))
-    //{
-    //    int senddatas = send(m_Client->clientSocket, (char*)&reg, sizeof(reg) + 1, 0);
-    //    if(senddatas < 0)
-    //    {
-    //        qDebug() << "Send failed!";
-    //    }
-    //    sendbytes += senddatas;
-    //}
+void IMSystem::slot_ShowRegisterInterface()
+{
+    m_RegisterInterface->show();
 }

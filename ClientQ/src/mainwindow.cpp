@@ -66,3 +66,8 @@ void MainWindow::ButtonRegisterClicked()
     // 点击注册按钮
     emit SIG_SendRegisterREQ();
 }
+
+void MainWindow::slot_setAccount(QString Account)
+{
+    ui->le_account->setText(Account);
+}

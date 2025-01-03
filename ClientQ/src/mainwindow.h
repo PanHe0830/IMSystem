@@ -29,6 +29,9 @@ private slots:
     // 注册按钮
     void ButtonRegisterClicked();
 
+public slots:
+    void slot_setAccount(QString Account);
+
 signals:
     void SIG_SendCommitREQ(QString account , QString password);
 
