@@ -47,19 +47,24 @@ SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/mainwindow.cpp \
     $$PWD/src/client.cpp \
+    src/myqlabel.cpp \
     src/register.cpp \
-    src/imsystem.cpp
+    src/imsystem.cpp \
+    src/userinterface.cpp
 
 HEADERS += \
     $$PWD/src/mainwindow.h \
     $$PWD/src/client.h \
+    src/myqlabel.h \
     src/register.h \
     src/Message.h \
-    src/imsystem.h
+    src/imsystem.h \
+    src/userinterface.h
 
 FORMS += \
     mainwindow.ui \
-    register.ui
+    register.ui \
+    userinterface.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

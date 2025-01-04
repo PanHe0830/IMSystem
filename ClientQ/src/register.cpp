@@ -21,6 +21,7 @@ void Register::Init()
 {
     this->setMinimumSize(315,146);
     this->setMaximumSize(315,146);
+    ui->pb_sure->setEnabled(false);
 }
 
 void Register::Connect()
@@ -36,9 +37,11 @@ void Register::IsPassWordSame()
     if(password != repassword)
     {
         QMessageBox::information(this,"提示" , "输入的密码不同");
+        ui->pb_sure->setEnabled(false);
         return;
     }
 
+    ui->pb_sure->setEnabled(true);
     emit SIG_NewPassWord(password);
 }
 

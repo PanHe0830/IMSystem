@@ -14,6 +14,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     Init();
     Connent();
+
+    // 测试代码
+    ui->le_account->setText("852000388");
+    ui->le_password->setText("123456");
+    // 测试代码
 }
 
 MainWindow::~MainWindow()

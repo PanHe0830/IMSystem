@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <thread>
+#include <qobjectdefs.h>
 
 IMSystem::IMSystem()
 {
@@ -15,8 +16,11 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_Account , m_CommitInterface , &MainWindow::slot_setAccount);
 
     m_RegisterInterface = new Register();
-
     connect(m_RegisterInterface , &Register::SIG_NewPassWord , this , &IMSystem::slot_RegisterREQ);
+
+    m_usrInterface = new UserInterface();
+    m_usrInterface->close();
+    connect(m_usrInterface,&UserInterface::SIG_clicked,this,&IMSystem::slot_ShowUsrInformation);
 
     std::thread thread(&IMSystem::HandleMessage,this);
     thread.detach();
@@ -58,6 +62,29 @@ void IMSystem::HandleMessage()
 void IMSystem::HandleCommitACK(SOCKET serverClient, MsgHead &head)
 {
     qDebug() << "HandleCommitACK";
+
+    CCommit_ACK commAck;
+
+    if(!m_Client->client_RecvMessage((char*)&commAck,head))
+    {
+        qDebug() << "HandleCommitACK 接收失败";
+
+        return;
+    }
+
+    switch(commAck.flag)
+    {
+    case CLIENT_COMMIT_SUCCESS:
+         // 登录成功显示界面
+        QMetaObject::invokeMethod(m_usrInterface , "show" ,Qt::QueuedConnection);
+        break;
+    case CLIENT_COMMIT_FAILED:
+        // 登录失败提示用户
+        break;
+    case CLIENT_COMMIT_DEFAULT:
+        // 接收到错误消息
+        break;
+    }
 }
 
 void IMSystem::HandleRegisterACK(SOCKET serverClient, MsgHead &head)
@@ -108,4 +135,10 @@ void IMSystem::slot_RegisterREQ(QString passWord)
 void IMSystem::slot_ShowRegisterInterface()
 {
     m_RegisterInterface->show();
+}
+
+void IMSystem::slot_ShowUsrInformation()
+{
+    //显示用户信息
+    qDebug() << "显示用户个人信息界面";
 }

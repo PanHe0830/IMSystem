@@ -1,11 +1,18 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+// ==========================================================
 #define CLIENT_MESSAGE          10000 // 客户端消息
 #define CLIENT_REGISTER_REQ     10001 // 客户端注册请求消息码
 #define CLIENT_REGISTER_ACK     10002 // 客户端注册回复消息码
 #define CLIENT_COMMIT_REQ       10003 // 客户端登录请求消息码
 #define CLIENT_COMMIT_ACK       10004 // 客户端登录回复消息码
+// ==========================================================
+// ==========================================================
+#define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
+#define CLIENT_COMMIT_FAILED    0     // 客户端登录失败
+#define CLIENT_COMMIT_DEFAULT   -1    // 客户端登录默认
+// ==========================================================
 
 #include <cstring>
 
@@ -67,8 +74,10 @@ struct CCommit_ACK
     {
         head.MsgCode = CLIENT_COMMIT_ACK;
         head.nSize = sizeof(CCommit_ACK);
+        flag = CLIENT_COMMIT_DEFAULT;
     }
     MsgHead head;
+    int flag;
 };
 
 #endif // MESSAGE_H

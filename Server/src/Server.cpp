@@ -148,6 +148,36 @@ void Server::HandMsg()
 void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
 {
     std::cout << "HandleCommit" << std::endl;
+
+    CCommit_REQ commitReq;
+    if (!RecvMessages(clientSocket, (char*)&commitReq, head))
+    {
+        //std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+    std::cout << commitReq.account << std::endl;
+    std::cout << commitReq.password << std::endl;
+
+    std::string sqlStr = "select * from account where numAccount = ";
+    sqlStr = sqlStr + std::string(commitReq.account) + " and numPassWord = " + std::string(commitReq.password);
+    m_SqlOption->MySqlQuery(sqlStr.c_str());
+
+
+    CCommit_ACK commmitAck;
+    if (m_SqlOption->MySqlGetResult() == nullptr)
+    {
+        commmitAck.flag = CLIENT_COMMIT_FAILED;
+    }
+    else
+    {
+        commmitAck.flag = CLIENT_COMMIT_SUCCESS;
+    }
+
+    if (!SendMessages(clientSocket, (char*)&commmitAck, sizeof(commmitAck)))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
 }
 
 void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
@@ -185,7 +215,7 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
 
     if (!SendMessages(clientSocket, (char*)&registerAck , sizeof(registerAck)))
     {
-        std::cout << "接收消息失败" << std::endl;
+        std::cout << "发送消息失败" << std::endl;
         return;
     }
 }
