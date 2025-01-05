@@ -16,11 +16,15 @@ public:
     ~IMSystem();
 
 private:
-    void HandleMessage();
+    void HandleMessage(SOCKET clientSocket);
 
     void HandleCommitACK(SOCKET serverClient , MsgHead& head);
 
     void HandleRegisterACK(SOCKET serverClient , MsgHead& head);
+
+    void HandleFriendACK(SOCKET serverClient , MsgHead& head);
+
+    void HandleFriendQueryACK(SOCKET serverClient , MsgHead& head);
 
 private slots:
     void slot_CommitREQ(QString account , QString password);
@@ -30,6 +34,8 @@ private slots:
     void slot_ShowRegisterInterface();
 
     void slot_ShowUsrInformation();
+
+    void slot_FriendREQ(QString tarAccount);
 signals:
     void SIG_Account(QString Account);
 

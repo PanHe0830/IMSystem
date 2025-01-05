@@ -9,6 +9,8 @@
 #define CLIENT_COMMIT_ACK       10004 // 客户端登录回复消息码
 #define CLIENT_FRIEND_REQ       10005 // 客户端好友请求消息码
 #define CLIENT_FRIEND_ACK       10006 // 客户端好友回复消息码
+#define CLIENT_FRIEND_QUERY_REQ 10007 // 客户端好友查询请求消息码
+#define CLIENT_FRIEND_QUERY_ACK 10008 // 客户端好友查询回复消息码
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -19,6 +21,11 @@
 #define CLIENT_FRIEND_SUCCESS   1     // 客户端朋友请求同意
 #define CLIENT_FRIEND_FAILED    0     // 客户端朋友请求不同意
 #define CLIENT_FRIEND_DEFAULT   -1    // 客户端朋友请求默认
+// ==========================================================
+// ==========================================================
+#define CLIENT_FRIEND_QUERY_EXIST       1     // 客户端朋友查询同意
+#define CLIENT_FRIEND_QUERY_NOEXIST     0     // 客户端朋友查询回复不同意
+#define CLIENT_FRIEND_QUERY_DEFAULT     -1    // 客户端朋友查询回复默认
 // ==========================================================
 
 
@@ -97,12 +104,12 @@ struct CFriend_REQ
     {
         head.MsgCode = CLIENT_FRIEND_REQ;
         head.nSize = sizeof(CFriend_REQ);
-        memset(&account, 0, sizeof(account));
-        memset(&passWord, 0, sizeof(passWord));
+        memset(&tarAccount, 0, sizeof(tarAccount));
+        memset(&sourceAccount, 0, sizeof(sourceAccount));
     }
     MsgHead head;
-    char account[20];
-    char passWord[20];
+    char sourceAccount[20];
+    char tarAccount[20];
 };
 
 // 客户端朋友回复消息
@@ -113,6 +120,32 @@ struct CFriend_ACK
         head.MsgCode = CLIENT_FRIEND_ACK;
         head.nSize = sizeof(CFriend_ACK);
         flag = CLIENT_FRIEND_DEFAULT;
+    }
+    MsgHead head;
+    int flag;
+};
+
+// 客户端朋友查询请求消息
+struct CFriendQuery_REQ
+{
+    CFriendQuery_REQ()
+    {
+        head.MsgCode = CLIENT_FRIEND_QUERY_REQ;
+        head.nSize = sizeof(CFriendQuery_REQ);
+        memset(tarAccount , 0 , sizeof(tarAccount));
+    }
+    MsgHead head;
+    char tarAccount[20];
+};
+
+// 客户端朋友查询回复消息
+struct CFriendQuery_ACK
+{
+    CFriendQuery_ACK()
+    {
+        head.MsgCode = CLIENT_FRIEND_QUERY_ACK;
+        head.nSize = sizeof(CFriendQuery_ACK);
+        flag = CLIENT_FRIEND_QUERY_DEFAULT;
     }
     MsgHead head;
     int flag;

@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <thread>
 #include <qobjectdefs.h>
+#include <QMessageBox>
 
 IMSystem::IMSystem()
 {
@@ -21,8 +22,9 @@ IMSystem::IMSystem()
     m_usrInterface = new UserInterface();
     m_usrInterface->close();
     connect(m_usrInterface,&UserInterface::SIG_clicked,this,&IMSystem::slot_ShowUsrInformation);
+    connect(m_usrInterface,&UserInterface::SIG_SearchFriend,this,&IMSystem::slot_FriendREQ);
 
-    std::thread thread(&IMSystem::HandleMessage,this);
+    std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
 }
 
@@ -40,20 +42,26 @@ IMSystem::~IMSystem()
     }
 }
 
-void IMSystem::HandleMessage()
+void IMSystem::HandleMessage(SOCKET clientSocket)
 {
     while (1)
     {
         MsgHead head;
-        recv(m_Client->clientSocket, (char*)&head, sizeof(head), 0);
+        recv(clientSocket, (char*)&head, sizeof(head), 0);
 
         switch (head.MsgCode)
         {
         case CLIENT_COMMIT_ACK:
-            HandleCommitACK(m_Client->clientSocket , head);
+            HandleCommitACK(clientSocket , head);
             break;
         case CLIENT_REGISTER_ACK:
-            HandleRegisterACK(m_Client->clientSocket , head);
+            HandleRegisterACK(clientSocket , head);
+            break;
+        case CLIENT_FRIEND_ACK:
+            HandleFriendACK(clientSocket , head);
+            break;
+        case CLIENT_FRIEND_QUERY_ACK:
+            HandleFriendQueryACK(clientSocket , head);
             break;
         }
     }
@@ -105,6 +113,53 @@ void IMSystem::HandleRegisterACK(SOCKET serverClient, MsgHead &head)
     emit SIG_Account(QString(regAck.Account));
 }
 
+void IMSystem::HandleFriendACK(SOCKET serverClient, MsgHead &head)
+{
+    CFriend_ACK friAck;
+    if(!m_Client->client_RecvMessage((char*)&friAck,head))
+    {
+        qDebug() << "HandleFriendACK 接收失败";
+    }
+
+    switch(friAck.flag)
+    {
+    case CLIENT_FRIEND_SUCCESS:
+        // 同意添加
+        break;
+    case CLIENT_FRIEND_FAILED:
+        // 不同意添加
+        break;
+    case CLIENT_FRIEND_DEFAULT:
+        // 消息码错误
+        break;
+    }
+}
+
+void IMSystem::HandleFriendQueryACK(SOCKET serverClient, MsgHead &head)
+{
+    CFriendQuery_ACK friQueryAck;
+    if(!m_Client->client_RecvMessage((char*)&friQueryAck,head))
+    {
+        qDebug() << "HandleFriendACK 接收失败";
+    }
+
+    switch(friQueryAck.flag)
+    {
+    case CLIENT_FRIEND_QUERY_EXIST:
+        // 存在用户
+        QMessageBox::information(m_usrInterface , "提示" , "用户存在");
+        break;
+    case CLIENT_FRIEND_QUERY_NOEXIST:
+        // 不存在用户
+        QMessageBox::information(m_usrInterface , "提示" , "用户不存在");
+        break;
+    case CLIENT_FRIEND_QUERY_DEFAULT:
+        // 消息码错误
+        QMessageBox::information(m_usrInterface , "提示" , "消息码错误");
+        break;
+    }
+}
+
 void IMSystem::slot_CommitREQ(QString account, QString password)
 {
     qDebug() << "slot_CommitREQ";
@@ -130,7 +185,7 @@ void IMSystem::slot_RegisterREQ(QString passWord , QString nName)
     qDebug() << sizeof(reg);
     if(!m_Client->client_SendMessage((char*)&reg,sizeof(reg)))
     {
-        qDebug() << "发送成功";
+        qDebug() << "发送失败";
         m_RegisterInterface->close();
     }
 }
@@ -144,4 +199,15 @@ void IMSystem::slot_ShowUsrInformation()
 {
     //显示用户信息
     qDebug() << "显示用户个人信息界面";
+}
+
+void IMSystem::slot_FriendREQ(QString tarAccount)
+{
+    CFriendQuery_REQ friQueryREQ;
+    memcpy(friQueryREQ.tarAccount , tarAccount.toStdString().c_str(),sizeof(friQueryREQ.tarAccount));
+
+    if(!m_Client->client_SendMessage((char*)&friQueryREQ,sizeof(friQueryREQ)))
+    {
+        qDebug() << "发送失败";
+    }
 }

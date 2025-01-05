@@ -8,6 +8,7 @@
 
 Server::Server()
 {
+    m_UsrToSocket.clear();
 	if (!InitNet())
 	{
 		std::cout << "当前网络初始化失败" << std::endl;
@@ -97,11 +98,11 @@ bool Server::ClientConnent()
     }
     
     // 保存客户端socket
-    ClientSocket.push_back(clientSocket);
+    //ClientSocket.push_back(clientSocket);
 
     std::cout << "Client connected!" << std::endl;
 
-    std::thread thread(&Server::HandMsg,this);
+    std::thread thread(&Server::HandMsg, this, clientSocket);
     thread.detach();
 
 #if 0
@@ -126,7 +127,7 @@ bool Server::ClientConnent()
     return true;
 }
 
-void Server::HandMsg()
+void Server::HandMsg(SOCKET clientSocket)
 {
     while (1)
     {
@@ -143,6 +144,9 @@ void Server::HandMsg()
             break;
         case CLIENT_FRIEND_REQ:
             HandleFriend(clientSocket, head);
+            break;
+        case CLIENT_FRIEND_QUERY_REQ:
+            HandleFriendQuery(clientSocket , head);
             break;
         }
     }
@@ -161,6 +165,10 @@ void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
     std::cout << commitReq.account << std::endl;
     std::cout << commitReq.password << std::endl;
 
+    mtx_UsrSocket.lock();
+    m_UsrToSocket.emplace(std::string(commitReq.account), clientSocket);
+    mtx_UsrSocket.unlock();
+
     std::string sqlStr = "select * from account where numAccount = ";
     sqlStr = sqlStr + std::string(commitReq.account) + " and numPassWord = " + std::string(commitReq.password);
     m_SqlOption->MySqlQuery(sqlStr.c_str());
@@ -178,7 +186,7 @@ void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
 
     if (!SendMessages(clientSocket, (char*)&commmitAck, sizeof(commmitAck)))
     {
-        std::cout << "接收消息失败" << std::endl;
+        std::cout << "发送消息失败" << std::endl;
         return;
     }
 }
@@ -232,6 +240,39 @@ void Server::HandleFriend(SOCKET clientSocket, MsgHead& head)
     if (!RecvMessages(clientSocket, (char*)&frireq, head))
     {
         std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+}
+
+void Server::HandleFriendQuery(SOCKET clientSocket, MsgHead& head)
+{
+    std::cout << "HandleFriendQuery" << std::endl;
+    CFriendQuery_REQ friendQueryReq;
+
+    if (!RecvMessages(clientSocket, (char*)&friendQueryReq, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    std::string sqlStr = "select * from account where numAccount = ";
+    sqlStr = sqlStr + std::string(friendQueryReq.tarAccount);
+    m_SqlOption->MySqlQuery(sqlStr.c_str());
+
+
+    CFriendQuery_ACK friendQueryACK;
+    if (m_SqlOption->MySqlGetResult() == nullptr)
+    {
+        friendQueryACK.flag = CLIENT_FRIEND_QUERY_NOEXIST;
+    }
+    else
+    {
+        friendQueryACK.flag = CLIENT_FRIEND_QUERY_EXIST;
+    }
+
+    if (!SendMessages(clientSocket, (char*)&friendQueryACK, sizeof(friendQueryACK)))
+    {
+        std::cout << "发送消息失败" << std::endl;
         return;
     }
 }

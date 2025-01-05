@@ -4,6 +4,8 @@
 #include <WinSock2.h>
 #include <iostream>
 #include <vector>
+#include <map>
+#include <mutex>
 
 #include "MySQL.h"
 #include "Message.h"
@@ -23,13 +25,15 @@ public:
 	bool ClientConnent();
 private:
 	// 接收对应的数据并进行处理
-	void HandMsg();
+	void HandMsg(SOCKET clientSocket);
 	// 处理登录功能
 	void HandleCommit(SOCKET clientSocket, MsgHead& head);
 	// 处理注册功能
 	void HandleRegister(SOCKET clientSocket, MsgHead& head);
 	// 处理好友添加功能
 	void HandleFriend(SOCKET clientSocket, MsgHead& head);
+	// 处理好友查询功能
+	void HandleFriendQuery(SOCKET clientSocket, MsgHead& head);
 
 private:
 	// 接收消息
@@ -46,9 +50,11 @@ private:
 	SOCKET serverSocket, clientSocket;
 	sockaddr_in serverAddr, clientAddr;
 	int clientAddrSize = sizeof(clientAddr);
-	std::vector<SOCKET> ClientSocket; // 存储客户端的socket
+	//std::vector<SOCKET> ClientSocket; // 存储客户端的socket
 
 	MySQL* m_SqlOption;
+	std::map<std::string , SOCKET> m_UsrToSocket; // 存放每个用户和客户端SOCKET的map  first - QQ  second - SOCKET
+	std::mutex mtx_UsrSocket;
 };
 
 #endif __SERVER__

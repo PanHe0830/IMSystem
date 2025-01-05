@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "addfriendinterface.h"
+
 namespace Ui {
 class UserInterface;
 }
@@ -23,8 +25,22 @@ private:
 private slots:
     void slot_SendClieckedEvents();
 
+    void slot_showAddInterface();
+
+    void slot_SendSearchFriend(QString tarAccount);
+
+    void slot_AddFriend();
+
 signals:
     void SIG_clicked();
+
+    void SIG_addFriend();
+
+    void SIG_SearchFriend(QString tarAccount);
+
+private:
+    AddFriendInterface* m_addFriendInterface;
+    QString m_Account;
 
 private:
     Ui::UserInterface *ui;

@@ -74,6 +74,19 @@
      <string>exit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pb_addFriend">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>180</y>
+      <width>51</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>add</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QWidget" name="wid_middle" native="true">
    <property name="geometry">
