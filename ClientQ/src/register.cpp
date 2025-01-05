@@ -34,15 +34,14 @@ void Register::IsPassWordSame()
 {
     QString password = ui->le_pass->text();
     QString repassword = ui->le_repass->text();
+    QString name = ui->le_name->text();
     if(password != repassword)
     {
         QMessageBox::information(this,"提示" , "输入的密码不同");
-        ui->pb_sure->setEnabled(false);
         return;
     }
 
-    ui->pb_sure->setEnabled(true);
-    emit SIG_NewPassWord(password);
+    emit SIG_NewPassWord(password , name);
 }
 
 void Register::IsSame()
@@ -53,9 +52,11 @@ void Register::IsSame()
     if(password == repassword)
     {
         QMessageBox::information(this,"提示" , "输入的密码相同");
+        ui->pb_sure->setEnabled(true);
     }
     else
     {
         QMessageBox::information(this,"提示" , "输入的密码不同");
+        ui->pb_sure->setEnabled(false);
     }
 }

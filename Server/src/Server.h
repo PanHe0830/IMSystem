@@ -28,8 +28,8 @@ private:
 	void HandleCommit(SOCKET clientSocket, MsgHead& head);
 	// 处理注册功能
 	void HandleRegister(SOCKET clientSocket, MsgHead& head);
-	// 创建随机数
-	long GetRandomNum();
+	// 处理好友添加功能
+	void HandleFriend(SOCKET clientSocket, MsgHead& head);
 
 private:
 	// 接收消息
@@ -37,6 +37,9 @@ private:
 	
 	// 发送消息
 	bool SendMessages(SOCKET clientSocket, char* buffer, long size);
+
+	// 创建随机数
+	long GetRandomNum();
 
 private:
 	WSADATA wsaData;

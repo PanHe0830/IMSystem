@@ -7,12 +7,20 @@
 #define CLIENT_REGISTER_ACK     10002 // 客户端注册回复消息码
 #define CLIENT_COMMIT_REQ       10003 // 客户端登录请求消息码
 #define CLIENT_COMMIT_ACK       10004 // 客户端登录回复消息码
+#define CLIENT_FRIEND_REQ       10005 // 客户端好友请求消息码
+#define CLIENT_FRIEND_ACK       10006 // 客户端好友回复消息码
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
 #define CLIENT_COMMIT_FAILED    0     // 客户端登录失败
 #define CLIENT_COMMIT_DEFAULT   -1    // 客户端登录默认
 // ==========================================================
+// ==========================================================
+#define CLIENT_FRIEND_SUCCESS   1     // 客户端朋友请求同意
+#define CLIENT_FRIEND_FAILED    0     // 客户端朋友请求不同意
+#define CLIENT_FRIEND_DEFAULT   -1    // 客户端朋友请求默认
+// ==========================================================
+
 
 #include <cstring>
 
@@ -33,9 +41,11 @@ struct CRegister_REQ
         head.MsgCode = CLIENT_REGISTER_REQ;
         head.nSize = sizeof(CRegister_REQ);
         memset(&passWord, 0, sizeof(passWord));
+        memset(&nName, 0, sizeof(nName));
     }
     MsgHead head;
     char passWord[20];
+    char nName[20];
 };
 
 // 客户端注册回复消息
@@ -75,6 +85,34 @@ struct CCommit_ACK
         head.MsgCode = CLIENT_COMMIT_ACK;
         head.nSize = sizeof(CCommit_ACK);
         flag = CLIENT_COMMIT_DEFAULT;
+    }
+    MsgHead head;
+    int flag;
+};
+
+// 客户端朋友请求消息
+struct CFriend_REQ
+{
+    CFriend_REQ()
+    {
+        head.MsgCode = CLIENT_FRIEND_REQ;
+        head.nSize = sizeof(CFriend_REQ);
+        memset(&account, 0, sizeof(account));
+        memset(&passWord, 0, sizeof(passWord));
+    }
+    MsgHead head;
+    char account[20];
+    char passWord[20];
+};
+
+// 客户端朋友回复消息
+struct CFriend_ACK
+{
+    CFriend_ACK()
+    {
+        head.MsgCode = CLIENT_FRIEND_ACK;
+        head.nSize = sizeof(CFriend_ACK);
+        flag = CLIENT_FRIEND_DEFAULT;
     }
     MsgHead head;
     int flag;

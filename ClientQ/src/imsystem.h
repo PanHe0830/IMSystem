@@ -25,7 +25,7 @@ private:
 private slots:
     void slot_CommitREQ(QString account , QString password);
 
-    void slot_RegisterREQ(QString passWord);
+    void slot_RegisterREQ(QString passWord , QString nName);
 
     void slot_ShowRegisterInterface();
 

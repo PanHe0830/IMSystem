@@ -102,7 +102,7 @@ bool Server::ClientConnent()
     std::cout << "Client connected!" << std::endl;
 
     std::thread thread(&Server::HandMsg,this);
-    thread.join();
+    thread.detach();
 
 #if 0
     int recvSize;
@@ -140,6 +140,9 @@ void Server::HandMsg()
             break;
         case CLIENT_REGISTER_REQ:
             HandleRegister(clientSocket, head);
+            break;
+        case CLIENT_FRIEND_REQ:
+            HandleFriend(clientSocket, head);
             break;
         }
     }
@@ -202,8 +205,9 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
         m_SqlOption->MySqlQuery(sqlStr.c_str());
     } while (m_SqlOption->MySqlGetResult() == nullptr);
 
-    std::string insertSql = "insert into account (numAccount , numPassWord) values(";
-    std::string newStr = insertSql + std::to_string(account) + "," + std::string(registerData.passWord) + ");";
+    std::string insertSql = "insert into account (numAccount , numPassWord , numName) values(";
+    std::string newStr =    insertSql + std::to_string(account) + "," + std::string(registerData.passWord) + "," 
+                            + "\""  + std::string(registerData.nName) + "\"" + ");";
 
     if (!m_SqlOption->MySqlQuery(newStr.c_str()))
     {
@@ -220,17 +224,16 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
     }
 }
 
-long Server::GetRandomNum()
+void Server::HandleFriend(SOCKET clientSocket, MsgHead& head)
 {
-    // 创建一个随机数引擎
-    std::random_device rd;
-    std::mt19937 gen(rd());
+    std::cout << "HandleFriend" << std::endl;
 
-    // 设置随机数范围，生成9位数的随机数
-    std::uniform_int_distribution<> dist(100000000, 999999999);
-
-    // 生成一个9位的随机数
-    return dist(gen);
+    CFriend_REQ frireq;
+    if (!RecvMessages(clientSocket, (char*)&frireq, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
 }
 
 bool Server::RecvMessages(SOCKET clientSocket , char* buffer , MsgHead& head)
@@ -261,4 +264,17 @@ bool Server::SendMessages(SOCKET clientSocket, char* buffer , long size)
         sendbytes += senddatas;
     }
     return true;
+}
+
+long Server::GetRandomNum()
+{
+    // 创建一个随机数引擎
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // 设置随机数范围，生成9位数的随机数
+    std::uniform_int_distribution<> dist(100000000, 999999999);
+
+    // 生成一个9位的随机数
+    return dist(gen);
 }

@@ -75,8 +75,10 @@ void IMSystem::HandleCommitACK(SOCKET serverClient, MsgHead &head)
     switch(commAck.flag)
     {
     case CLIENT_COMMIT_SUCCESS:
-         // 登录成功显示界面
+        // 登录成功显示界面
         QMetaObject::invokeMethod(m_usrInterface , "show" ,Qt::QueuedConnection);
+        // 隐藏登陆界面
+        QMetaObject::invokeMethod(m_CommitInterface , "close" ,Qt::QueuedConnection);
         break;
     case CLIENT_COMMIT_FAILED:
         // 登录失败提示用户
@@ -118,11 +120,12 @@ void IMSystem::slot_CommitREQ(QString account, QString password)
     }
 }
 
-void IMSystem::slot_RegisterREQ(QString passWord)
+void IMSystem::slot_RegisterREQ(QString passWord , QString nName)
 {
     qDebug() << "slot_RegisterREQ";
     CRegister_REQ reg;
     memcpy(&reg.passWord , passWord.toStdString().c_str() , sizeof(reg.passWord));
+    memcpy(&reg.nName , nName.toStdString().c_str(),sizeof(reg.nName));
 
     qDebug() << sizeof(reg);
     if(!m_Client->client_SendMessage((char*)&reg,sizeof(reg)))

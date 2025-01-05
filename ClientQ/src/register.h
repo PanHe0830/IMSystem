@@ -26,7 +26,7 @@ private slots:
     void IsSame();
 
 signals:
-    void SIG_NewPassWord(QString passWord);
+    void SIG_NewPassWord(QString passWord , QString nName);
 
 private:
     Ui::Register *ui;

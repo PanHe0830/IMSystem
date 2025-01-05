@@ -1640,12 +1640,30 @@ bin\release\objects\mainwindow.obj: src\mainwindow.cpp src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtabwidget.h \
 		bin\release\ui\ui_mainwindow.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\QScreen \
-		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
-		D:\QT\6.8.0\msvc2019_64\include\QtCore\QDebug \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QVariant \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QApplication \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLabel \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlabel.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qframe.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpicture.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLineEdit \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlineedit.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextcursor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextformat.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMenuBar \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmenubar.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmenu.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QPushButton \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QScreen \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QDebug \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QString
 
 bin\release\objects\client.obj: src\client.cpp src\client.h \
@@ -2139,6 +2157,23 @@ bin\release\objects\register.obj: src\register.cpp src\register.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlocale.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
 		bin\release\ui\ui_register.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QVariant \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QApplication \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLabel \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlabel.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qframe.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpicture.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QLineEdit \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qlineedit.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextcursor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextformat.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QPushButton \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMessageBox \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmessagebox.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qdialog.h \
@@ -2535,6 +2570,12 @@ bin\release\objects\userinterface.obj: src\userinterface.cpp src\userinterface.h
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpicture.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
 		bin\release\ui\ui_userinterface.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QVariant \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QApplication \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QPushButton \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qpushbutton.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qabstractbutton.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\QScreen
 
 bin\release\objects\qrc_Image.obj: release\qrc_Image.cpp 
