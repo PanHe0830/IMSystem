@@ -20,11 +20,6 @@ IMSystem::IMSystem()
     m_RegisterInterface = new Register();
     connect(m_RegisterInterface , &Register::SIG_NewPassWord , this , &IMSystem::slot_RegisterREQ);
 
-    m_usrInterface = new UserInterface();
-    m_usrInterface->close();
-    connect(m_usrInterface,&UserInterface::SIG_clicked,this,&IMSystem::slot_ShowUsrInformation);
-    connect(m_usrInterface,&UserInterface::SIG_SearchFriend,this,&IMSystem::slot_FriendREQ);
-
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
 }
@@ -85,9 +80,9 @@ void IMSystem::HandleCommitACK(SOCKET serverClient, MsgHead &head)
     {
     case CLIENT_COMMIT_SUCCESS:
         // 登录成功显示界面
-        QMetaObject::invokeMethod(m_usrInterface , "show" ,Qt::QueuedConnection);
+        //QMetaObject::invokeMethod(m_usrInterface , "show" ,Qt::QueuedConnection);
         // 隐藏登陆界面
-        QMetaObject::invokeMethod(m_CommitInterface , "close" ,Qt::QueuedConnection);
+        //QMetaObject::invokeMethod(m_CommitInterface , "close" ,Qt::QueuedConnection);
         break;
     case CLIENT_COMMIT_FAILED:
         // 登录失败提示用户

@@ -6,7 +6,6 @@
 #include "client.h"
 #include "mainwindow.h"
 #include "register.h"
-#include "userinterface.h"
 
 class IMSystem : public QObject
 {
@@ -43,7 +42,6 @@ private:
     Client* m_Client; // 客户端网络指针
     MainWindow* m_CommitInterface; // 客户端登录界面
     Register* m_RegisterInterface; // 客户端注册界面
-    UserInterface* m_usrInterface; // 客户端聊天界面
 };
 
 #endif // IMSYSTEM_H
