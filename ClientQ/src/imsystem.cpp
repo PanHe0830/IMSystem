@@ -5,6 +5,7 @@
 #include <thread>
 #include <qobjectdefs.h>
 #include <QMessageBox>
+#include <QApplication>
 
 IMSystem::IMSystem()
 {
@@ -147,15 +148,21 @@ void IMSystem::HandleFriendQueryACK(SOCKET serverClient, MsgHead &head)
     {
     case CLIENT_FRIEND_QUERY_EXIST:
         // 存在用户
-        QMessageBox::information(m_usrInterface , "提示" , "用户存在");
+        QMetaObject::invokeMethod(QApplication::instance(), []() {
+            QMessageBox::information(nullptr, "提示", "用户存在");
+        });
         break;
     case CLIENT_FRIEND_QUERY_NOEXIST:
         // 不存在用户
-        QMessageBox::information(m_usrInterface , "提示" , "用户不存在");
+        QMetaObject::invokeMethod(QApplication::instance(), []() {
+            QMessageBox::information(nullptr, "提示", "用户不存在");
+        });
         break;
     case CLIENT_FRIEND_QUERY_DEFAULT:
         // 消息码错误
-        QMessageBox::information(m_usrInterface , "提示" , "消息码错误");
+        QMetaObject::invokeMethod(QApplication::instance(), []() {
+            QMessageBox::information(nullptr, "提示", "消息码错误");
+        });
         break;
     }
 }

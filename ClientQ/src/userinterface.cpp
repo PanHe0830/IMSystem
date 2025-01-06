@@ -33,6 +33,10 @@ void UserInterface::Init()
 
     m_addFriendInterface = new AddFriendInterface();
     m_addFriendInterface->close();
+
+    // 当前界面是界面朋友按钮点击后显示的界面
+    m_FriendRelationInterface = new FriendRelationInterface(ui->wid_middle);
+    m_FriendRelationInterface->close();
 }
 
 void UserInterface::Connect()
@@ -41,6 +45,7 @@ void UserInterface::Connect()
     connect(ui->pb_addFriend , &QPushButton::clicked , this , &UserInterface::slot_showAddInterface);
     connect(m_addFriendInterface , &AddFriendInterface::SIG_addFriendREQ , this , &UserInterface::slot_SendSearchFriend);
     connect(m_addFriendInterface , &AddFriendInterface::SIG_addFriend , this , &UserInterface::slot_AddFriend);
+    connect(ui->pb_friend , &QPushButton::clicked , this , &UserInterface::slot_showFriendrelation);
 }
 
 void UserInterface::slot_SendClieckedEvents()
@@ -62,5 +67,13 @@ void UserInterface::slot_SendSearchFriend(QString tarAccount)
 void UserInterface::slot_AddFriend()
 {
     // 将朋友添加到界面上
-    //m_Account;
+    //  m_Account;
+    m_FriendRelationInterface->AddFriend(m_Account);
+}
+
+void UserInterface::slot_showFriendrelation()
+{
+    QRect rect = ui->wid_middle->geometry();
+    m_FriendRelationInterface->InitInterface(rect);
+    m_FriendRelationInterface->show();
 }
