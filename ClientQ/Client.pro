@@ -50,7 +50,8 @@ SOURCES += \
     src/addfriendinterface.cpp \
     src/myqlabel.cpp \
     src/register.cpp \
-    src/imsystem.cpp
+    src/imsystem.cpp \
+    src/usrinterface.cpp
 
 HEADERS += \
     $$PWD/src/mainwindow.h \
@@ -59,12 +60,14 @@ HEADERS += \
     src/myqlabel.h \
     src/register.h \
     src/Message.h \
-    src/imsystem.h
+    src/imsystem.h \
+    src/usrinterface.h
 
 FORMS += \
     addfriendinterface.ui \
     mainwindow.ui \
-    register.ui
+    register.ui \
+    usrinterface.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

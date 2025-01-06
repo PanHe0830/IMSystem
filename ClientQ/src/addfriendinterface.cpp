@@ -30,12 +30,12 @@ void AddFriendInterface::Connect()
 
 void AddFriendInterface::slot_search()
 {
-    QString tarAccount = ui->le_search->text();
+    tarAccount = ui->le_search->text();
 
     emit SIG_addFriendREQ(tarAccount);
 }
 
 void AddFriendInterface::slot_addFriend()
 {
-    emit SIG_addFriend();
+    emit SIG_addFriend(tarAccount);
 }

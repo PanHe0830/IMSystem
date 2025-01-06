@@ -25,10 +25,13 @@ private slots:
 
     void slot_addFriend();
 
+private:
+    QString tarAccount;
+
 signals:
     void SIG_addFriendREQ(QString tarAccount);
 
-    void SIG_addFriend();
+    void SIG_addFriend(QString tarAccount);
 
 private:
     Ui::AddFriendInterface *ui;
