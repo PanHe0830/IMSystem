@@ -54,14 +54,12 @@ void UsrInterface::Connect()
 {
     connect(ui->tv_relation, &QTreeView::customContextMenuRequested,this, &UsrInterface::slot_showContextMenu);
     connect(ui->pb_search , &QPushButton::clicked , this , &UsrInterface::slot_showaddFriendInterface);
+    connect(ui->tv_relation , &QTreeView::doubleClicked , this , &UsrInterface::slot_showChatInterface);
+    connect(ui->tv_relation , &QTreeView::clicked , this , &UsrInterface::slot_clickedEvent);
 }
 
 void UsrInterface::slot_showContextMenu(const QPoint &pos)
 {
-    //QModelIndex index = ui->tv_relation->indexAt(pos);
-    //if (!index.isValid())
-    //    return;
-
     QMenu* menu = new QMenu();
 
     QAction *actionDelete = menu->addAction("删除好友");
@@ -96,4 +94,19 @@ void UsrInterface::slot_sendAddFieReq(QString account)
 void UsrInterface::slot_AddFie(QString account)
 {
     AddFriend(account);
+}
+
+void UsrInterface::slot_showChatInterface(const QModelIndex &index)
+{
+    QString str = index.data().toString();
+    qDebug() << str;
+
+    m_chatInterface = new ChatInterface();
+    m_chatInterface->setTarUsr(str);
+    m_chatInterface->show();
+}
+
+void UsrInterface::slot_clickedEvent(const QModelIndex &index)
+{
+
 }

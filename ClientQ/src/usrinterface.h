@@ -6,6 +6,7 @@
 #include <QStandardItemModel>
 
 #include "addfriendinterface.h"
+#include "chatinterface.h"
 
 /**
 *   用户界面
@@ -44,6 +45,10 @@ private slots:
 
     void slot_AddFie(QString account);
 
+    void slot_showChatInterface(const QModelIndex &index);
+
+    void slot_clickedEvent(const QModelIndex &index);
+
 signals:
     void SIG_AddFriendREQ(QString account);
 
@@ -51,6 +56,8 @@ private:
     QStandardItemModel* m_pModel;
 
     AddFriendInterface* m_addFriend;
+
+    ChatInterface* m_chatInterface;
 
 private:
     Ui::UsrInterface *ui;

@@ -47,6 +47,7 @@ SOURCES += \
     $$PWD/src/main.cpp \
     $$PWD/src/mainwindow.cpp \
     $$PWD/src/client.cpp \
+    src/chatinterface.cpp \
     src/addfriendinterface.cpp \
     src/myqlabel.cpp \
     src/register.cpp \
@@ -56,6 +57,7 @@ SOURCES += \
 HEADERS += \
     $$PWD/src/mainwindow.h \
     $$PWD/src/client.h \
+    src/chatinterface.h \
     src/addfriendinterface.h \
     src/myqlabel.h \
     src/register.h \
@@ -65,6 +67,7 @@ HEADERS += \
 
 FORMS += \
     addfriendinterface.ui \
+    chatinterface.ui \
     mainwindow.ui \
     register.ui \
     usrinterface.ui
