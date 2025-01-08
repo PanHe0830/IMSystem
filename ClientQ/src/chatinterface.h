@@ -5,6 +5,7 @@
 
 class QScrollArea;
 class QVBoxLayout;
+class QDateTime;
 
 namespace Ui {
 class ChatInterface;
@@ -20,6 +21,8 @@ public:
 
     void setTarUsr(QString tarAccount);
 
+    void setUsr(QString usrAccount);
+
 private:
     void Init();
 
@@ -27,10 +30,29 @@ private:
 
     void updateBackground();
 
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
+    QDateTime showTime(); // 聊天时显示当前时间
+
+private slots:
+    void slot_sendMessage();
+
+    void slot_recvMessage(QString msg);
+
+    void slot_textLength(QString str); // 判断新的文本是否超过规定的大小
+
+signals:
+    void SIG_closeInterface();
+
+    void SIG_sendMessage(QString str);
+
 private:
     QScrollArea* scrollArea;
     QVBoxLayout* messageLayout;
+    QString m_currentUsrName;
 
+    QDateTime timeCurrent;
 private:
     Ui::ChatInterface *ui;
 };

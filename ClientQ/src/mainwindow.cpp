@@ -76,3 +76,8 @@ void MainWindow::slot_setAccount(QString Account)
 {
     ui->le_account->setText(Account);
 }
+
+QString MainWindow::GetUsrName()
+{
+    return ui->lb_account->text();
+}

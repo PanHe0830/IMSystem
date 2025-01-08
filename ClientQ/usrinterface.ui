@@ -59,6 +59,16 @@
     <string>search</string>
    </property>
   </widget>
+  <widget class="QLineEdit" name="le_usrname">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>10</y>
+     <width>181</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPixmap>
 #include <QStandardItemModel>
+#include <list>
 
 #include "addfriendinterface.h"
 #include "chatinterface.h"
@@ -32,6 +33,9 @@ private:
 
     void Connect();
 
+public:
+    void setUsrName(QString name);
+
 private slots:
     void slot_showContextMenu(const QPoint &pos);
 
@@ -49,6 +53,8 @@ private slots:
 
     void slot_clickedEvent(const QModelIndex &index);
 
+    void slot_closeChatInterface(); // 当关闭聊天界面时将保存聊天界面指针的容器中删掉对应的界面指针
+
 signals:
     void SIG_AddFriendREQ(QString account);
 
@@ -57,7 +63,9 @@ private:
 
     AddFriendInterface* m_addFriend;
 
-    ChatInterface* m_chatInterface;
+    ChatInterface* m_chatInterface; // 聊天界面
+
+    std::list<ChatInterface*> m_chat;
 
 private:
     Ui::UsrInterface *ui;

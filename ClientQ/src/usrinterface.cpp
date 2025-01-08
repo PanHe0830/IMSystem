@@ -15,6 +15,16 @@ UsrInterface::UsrInterface(QWidget *parent)
 
 UsrInterface::~UsrInterface()
 {
+    if(!m_chat.empty())
+    {
+        for(auto ite : m_chat)
+        {
+            delete ite;
+            ite = nullptr;
+        }
+        m_chat.clear();
+    }
+
     delete ui;
 }
 
@@ -56,6 +66,11 @@ void UsrInterface::Connect()
     connect(ui->pb_search , &QPushButton::clicked , this , &UsrInterface::slot_showaddFriendInterface);
     connect(ui->tv_relation , &QTreeView::doubleClicked , this , &UsrInterface::slot_showChatInterface);
     connect(ui->tv_relation , &QTreeView::clicked , this , &UsrInterface::slot_clickedEvent);
+}
+
+void UsrInterface::setUsrName(QString name)
+{
+    ui->le_usrname->setText(name);
 }
 
 void UsrInterface::slot_showContextMenu(const QPoint &pos)
@@ -103,10 +118,31 @@ void UsrInterface::slot_showChatInterface(const QModelIndex &index)
 
     m_chatInterface = new ChatInterface();
     m_chatInterface->setTarUsr(str);
+    m_chatInterface->setUsr(ui->le_usrname->text());
     m_chatInterface->show();
+    m_chat.push_back(m_chatInterface);
+    connect(m_chatInterface,&ChatInterface::SIG_closeInterface,this,&UsrInterface::slot_closeChatInterface);
 }
 
 void UsrInterface::slot_clickedEvent(const QModelIndex &index)
 {
 
+}
+
+void UsrInterface::slot_closeChatInterface()
+{
+    ChatInterface* temp = qobject_cast<ChatInterface*>(sender());
+    if(temp != nullptr)
+    {
+        for(auto ite = m_chat.begin() ; ite != m_chat.end() ; ite++)
+        {
+            if(*ite == temp)
+            {
+                delete (*ite);
+                *ite = nullptr;
+                m_chat.erase(ite);
+                break;
+            }
+        }
+    }
 }

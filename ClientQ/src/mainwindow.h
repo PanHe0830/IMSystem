@@ -37,6 +37,9 @@ signals:
 
     void SIG_SendRegisterREQ();
 
+public:
+    QString GetUsrName();
+
 private:
     Ui::MainWindow *ui;
 };

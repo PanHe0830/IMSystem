@@ -21,6 +21,8 @@ IMSystem::IMSystem()
     connect(m_RegisterInterface , &Register::SIG_NewPassWord , this , &IMSystem::slot_RegisterREQ);
 
     m_UsrInterface = new UsrInterface();
+    QString name = m_CommitInterface->GetUsrName();
+    m_UsrInterface->setUsrName(name);
     m_UsrInterface->close();
 
     connect(m_UsrInterface , &UsrInterface::SIG_AddFriendREQ , this , &IMSystem::slot_FriendREQ);
