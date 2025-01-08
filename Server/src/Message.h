@@ -11,6 +11,7 @@
 #define CLIENT_FRIEND_ACK       10006 // 客户端好友回复消息码
 #define CLIENT_FRIEND_QUERY_REQ 10007 // 客户端好友查询请求消息码
 #define CLIENT_FRIEND_QUERY_ACK 10008 // 客户端好友查询回复消息码
+#define CLIENT_MESSAGE_CHAT     10009 // 客户端聊天消息消息码
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -26,6 +27,11 @@
 #define CLIENT_FRIEND_QUERY_EXIST       1     // 客户端朋友查询同意
 #define CLIENT_FRIEND_QUERY_NOEXIST     0     // 客户端朋友查询回复不同意
 #define CLIENT_FRIEND_QUERY_DEFAULT     -1    // 客户端朋友查询回复默认
+// ==========================================================
+// ==========================================================
+#define CLIENT_MESSAGE_MAX      20  // 消息大小
+#define CLIENT_CHAT_MESSAGE_MAX 200 // 聊天消息内容大小
+#define CLIENT_ACCOUNT          20  // 发送消息时哪个用户的消息，IMS号码(位数最大值)
 // ==========================================================
 
 
@@ -51,8 +57,8 @@ struct CRegister_REQ
         memset(&nName, 0, sizeof(nName));
     }
     MsgHead head;
-    char passWord[20];
-    char nName[20];
+    char passWord[CLIENT_MESSAGE_MAX];
+    char nName[CLIENT_MESSAGE_MAX];
 };
 
 // 客户端注册回复消息
@@ -65,7 +71,7 @@ struct CRegister_ACK
         memset(&Account, 0, sizeof(Account));
     }
     MsgHead head;
-    char Account[20];
+    char Account[CLIENT_MESSAGE_MAX];
 };
 
 
@@ -80,8 +86,8 @@ struct CCommit_REQ
         memset(&password, 0, sizeof(password));
     }
     MsgHead head;
-    char account[20];
-    char password[20];
+    char account[CLIENT_MESSAGE_MAX];
+    char password[CLIENT_MESSAGE_MAX];
 };
 
 // 客户端登录回复消息
@@ -108,8 +114,8 @@ struct CFriend_REQ
         memset(&sourceAccount, 0, sizeof(sourceAccount));
     }
     MsgHead head;
-    char sourceAccount[20];
-    char tarAccount[20];
+    char sourceAccount[CLIENT_MESSAGE_MAX];
+    char tarAccount[CLIENT_MESSAGE_MAX];
 };
 
 // 客户端朋友回复消息
@@ -135,7 +141,7 @@ struct CFriendQuery_REQ
         memset(tarAccount, 0, sizeof(tarAccount));
     }
     MsgHead head;
-    char tarAccount[20];
+    char tarAccount[CLIENT_MESSAGE_MAX];
 };
 
 // 客户端朋友查询回复消息
@@ -149,6 +155,23 @@ struct CFriendQuery_ACK
     }
     MsgHead head;
     int flag;
+};
+
+// 客户端发送消息 client1 -> client2
+struct CSendMessage
+{
+    CSendMessage()
+    {
+        head.MsgCode = CLIENT_MESSAGE_CHAT;
+        head.nSize = sizeof(CSendMessage);
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(message, 0, sizeof(CLIENT_CHAT_MESSAGE_MAX));
+    }
+    MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT];
+    char tarAccount[CLIENT_ACCOUNT];
+    char message[CLIENT_CHAT_MESSAGE_MAX];
 };
 
 #endif // MESSAGE_H

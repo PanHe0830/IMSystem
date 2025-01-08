@@ -148,6 +148,9 @@ void Server::HandMsg(SOCKET clientSocket)
         case CLIENT_FRIEND_QUERY_REQ:
             HandleFriendQuery(clientSocket , head);
             break;
+        case CLIENT_MESSAGE_CHAT:
+            HandleSendChat(clientSocket,head);
+            break;
         }
     }
 }
@@ -271,6 +274,30 @@ void Server::HandleFriendQuery(SOCKET clientSocket, MsgHead& head)
     }
 
     if (!SendMessages(clientSocket, (char*)&friendQueryACK, sizeof(friendQueryACK)))
+    {
+        std::cout << "发送消息失败" << std::endl;
+        return;
+    }
+}
+
+void Server::HandleSendChat(SOCKET clientSocket, MsgHead& head)
+{
+    std::cout << "HandleSendChat" << std::endl;
+    CSendMessage msg;
+    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    std::string tarAccount = std::string(msg.tarAccount);
+
+    auto ite = m_UsrToSocket.find(tarAccount);
+
+    if (ite == m_UsrToSocket.end()) return;
+
+    // 给找到对应QQ客户端的SOCKET发送消息
+    if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
     {
         std::cout << "发送消息失败" << std::endl;
         return;

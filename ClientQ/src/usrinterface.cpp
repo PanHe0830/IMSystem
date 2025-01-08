@@ -122,6 +122,7 @@ void UsrInterface::slot_showChatInterface(const QModelIndex &index)
     m_chatInterface->show();
     m_chat.push_back(m_chatInterface);
     connect(m_chatInterface,&ChatInterface::SIG_closeInterface,this,&UsrInterface::slot_closeChatInterface);
+    connect(m_chatInterface , &ChatInterface::SIG_sendMessage,this,&UsrInterface::slot_sendChatMessage);
 }
 
 void UsrInterface::slot_clickedEvent(const QModelIndex &index)
@@ -145,4 +146,9 @@ void UsrInterface::slot_closeChatInterface()
             }
         }
     }
+}
+
+void UsrInterface::slot_sendChatMessage(QString message , QString tarAccount)
+{
+    emit SIG_SendMessage(message , ui->le_usrname->text(),tarAccount);
 }

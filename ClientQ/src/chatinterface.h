@@ -2,10 +2,10 @@
 #define CHATINTERFACE_H
 
 #include <QWidget>
+#include <QDateTime>
 
 class QScrollArea;
 class QVBoxLayout;
-class QDateTime;
 
 namespace Ui {
 class ChatInterface;
@@ -45,7 +45,7 @@ private slots:
 signals:
     void SIG_closeInterface();
 
-    void SIG_sendMessage(QString str);
+    void SIG_sendMessage(QString str , QString tarAccount);
 
 private:
     QScrollArea* scrollArea;

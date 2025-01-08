@@ -34,6 +34,8 @@ private:
 	void HandleFriend(SOCKET clientSocket, MsgHead& head);
 	// 处理好友查询功能
 	void HandleFriendQuery(SOCKET clientSocket, MsgHead& head);
+	// 处理消息发送功能
+	void HandleSendChat(SOCKET clientSocket, MsgHead& head);
 
 private:
 	// 接收消息

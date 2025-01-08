@@ -26,6 +26,7 @@ IMSystem::IMSystem()
     m_UsrInterface->close();
 
     connect(m_UsrInterface , &UsrInterface::SIG_AddFriendREQ , this , &IMSystem::slot_FriendREQ);
+    connect(m_UsrInterface, &UsrInterface::SIG_SendMessage,this,&IMSystem::slot_sendMessage);
 
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
@@ -216,6 +217,19 @@ void IMSystem::slot_FriendREQ(QString tarAccount)
     memcpy(friQueryREQ.tarAccount , tarAccount.toStdString().c_str(),sizeof(friQueryREQ.tarAccount));
 
     if(!m_Client->client_SendMessage((char*)&friQueryREQ,sizeof(friQueryREQ)))
+    {
+        qDebug() << "发送失败";
+    }
+}
+
+void IMSystem::slot_sendMessage(QString message , QString usrAccount , QString tarAccount)
+{
+    CSendMessage msg;
+    memcpy(msg.usrAccount , usrAccount.toStdString().c_str() , sizeof(msg.usrAccount));
+    memcpy(msg.tarAccount , tarAccount.toStdString().c_str() , sizeof(msg.tarAccount));
+    memcpy(msg.message , message.toStdString().c_str(),sizeof(msg.message));
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
     {
         qDebug() << "发送失败";
     }

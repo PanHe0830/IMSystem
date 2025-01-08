@@ -55,8 +55,12 @@ private slots:
 
     void slot_closeChatInterface(); // 当关闭聊天界面时将保存聊天界面指针的容器中删掉对应的界面指针
 
+    void slot_sendChatMessage(QString message , QString tarAccount);
+
 signals:
     void SIG_AddFriendREQ(QString account);
+
+    void SIG_SendMessage(QString message , QString usrAccount , QString tarAccount);
 
 private:
     QStandardItemModel* m_pModel;

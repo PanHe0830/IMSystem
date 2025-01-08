@@ -6,7 +6,6 @@
 #include <QPalette>
 #include <QListWidgetItem>
 #include <QMessageBox>
-#include <QDateTime>
 
 ChatInterface::ChatInterface(QWidget *parent)
     : QWidget(parent)
@@ -79,7 +78,7 @@ void ChatInterface::slot_sendMessage()
     ui->lw_showmes->addItem(message);
     listItem->setTextAlignment(Qt::AlignRight);
 
-    emit SIG_sendMessage(message);
+    emit SIG_sendMessage(message , ui->lb_tar->text());
 }
 
 void ChatInterface::slot_recvMessage(QString msg)

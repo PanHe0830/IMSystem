@@ -36,6 +36,9 @@ private slots:
     void slot_ShowUsrInformation();
 
     void slot_FriendREQ(QString tarAccount);
+
+    void slot_sendMessage(QString message,QString usrAccount , QString tarAccount);
+
 signals:
     void SIG_Account(QString Account);
 
