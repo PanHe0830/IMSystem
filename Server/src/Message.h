@@ -126,8 +126,12 @@ struct CFriend_ACK
         head.MsgCode = CLIENT_FRIEND_ACK;
         head.nSize = sizeof(CFriend_ACK);
         flag = CLIENT_FRIEND_DEFAULT;
+        memset(&tarAccount, 0, sizeof(tarAccount));
+        memset(&sourceAccount, 0, sizeof(sourceAccount));
     }
     MsgHead head;
+    char sourceAccount[CLIENT_MESSAGE_MAX];
+    char tarAccount[CLIENT_MESSAGE_MAX];
     int flag;
 };
 

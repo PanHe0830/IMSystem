@@ -30,12 +30,18 @@ private:
 	void HandleCommit(SOCKET clientSocket, MsgHead& head);
 	// 处理注册功能
 	void HandleRegister(SOCKET clientSocket, MsgHead& head);
-	// 处理好友添加功能
-	void HandleFriend(SOCKET clientSocket, MsgHead& head);
 	// 处理好友查询功能
 	void HandleFriendQuery(SOCKET clientSocket, MsgHead& head);
 	// 处理消息发送功能
 	void HandleSendChat(SOCKET clientSocket, MsgHead& head);
+	// 处理好友添加功能
+	void HandleFriend(SOCKET clientSocket, MsgHead& head);
+	// 处理好友请求回复功能
+	void HandleFriendAck(SOCKET clientSocket, MsgHead& head);
+
+private:
+	// 处理添加好友后接收到回复后服务器上需要处理的事情
+	void HandleAddFriendOnServer(char* tarAccount , char* usrAccount);
 
 private:
 	// 接收消息

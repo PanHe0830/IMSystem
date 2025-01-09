@@ -126,8 +126,12 @@ struct CFriend_ACK
         head.MsgCode = CLIENT_FRIEND_ACK;
         head.nSize = sizeof(CFriend_ACK);
         flag = CLIENT_FRIEND_DEFAULT;
+        memset(&tarAccount, 0, sizeof(tarAccount));
+        memset(&sourceAccount, 0, sizeof(sourceAccount));
     }
     MsgHead head;
+    char sourceAccount[CLIENT_MESSAGE_MAX];
+    char tarAccount[CLIENT_MESSAGE_MAX];
     int flag;
 };
 
@@ -138,7 +142,7 @@ struct CFriendQuery_REQ
     {
         head.MsgCode = CLIENT_FRIEND_QUERY_REQ;
         head.nSize = sizeof(CFriendQuery_REQ);
-        memset(tarAccount , 0 , sizeof(tarAccount));
+        memset(tarAccount, 0, sizeof(tarAccount));
     }
     MsgHead head;
     char tarAccount[CLIENT_MESSAGE_MAX];
@@ -164,9 +168,9 @@ struct CSendMessage
     {
         head.MsgCode = CLIENT_MESSAGE_CHAT;
         head.nSize = sizeof(CSendMessage);
-        memset(usrAccount,0,sizeof(CLIENT_ACCOUNT));
-        memset(tarAccount,0,sizeof(CLIENT_ACCOUNT));
-        memset(message,0,sizeof(CLIENT_CHAT_MESSAGE_MAX));
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(message, 0, sizeof(CLIENT_CHAT_MESSAGE_MAX));
     }
     MsgHead head;
     char usrAccount[CLIENT_ACCOUNT];

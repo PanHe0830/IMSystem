@@ -151,6 +151,9 @@ void Server::HandMsg(SOCKET clientSocket)
         case CLIENT_MESSAGE_CHAT:
             HandleSendChat(clientSocket,head);
             break;
+        case CLIENT_FRIEND_ACK:
+            HandleFriendAck(clientSocket, head);
+            break;
         }
     }
 }
@@ -235,18 +238,6 @@ void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
     }
 }
 
-void Server::HandleFriend(SOCKET clientSocket, MsgHead& head)
-{
-    std::cout << "HandleFriend" << std::endl;
-
-    CFriend_REQ frireq;
-    if (!RecvMessages(clientSocket, (char*)&frireq, head))
-    {
-        std::cout << "接收消息失败" << std::endl;
-        return;
-    }
-}
-
 void Server::HandleFriendQuery(SOCKET clientSocket, MsgHead& head)
 {
     std::cout << "HandleFriendQuery" << std::endl;
@@ -300,6 +291,88 @@ void Server::HandleSendChat(SOCKET clientSocket, MsgHead& head)
     if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
     {
         std::cout << "发送消息失败" << std::endl;
+        return;
+    }
+}
+
+void Server::HandleFriend(SOCKET clientSocket, MsgHead& head)
+{
+    std::cout << "HandleFriend" << std::endl;
+
+    CFriend_REQ frireq;
+    if (!RecvMessages(clientSocket, (char*)&frireq, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    std::string tarAccount = std::string(frireq.tarAccount);
+
+    auto ite = m_UsrToSocket.find(tarAccount);
+
+    if (ite == m_UsrToSocket.end()) return;
+
+    // 给找到对应QQ客户端的SOCKET发送消息
+    if (!SendMessages(ite->second, (char*)&frireq, sizeof(frireq)))
+    {
+        std::cout << "发送消息失败" << std::endl;
+        return;
+    }
+}
+
+void Server::HandleFriendAck(SOCKET clientSocket, MsgHead& head)
+{
+    CFriend_ACK msg;
+    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    std::string tarAccount = std::string(msg.tarAccount);
+
+    auto ite = m_UsrToSocket.find(tarAccount);
+
+    if (ite == m_UsrToSocket.end()) return;
+
+    if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
+    {
+        std::cout << "发送消息失败" << std::endl;
+        return;
+    }
+
+    switch (msg.flag)
+    {
+    case CLIENT_FRIEND_SUCCESS: // 同意成为好友
+        HandleAddFriendOnServer(msg.tarAccount, msg.sourceAccount);
+        break;
+    case CLIENT_FRIEND_FAILED: // 不同意成为好友
+
+        break;
+    case CLIENT_FRIEND_DEFAULT: // 消息码错误
+
+        break;
+    }
+}
+
+void Server::HandleAddFriendOnServer(char* tarAccount, char* usrAccount)
+{
+    std::cout << "HandleAddFriendOnServer" << std::endl;
+
+    /** 插入两遍 好友是双向的 */
+    std::string insertSql = "insert into friend (nQQ , mQQ) values(";
+    insertSql = insertSql + std::string(tarAccount) + "," + std::string(usrAccount) + ")";
+    if (!m_SqlOption->MySqlQuery(insertSql.c_str()))
+    {
+        std::cout << "插入失败" << std::endl;
+        return;
+    }
+
+    std::string insertSql2 = "insert into friend (nQQ , mQQ) values(";
+    insertSql2 = insertSql2 + std::string(usrAccount) + "," + std::string(tarAccount) + ")";
+    if (!m_SqlOption->MySqlQuery(insertSql2.c_str()))
+    {
+        std::cout << "插入失败" << std::endl;
         return;
     }
 }
