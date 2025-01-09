@@ -3,6 +3,7 @@
 
 #include <QMenu>
 #include <QCursor>
+#include <QMessageBox>
 
 UsrInterface::UsrInterface(QWidget *parent)
     : QWidget(parent)
@@ -108,7 +109,9 @@ void UsrInterface::slot_sendAddFieReq(QString account)
 
 void UsrInterface::slot_AddFie(QString account)
 {
-    AddFriend(account);
+    // 发送添加请求
+    emit SIG_AddFriend(account , ui->le_usrname->text());
+    //AddFriend(account);
 }
 
 void UsrInterface::slot_showChatInterface(const QModelIndex &index)
@@ -151,4 +154,37 @@ void UsrInterface::slot_closeChatInterface()
 void UsrInterface::slot_sendChatMessage(QString message , QString tarAccount)
 {
     emit SIG_SendMessage(message , ui->le_usrname->text(),tarAccount);
+}
+
+void UsrInterface::slot_showFriendREQ(QString tarAccount, QString sourceAccount)
+{
+    QString str = tarAccount + "请求加为好友";
+    int ret1 = QMessageBox::question(this,"标题", str, QMessageBox::Ok|QMessageBox::Cancel);
+    if(ret1 == QMessageBox::Ok)
+    {
+        // 同意添加好友
+        emit SIG_FriendAgree(sourceAccount , tarAccount , 1);
+    }
+    else
+    {
+        // 不同意添加好友
+        emit SIG_FriendAgree(sourceAccount , tarAccount , 0);
+    }
+}
+
+void UsrInterface::slot_showFriendACK(int flag , QString tarAccount)
+{
+    switch(flag)
+    {
+    case 1:
+        QMessageBox::information(this,"提示","对方同意添加");
+        AddFriend(tarAccount);
+        break;
+    case 0:
+        QMessageBox::information(this,"提示","对方不同意添加");
+        break;
+    case -1:
+        QMessageBox::information(this,"提示","消息错误");
+        break;
+    }
 }

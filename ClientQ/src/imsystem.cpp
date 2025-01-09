@@ -27,6 +27,11 @@ IMSystem::IMSystem()
 
     connect(m_UsrInterface , &UsrInterface::SIG_AddFriendREQ , this , &IMSystem::slot_FriendREQ);
     connect(m_UsrInterface, &UsrInterface::SIG_SendMessage,this,&IMSystem::slot_sendMessage);
+    connect(m_UsrInterface , &UsrInterface::SIG_AddFriend , this , &IMSystem::slot_FriendRequest);
+    connect(this,&IMSystem::SIG_FriendREQ,m_UsrInterface,&UsrInterface::slot_showFriendREQ);
+    connect(m_UsrInterface , &UsrInterface::SIG_FriendAgree , this , &IMSystem::slot_FriendAgree);
+    connect(this,&IMSystem::SIG_FriendACK,m_UsrInterface,&UsrInterface::slot_showFriendACK);
+
 
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
@@ -66,6 +71,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
             break;
         case CLIENT_FRIEND_QUERY_ACK:
             HandleFriendQueryACK(clientSocket , head);
+            break;
+        case CLIENT_FRIEND_REQ:
+            HandleFriendREQ(clientSocket , head);
             break;
         }
     }
@@ -119,22 +127,25 @@ void IMSystem::HandleRegisterACK(SOCKET serverClient, MsgHead &head)
 
 void IMSystem::HandleFriendACK(SOCKET serverClient, MsgHead &head)
 {
-    CFriend_ACK friAck;
-    if(!m_Client->client_RecvMessage((char*)&friAck,head))
+    CFriend_ACK msg;
+    if(!m_Client->client_RecvMessage((char*)&msg,head))
     {
         qDebug() << "HandleFriendACK 接收失败";
     }
 
-    switch(friAck.flag)
+    switch(msg.flag)
     {
     case CLIENT_FRIEND_SUCCESS:
         // 同意添加
+        emit SIG_FriendACK(1 , QString(msg.tarAccount));
         break;
     case CLIENT_FRIEND_FAILED:
         // 不同意添加
+        emit SIG_FriendACK(0, QString(msg.tarAccount));
         break;
     case CLIENT_FRIEND_DEFAULT:
         // 消息码错误
+        emit SIG_FriendACK(-1, QString(msg.tarAccount));
         break;
     }
 }
@@ -168,6 +179,18 @@ void IMSystem::HandleFriendQueryACK(SOCKET serverClient, MsgHead &head)
         });
         break;
     }
+}
+
+void IMSystem::HandleFriendREQ(SOCKET serverClient, MsgHead &head)
+{
+    CFriend_REQ msg;
+    if (!m_Client->client_RecvMessage((char*)&msg, head))
+    {
+        qDebug() << "HandleFriendREQ 接收失败";
+        return;
+    }
+
+    emit SIG_FriendREQ(QString(msg.tarAccount) , QString(msg.sourceAccount));
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)
@@ -228,6 +251,31 @@ void IMSystem::slot_sendMessage(QString message , QString usrAccount , QString t
     memcpy(msg.usrAccount , usrAccount.toStdString().c_str() , sizeof(msg.usrAccount));
     memcpy(msg.tarAccount , tarAccount.toStdString().c_str() , sizeof(msg.tarAccount));
     memcpy(msg.message , message.toStdString().c_str(),sizeof(msg.message));
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
+    {
+        qDebug() << "发送失败";
+    }
+}
+
+void IMSystem::slot_FriendRequest(QString account , QString usrAccount)
+{
+    CFriend_REQ msg;
+    memcpy(msg.tarAccount , account.toStdString().c_str(),sizeof(msg.tarAccount));
+    memcpy(msg.sourceAccount , usrAccount.toStdString().c_str(),sizeof(msg.sourceAccount));
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
+    {
+        qDebug() << "发送失败";
+    }
+}
+
+void IMSystem::slot_FriendAgree(QString tarAccount, QString sourceAccount, int flag)
+{
+    CFriend_ACK msg;
+    memcpy(msg.tarAccount , tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
+    memcpy(msg.sourceAccount , sourceAccount.toStdString().c_str(),sizeof(msg.sourceAccount));
+    msg.flag = flag;
 
     if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
     {

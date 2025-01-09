@@ -57,10 +57,19 @@ private slots:
 
     void slot_sendChatMessage(QString message , QString tarAccount);
 
+public slots:
+    void slot_showFriendREQ(QString tarAccount , QString sourceAccount);
+
+    void slot_showFriendACK(int flag, QString tarAccount);
+
 signals:
+    void SIG_AddFriend(QString account , QString usrAccount);
+
     void SIG_AddFriendREQ(QString account);
 
     void SIG_SendMessage(QString message , QString usrAccount , QString tarAccount);
+
+    void SIG_FriendAgree(QString tarAccount , QString sourceAccount , int flag);
 
 private:
     QStandardItemModel* m_pModel;

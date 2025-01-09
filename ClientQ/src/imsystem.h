@@ -26,6 +26,8 @@ private:
 
     void HandleFriendQueryACK(SOCKET serverClient , MsgHead& head);
 
+    void HandleFriendREQ(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 
@@ -39,8 +41,16 @@ private slots:
 
     void slot_sendMessage(QString message,QString usrAccount , QString tarAccount);
 
+    void slot_FriendRequest(QString account , QString usrAccount);
+
+    void slot_FriendAgree(QString tarAccount , QString sourceAccount , int flag);
+
 signals:
     void SIG_Account(QString Account);
+
+    void SIG_FriendREQ(QString tarAccount , QString sourceAccount);
+
+    void SIG_FriendACK(int flag , QString tarAccount);
 
 private:
     Client* m_Client; // 客户端网络指针
