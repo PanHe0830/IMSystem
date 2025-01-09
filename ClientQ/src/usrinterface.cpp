@@ -163,6 +163,7 @@ void UsrInterface::slot_showFriendREQ(QString tarAccount, QString sourceAccount)
     if(ret1 == QMessageBox::Ok)
     {
         // 同意添加好友
+        slot_showFriendACK(1,tarAccount);
         emit SIG_FriendAgree(sourceAccount , tarAccount , 1);
     }
     else

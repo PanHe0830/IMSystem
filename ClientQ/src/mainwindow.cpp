@@ -79,5 +79,5 @@ void MainWindow::slot_setAccount(QString Account)
 
 QString MainWindow::GetUsrName()
 {
-    return ui->lb_account->text();
+    return ui->le_account->text();
 }

@@ -21,8 +21,6 @@ IMSystem::IMSystem()
     connect(m_RegisterInterface , &Register::SIG_NewPassWord , this , &IMSystem::slot_RegisterREQ);
 
     m_UsrInterface = new UsrInterface();
-    QString name = m_CommitInterface->GetUsrName();
-    m_UsrInterface->setUsrName(name);
     m_UsrInterface->close();
 
     connect(m_UsrInterface , &UsrInterface::SIG_AddFriendREQ , this , &IMSystem::slot_FriendREQ);
@@ -136,16 +134,16 @@ void IMSystem::HandleFriendACK(SOCKET serverClient, MsgHead &head)
     switch(msg.flag)
     {
     case CLIENT_FRIEND_SUCCESS:
-        // 同意添加
-        emit SIG_FriendACK(1 , QString(msg.tarAccount));
+        // 同意添加SIG_FriendAgree
+        emit SIG_FriendACK(1 , QString(msg.sourceAccount));
         break;
     case CLIENT_FRIEND_FAILED:
         // 不同意添加
-        emit SIG_FriendACK(0, QString(msg.tarAccount));
+        emit SIG_FriendACK(0, QString(msg.sourceAccount));
         break;
     case CLIENT_FRIEND_DEFAULT:
         // 消息码错误
-        emit SIG_FriendACK(-1, QString(msg.tarAccount));
+        emit SIG_FriendACK(-1, QString(msg.sourceAccount));
         break;
     }
 }
@@ -190,7 +188,7 @@ void IMSystem::HandleFriendREQ(SOCKET serverClient, MsgHead &head)
         return;
     }
 
-    emit SIG_FriendREQ(QString(msg.tarAccount) , QString(msg.sourceAccount));
+    emit SIG_FriendREQ(QString(msg.sourceAccount) , QString(msg.tarAccount));
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)
@@ -200,6 +198,9 @@ void IMSystem::slot_CommitREQ(QString account, QString password)
     CCommit_REQ commit;
     memcpy(&commit.account , account.toStdString().c_str() , sizeof(commit.account));
     memcpy(&commit.password , password.toStdString().c_str() , sizeof(commit.password));
+
+    QString name = m_CommitInterface->GetUsrName();
+    m_UsrInterface->setUsrName(name);
 
     // 发送消息
     if(!m_Client->client_SendMessage((char*)&commit , sizeof(commit)))
@@ -273,8 +274,8 @@ void IMSystem::slot_FriendRequest(QString account , QString usrAccount)
 void IMSystem::slot_FriendAgree(QString tarAccount, QString sourceAccount, int flag)
 {
     CFriend_ACK msg;
-    memcpy(msg.tarAccount , tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
-    memcpy(msg.sourceAccount , sourceAccount.toStdString().c_str(),sizeof(msg.sourceAccount));
+    memcpy(msg.tarAccount , sourceAccount.toStdString().c_str(),sizeof(msg.sourceAccount));
+    memcpy(msg.sourceAccount , tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
     msg.flag = flag;
 
     if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
