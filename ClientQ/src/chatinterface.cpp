@@ -76,7 +76,7 @@ void ChatInterface::slot_sendMessage()
 
     QListWidgetItem* listItem = new QListWidgetItem(message);
     listItem->setTextAlignment(Qt::AlignRight);
-    ui->lw_showmes->addItem(message);
+    ui->lw_showmes->addItem(listItem);
 
     emit SIG_sendMessage(message , ui->lb_tar->text());
 }
@@ -96,7 +96,7 @@ void ChatInterface::recvMessage(QString msg)
     //QString temp = ui->lb_tar->text() + ":" + msg;
     QListWidgetItem* listItem = new QListWidgetItem(msg);
     listItem->setTextAlignment(Qt::AlignLeft);
-    ui->lw_showmes->addItem(msg);
+    ui->lw_showmes->addItem(listItem);
 }
 
 void ChatInterface::slot_textLength(QString str)
