@@ -16,14 +16,14 @@ UsrInterface::UsrInterface(QWidget *parent)
 
 UsrInterface::~UsrInterface()
 {
-    if(!m_chat.empty())
+    if(!m_AccountToChat.empty())
     {
-        for(auto ite : m_chat)
+        for(auto ite : m_AccountToChat)
         {
-            delete ite;
-            ite = nullptr;
+            delete ite.second;
+            ite.second = nullptr;
         }
-        m_chat.clear();
+        m_AccountToChat.clear();
     }
 
     delete ui;
@@ -59,6 +59,8 @@ void UsrInterface::Init()
     m_addFriend->close();
     connect(m_addFriend,&AddFriendInterface::SIG_addFriendREQ , this , &UsrInterface::slot_sendAddFieReq);
     connect(m_addFriend,&AddFriendInterface::SIG_addFriend , this , &UsrInterface::slot_AddFie);
+
+    m_AccountToChat.clear();
 }
 
 void UsrInterface::Connect()
@@ -117,24 +119,26 @@ void UsrInterface::slot_AddFie(QString account)
 void UsrInterface::slot_showChatInterface(const QModelIndex &index)
 {
     QString str = index.data().toString();
-    qDebug() << str;
+    //qDebug() << str;
 
     m_chatInterface = new ChatInterface();
     m_chatInterface->setTarUsr(str);
     m_chatInterface->setUsr(ui->le_usrname->text());
     m_chatInterface->show();
-    m_chat.push_back(m_chatInterface);
     connect(m_chatInterface,&ChatInterface::SIG_closeInterface,this,&UsrInterface::slot_closeChatInterface);
     connect(m_chatInterface , &ChatInterface::SIG_sendMessage,this,&UsrInterface::slot_sendChatMessage);
+    m_AccountToChat.insert(std::make_pair(str,m_chatInterface));
 }
 
 void UsrInterface::slot_clickedEvent(const QModelIndex &index)
 {
-
+    m_currentClickedItem = index.data().toString();
+    qDebug() << m_currentClickedItem;
 }
 
-void UsrInterface::slot_closeChatInterface()
+void UsrInterface::slot_closeChatInterface(QString tarAccount)
 {
+#if 0
     ChatInterface* temp = qobject_cast<ChatInterface*>(sender());
     if(temp != nullptr)
     {
@@ -149,11 +153,44 @@ void UsrInterface::slot_closeChatInterface()
             }
         }
     }
+#endif
+    auto ite = m_AccountToChat.find(tarAccount);
+    if(ite != m_AccountToChat.end())
+    {
+        delete ite->second;
+        ite->second = nullptr;
+
+        m_AccountToChat.erase(ite);
+    }
 }
 
 void UsrInterface::slot_sendChatMessage(QString message , QString tarAccount)
 {
+    qDebug() << "slot_sendChatMessage";
     emit SIG_SendMessage(message , ui->le_usrname->text(),tarAccount);
+}
+
+void UsrInterface::slot_recvChatMessage(QString account , QString message)
+{
+    // 接收到了消息
+    auto ite = m_AccountToChat.find(account);
+    if(ite != m_AccountToChat.end())
+    {
+        // 1. 当前聊天界面已经显示
+        ite->second->recvMessage(message);
+    }
+    else
+    {
+        // 2. 当前聊天界面没有显示
+        m_chatInterface = new ChatInterface();
+        m_chatInterface->setTarUsr(account);
+        m_chatInterface->setUsr(ui->le_usrname->text());
+        m_chatInterface->recvMessage(message);
+        m_chatInterface->show();
+        connect(m_chatInterface,&ChatInterface::SIG_closeInterface,this,&UsrInterface::slot_closeChatInterface);
+        connect(m_chatInterface , &ChatInterface::SIG_sendMessage,this,&UsrInterface::slot_sendChatMessage);
+        m_AccountToChat.insert(std::make_pair(account,m_chatInterface));
+    }
 }
 
 void UsrInterface::slot_showFriendREQ(QString tarAccount, QString sourceAccount)

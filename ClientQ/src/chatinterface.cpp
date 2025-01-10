@@ -47,7 +47,7 @@ void ChatInterface::Connect()
 
 void ChatInterface::closeEvent(QCloseEvent *event)
 {
-    emit SIG_closeInterface();
+    emit SIG_closeInterface(ui->lb_tar->text());
 }
 
 QDateTime ChatInterface::showTime()
@@ -75,13 +75,13 @@ void ChatInterface::slot_sendMessage()
     QString message = m_currentUsrName + ":" + ui->le_message->text();
 
     QListWidgetItem* listItem = new QListWidgetItem(message);
-    ui->lw_showmes->addItem(message);
     listItem->setTextAlignment(Qt::AlignRight);
+    ui->lw_showmes->addItem(message);
 
     emit SIG_sendMessage(message , ui->lb_tar->text());
 }
 
-void ChatInterface::slot_recvMessage(QString msg)
+void ChatInterface::recvMessage(QString msg)
 {
     /** 如果消息间隔大于5分钟显示时间 */
     int minutes = timeCurrent.secsTo(showTime());
@@ -93,10 +93,10 @@ void ChatInterface::slot_recvMessage(QString msg)
     }
     /** */
 
-    QString temp = ui->lb_tar->text() + ":" + msg;
-    QListWidgetItem* listItem = new QListWidgetItem(temp);
-    ui->lw_showmes->addItem(temp);
+    //QString temp = ui->lb_tar->text() + ":" + msg;
+    QListWidgetItem* listItem = new QListWidgetItem(msg);
     listItem->setTextAlignment(Qt::AlignLeft);
+    ui->lw_showmes->addItem(msg);
 }
 
 void ChatInterface::slot_textLength(QString str)
@@ -112,5 +112,10 @@ void ChatInterface::slot_textLength(QString str)
         QMessageBox::information(this,"提示","消息超过规定限制");
     }
     ui->le_message->setText(temp);
+}
+
+QString ChatInterface::GetTarAccount()
+{
+    return ui->lb_tar->text();
 }
 

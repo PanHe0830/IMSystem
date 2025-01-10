@@ -29,6 +29,7 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_FriendREQ,m_UsrInterface,&UsrInterface::slot_showFriendREQ);
     connect(m_UsrInterface , &UsrInterface::SIG_FriendAgree , this , &IMSystem::slot_FriendAgree);
     connect(this,&IMSystem::SIG_FriendACK,m_UsrInterface,&UsrInterface::slot_showFriendACK);
+    connect(this,&IMSystem::SIG_ShowChatMessage,m_UsrInterface,&UsrInterface::slot_recvChatMessage);
 
 
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
@@ -72,6 +73,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
             break;
         case CLIENT_FRIEND_REQ:
             HandleFriendREQ(clientSocket , head);
+            break;
+        case CLIENT_MESSAGE_CHAT:
+            HandleChatMessage(clientSocket,head);
             break;
         }
     }
@@ -189,6 +193,18 @@ void IMSystem::HandleFriendREQ(SOCKET serverClient, MsgHead &head)
     }
 
     emit SIG_FriendREQ(QString(msg.sourceAccount) , QString(msg.tarAccount));
+}
+
+void IMSystem::HandleChatMessage(SOCKET serverClient, MsgHead &head)
+{
+    CSendMessage msg;
+    if (!m_Client->client_RecvMessage((char*)&msg, head))
+    {
+        qDebug() << "HandleFriendREQ 接收失败";
+        return;
+    }
+
+    emit SIG_ShowChatMessage( QString(msg.usrAccount) , QString(msg.message));
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)

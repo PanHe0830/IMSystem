@@ -37,13 +37,16 @@ protected:
 
 private slots:
     void slot_sendMessage();
-
-    void slot_recvMessage(QString msg);
-
+public:
+    void recvMessage(QString msg);
+private slots:
     void slot_textLength(QString str); // 判断新的文本是否超过规定的大小
 
+public:
+    QString GetTarAccount();
+
 signals:
-    void SIG_closeInterface();
+    void SIG_closeInterface(QString tarAccount);
 
     void SIG_sendMessage(QString str , QString tarAccount);
 
