@@ -1,5 +1,8 @@
 #include "MySQL.h"
 
+#include <iostream>
+#include <string>
+
 MySQL::MySQL()
 {
 	mysql = nullptr;
@@ -102,4 +105,49 @@ void MySQL::MySqlPrintfResult(MYSQL_RES* result)
 		}
 		printf("\n");
 	}
+}
+
+bool MySQL::MySqlChangeSafeModel(SQL_SAFE_MODE mode)
+{
+	int i = (int)mode;
+	std::string str = std::to_string(i);
+	std::string sql = "SET SQL_SAFE_UPDATES = ";
+	sql = sql + str;
+	if (!MySqlQuery(str.c_str()))
+	{
+		return false;
+	}
+	return true;
+}
+
+bool MySQL::MySqlShowSafeModel()
+{
+	std::string sql = "show variables like 'SQL_SAFE_UPDATES'";
+
+	if (!MySqlQuery(sql.c_str()))
+	{
+		return false;
+	}
+
+	MYSQL_RES* temp = MySqlGetResult();
+	if (temp == nullptr) return 2;
+
+	unsigned int num_rows, num_fields;
+	num_rows = mysql_num_rows(temp);
+	num_fields = mysql_num_fields(temp);
+
+	MYSQL_ROW  row = NULL;
+	row = mysql_fetch_row(temp);
+	char* flag = row[num_fields];
+
+	if (std::string(flag) == "OFF")
+	{
+		return false;
+	}
+	else if (std::string(flag) == "ON")
+	{
+		return true;
+	}
+
+	return false;
 }

@@ -5,6 +5,14 @@
 #include <stdio.h>//mysql 文件
 #include <iostream>
 
+enum SQL_SAFE_MODE
+{
+	SQL_SAFE_MODEL_NOSAFE = 0, // 数据库关闭safe-update模式
+	SQL_SAFE_MODEL_SAFE,	//数据库开启safe-update模式
+
+	SQL_SAFE_MODEL_MAX = 255 // 枚举最大值
+};
+
 class MySQL
 {
 public:
@@ -94,6 +102,26 @@ public:
 	*	@note
 	*/
 	void MySqlPrintfResult(MYSQL_RES* result);
+
+	/**
+	*	@name		MySqlChangeSafeModel
+	*	@function	改变数据库safe-updates模式
+	*	@author		PH
+	*	@return		false - 失败 true - 成功
+	*	@param	
+	*	@note		模式会导致非主键条件下无法执行update或者delete命令
+	*/
+	bool MySqlChangeSafeModel(SQL_SAFE_MODE mode);
+
+	/**
+	*	@name		MySqlChangeSafeModel
+	*	@function	改变数据库safe-updates模式
+	*	@author		PH
+	*	@return		false - OFF true - ON
+	*	@param
+	*	@note		模式会导致非主键条件下无法执行update或者delete命令
+	*/
+	bool MySqlShowSafeModel();
 
 	inline bool GetIsInit() { return isInit; };
 private:
