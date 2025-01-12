@@ -254,7 +254,7 @@ void Server::HandleFriendQuery(SOCKET clientSocket, MsgHead& head)
     m_SqlOption->MySqlQuery(sqlStr.c_str());
 
 
-    CFriendQuery_ACK friendQueryACK;
+    CFriendQuery_ACK friendQueryACK;    
     if (m_SqlOption->MySqlGetResult() == nullptr)
     {
         friendQueryACK.flag = CLIENT_FRIEND_QUERY_NOEXIST;
