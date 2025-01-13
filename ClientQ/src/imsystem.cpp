@@ -83,9 +83,6 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
         case CLIENT_MESSAGE_CHAT:
             HandleChatMessage(clientSocket,head);
             break;
-        case CLIENT_MESSAGE_HEART_ACK:
-            HandleHeartMessage(clientSocket,head);
-            break;
         }
     }
 }
@@ -221,11 +218,6 @@ void IMSystem::HandleChatMessage(SOCKET serverClient, MsgHead &head)
     }
 
     emit SIG_ShowChatMessage( QString(msg.usrAccount) , QString(msg.message));
-}
-
-void IMSystem::HandleHeartMessage(SOCKET serverClient, MsgHead &head)
-{
-
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)
