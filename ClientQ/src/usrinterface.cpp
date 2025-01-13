@@ -226,3 +226,8 @@ void UsrInterface::slot_showFriendACK(int flag , QString tarAccount)
         break;
     }
 }
+
+void UsrInterface::slot_addFriend(QString friAccount)
+{
+    AddFriend(friAccount);
+}

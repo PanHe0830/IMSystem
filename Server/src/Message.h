@@ -14,6 +14,7 @@
 #define CLIENT_MESSAGE_CHAT      10009 // 客户端聊天消息消息码
 #define CLIENT_MESSAGE_HEART_REQ 10010 // 客户端心跳消息码请求
 #define CLIENT_MESSAGE_HEART_ACK 10011 // 客户端心跳消息码回复
+#define SERVER_FRIEND_CHECK      10012 // 服务器给客户端发送朋友信息
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -203,5 +204,21 @@ struct CHeartMessage_ACK
     }
     MsgHead head;
 };
+
+// 服务器告诉客户端朋友消息
+struct SFriendCheck
+{
+    SFriendCheck()
+    {
+        head.MsgCode = SERVER_FRIEND_CHECK;
+        head.nSize = sizeof(SFriendCheck);
+        memset(friAccount, 0, sizeof(CLIENT_ACCOUNT));
+        //memset(friGroup, 0, sizeof(CLIENT_ACCOUNT));
+    }
+    MsgHead head;
+    char friAccount[CLIENT_ACCOUNT];
+    //char friGroup[CLIENT_ACCOUNT]; // 暂定
+};
+
 
 #endif // MESSAGE_H

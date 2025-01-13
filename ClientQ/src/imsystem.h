@@ -32,6 +32,8 @@ private:
 
     void HandleChatMessage(SOCKET serverClient , MsgHead& head);
 
+    void HandleFriendCheck(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 
@@ -59,6 +61,8 @@ signals:
     void SIG_FriendACK(int flag , QString tarAccount);
 
     void SIG_ShowChatMessage(QString account , QString message);
+
+    void SIG_AddFriend(QString friAccount);
 
 private:
     Client* m_Client; // 客户端网络指针

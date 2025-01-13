@@ -58,6 +58,9 @@ private:
 	// 监视心跳 -- 专门处理心跳是否超时
 	void HandleHeart();
 
+	// 给登录后的客户端发送你有哪些朋友
+	void SendClientFriend(SOCKET clientSocket , std::string usrQQ);
+
 private:
 	WSADATA wsaData;
 	SOCKET serverSocket, clientSocket;

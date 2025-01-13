@@ -60,10 +60,11 @@ private slots:
 public slots:
     void slot_recvChatMessage(QString account , QString message);
 
-public slots:
     void slot_showFriendREQ(QString tarAccount , QString sourceAccount);
 
     void slot_showFriendACK(int flag, QString tarAccount);
+
+    void slot_addFriend(QString friAccount);
 
 signals:
     void SIG_AddFriend(QString account , QString usrAccount);

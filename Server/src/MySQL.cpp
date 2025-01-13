@@ -87,24 +87,31 @@ void MySQL::MySqlFreeResult(MYSQL_RES* res)
 	return;
 }
 
-void MySQL::MySqlPrintfResult(MYSQL_RES* result)
+std::vector<std::string> MySQL::MySqlPrintfResult(MYSQL_RES* result)
 {
-	if (result == nullptr) return;
+	std::vector<std::string> temp;
+	temp.clear();
+
+	if (result == nullptr) return temp;
+
 	MYSQL_ROW  row = NULL;
 	unsigned int num_rows, num_fields;
 	num_rows = mysql_num_rows(result);
 	num_fields = mysql_num_fields(result);
-	printf("行数：%d,列数:%d\n", num_rows, num_fields);
+	//printf("行数：%d,列数:%d\n", num_rows, num_fields);
 	
 	for (unsigned int i = 0; i < num_rows; i++)
 	{
 		row = mysql_fetch_row(result);//从结果集中获取一行
 		for (unsigned int j = 0; j < num_fields; j++)
 		{
-			printf("%s\t", row[j]);
+			//printf("%s\t", row[j]);
+			temp.emplace_back(row[j]);
 		}
-		printf("\n");
+		//printf("\n");
 	}
+
+	return temp;
 }
 
 bool MySQL::MySqlChangeSafeModel(SQL_SAFE_MODE mode)
@@ -130,7 +137,7 @@ bool MySQL::MySqlShowSafeModel()
 	}
 
 	MYSQL_RES* temp = MySqlGetResult();
-	if (temp == nullptr) return 2;
+	if (temp == nullptr) return false;
 
 	unsigned int num_rows, num_fields;
 	num_rows = mysql_num_rows(temp);

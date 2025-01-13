@@ -4,6 +4,7 @@
 #include <mysql.h>
 #include <stdio.h>//mysql 文件
 #include <iostream>
+#include <vector>
 
 enum SQL_SAFE_MODE
 {
@@ -94,14 +95,14 @@ public:
 	void MySqlFreeResult(MYSQL_RES* res);
 
 	/**
-	*	@name		MySqlPrintfResult
-	*	@function	打印结果集的内容
+	*	@name		MySqlVectorResult
+	*	@function	将内容放入vector容器中
 	*	@author		PH
-	*	@return
+	*	@return		返回查询到的结果或数据
 	*	@param		result - 结果集
 	*	@note
 	*/
-	void MySqlPrintfResult(MYSQL_RES* result);
+	std::vector<std::string> MySqlPrintfResult(MYSQL_RES* result);
 
 	/**
 	*	@name		MySqlChangeSafeModel

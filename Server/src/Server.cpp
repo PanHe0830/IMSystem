@@ -198,6 +198,8 @@ void Server::HandleCommit(SOCKET clientSocket, MsgHead& head)
         std::cout << "发送消息失败" << std::endl;
         return;
     }
+
+    SendClientFriend(clientSocket, std::string(commitReq.account));
 }
 
 void Server::HandleRegister(SOCKET clientSocket , MsgHead& head)
@@ -468,5 +470,44 @@ void Server::HandleHeart()
                 ++it;
             }
         }
+    }
+}
+
+void Server::SendClientFriend(SOCKET clientSocket, std::string usrQQ)
+{
+    //select mQQ from friend where nQQ = 918996674;
+
+    std::string sql = "select mQQ from friend where nQQ = ";
+    sql = sql + usrQQ;
+
+    if (!m_SqlOption->MySqlQuery(sql.c_str()))
+    {
+        std::cout << "数据库执行失败" << std::endl;
+        return;
+    }
+
+    auto ptr = m_SqlOption->MySqlGetResult();
+
+    if (ptr == nullptr)
+    {
+        std::cout << "没有对应数据" << std::endl;
+        return;
+    }
+
+    std::vector<std::string> temp = m_SqlOption->MySqlPrintfResult(ptr);
+
+    for (auto ite : temp)
+    {
+        SFriendCheck msg;
+        memcpy(msg.friAccount, ite.c_str(), sizeof(msg.friAccount));
+
+        if (!SendMessages(clientSocket, (char*)&msg, sizeof(msg)))
+        {
+            std::cout << "发送失败" << std::endl;
+            return;
+        }
+
+        // 当前间隔1s发送一次消息
+        std::this_thread::sleep_for(std::chrono::seconds(1));
     }
 }
