@@ -96,11 +96,11 @@ bool Server::ClientConnent()
         WSACleanup();
         return false;
     }
-    
-    // 保存客户端socket
-    //ClientSocket.push_back(clientSocket);
 
     std::cout << "Client connected!" << std::endl;
+
+    std::thread threadHeart(&Server::HandleHeart , this);
+    threadHeart.detach();
 
     std::thread thread(&Server::HandMsg, this, clientSocket);
     thread.detach();
@@ -153,6 +153,9 @@ void Server::HandMsg(SOCKET clientSocket)
             break;
         case CLIENT_FRIEND_ACK:
             HandleFriendAck(clientSocket, head);
+            break;
+        case CLIENT_MESSAGE_HEART_REQ:
+            
             break;
         }
     }
@@ -355,6 +358,27 @@ void Server::HandleFriendAck(SOCKET clientSocket, MsgHead& head)
     }
 }
 
+void Server::HandleHeartREQ(SOCKET clientSocket, MsgHead& head)
+{
+    std::lock_guard<std::mutex> lock(mtx_heartTime);
+
+    CHeartMessage_REQ msg;
+    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+    auto ite = m_UsrLastHeartbeat.find(std::string(msg.usrAccount));
+    if (ite == m_UsrLastHeartbeat.end())
+    {
+        m_UsrLastHeartbeat.emplace(std::string(msg.usrAccount), std::chrono::steady_clock::now()); // 没有先添加
+    }
+    else
+    {
+        m_UsrLastHeartbeat[std::string(msg.usrAccount)] = std::chrono::steady_clock::now(); // 有就更新时间
+    }
+}
+
 void Server::HandleAddFriendOnServer(char* tarAccount, char* usrAccount)
 {
     std::cout << "HandleAddFriendOnServer" << std::endl;
@@ -418,4 +442,26 @@ long Server::GetRandomNum()
 
     // 生成一个9位的随机数
     return dist(gen);
+}
+
+void Server::HandleHeart()
+{
+    std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
+    for (auto it = m_UsrLastHeartbeat.begin(); it != m_UsrLastHeartbeat.end();)
+    {
+        auto duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->second).count();
+        if (duration > 10)
+        {
+            SOCKET sock = m_UsrToSocket[it->first];
+            closesocket(sock);
+
+            // 从心跳列表和SOCKET列表中移除该用户
+            m_UsrToSocket.erase(it->first);
+            it = m_UsrLastHeartbeat.erase(it);  // 删除超时用户
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }

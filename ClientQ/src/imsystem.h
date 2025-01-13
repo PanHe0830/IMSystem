@@ -8,6 +8,8 @@
 #include "register.h"
 #include "usrinterface.h"
 
+class QTimer;
+
 class IMSystem : public QObject
 {
     Q_OBJECT
@@ -30,6 +32,8 @@ private:
 
     void HandleChatMessage(SOCKET serverClient , MsgHead& head);
 
+    void HandleHeartMessage(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 
@@ -47,6 +51,8 @@ private slots:
 
     void slot_FriendAgree(QString tarAccount , QString sourceAccount , int flag);
 
+    void slot_sendHeart();
+
 signals:
     void SIG_Account(QString Account);
 
@@ -61,6 +67,9 @@ private:
     MainWindow* m_CommitInterface; // 客户端登录界面
     Register* m_RegisterInterface; // 客户端注册界面
     UsrInterface* m_UsrInterface; // 客户端聊天界面
+
+    QTimer* m_heartTimer; // 心跳包定时器
+    //QString m_currentQQ; // 当前用户的QQ号码
 };
 
 #endif // IMSYSTEM_H

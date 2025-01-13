@@ -38,6 +38,8 @@ private:
 	void HandleFriend(SOCKET clientSocket, MsgHead& head);
 	// 处理好友请求回复功能
 	void HandleFriendAck(SOCKET clientSocket, MsgHead& head);
+	// 处理心跳请求
+	void HandleHeartREQ(SOCKET clientSocket, MsgHead& head);
 
 private:
 	// 处理添加好友后接收到回复后服务器上需要处理的事情
@@ -53,6 +55,9 @@ private:
 	// 创建随机数
 	long GetRandomNum();
 
+	// 监视心跳 -- 专门处理心跳是否超时
+	void HandleHeart();
+
 private:
 	WSADATA wsaData;
 	SOCKET serverSocket, clientSocket;
@@ -62,7 +67,9 @@ private:
 
 	MySQL* m_SqlOption;
 	std::map<std::string , SOCKET> m_UsrToSocket; // 存放每个用户和客户端SOCKET的map  first - QQ  second - SOCKET
+	std::map<std::string, std::chrono::steady_clock::time_point> m_UsrLastHeartbeat;  // first - QQ second - 存放每个用户最后心跳时间
 	std::mutex mtx_UsrSocket;
+	std::mutex mtx_heartTime;
 };
 
 #endif __SERVER__

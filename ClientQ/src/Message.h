@@ -2,16 +2,18 @@
 #define MESSAGE_H
 
 // ==========================================================
-#define CLIENT_MESSAGE          10000 // 客户端消息
-#define CLIENT_REGISTER_REQ     10001 // 客户端注册请求消息码
-#define CLIENT_REGISTER_ACK     10002 // 客户端注册回复消息码
-#define CLIENT_COMMIT_REQ       10003 // 客户端登录请求消息码
-#define CLIENT_COMMIT_ACK       10004 // 客户端登录回复消息码
-#define CLIENT_FRIEND_REQ       10005 // 客户端好友请求消息码
-#define CLIENT_FRIEND_ACK       10006 // 客户端好友回复消息码
-#define CLIENT_FRIEND_QUERY_REQ 10007 // 客户端好友查询请求消息码
-#define CLIENT_FRIEND_QUERY_ACK 10008 // 客户端好友查询回复消息码
-#define CLIENT_MESSAGE_CHAT     10009 // 客户端聊天消息消息码
+#define CLIENT_MESSAGE           10000 // 客户端消息
+#define CLIENT_REGISTER_REQ      10001 // 客户端注册请求消息码
+#define CLIENT_REGISTER_ACK      10002 // 客户端注册回复消息码
+#define CLIENT_COMMIT_REQ        10003 // 客户端登录请求消息码
+#define CLIENT_COMMIT_ACK        10004 // 客户端登录回复消息码
+#define CLIENT_FRIEND_REQ        10005 // 客户端好友请求消息码
+#define CLIENT_FRIEND_ACK        10006 // 客户端好友回复消息码
+#define CLIENT_FRIEND_QUERY_REQ  10007 // 客户端好友查询请求消息码
+#define CLIENT_FRIEND_QUERY_ACK  10008 // 客户端好友查询回复消息码
+#define CLIENT_MESSAGE_CHAT      10009 // 客户端聊天消息消息码
+#define CLIENT_MESSAGE_HEART_REQ 10010 // 客户端心跳消息码请求
+#define CLIENT_MESSAGE_HEART_ACK 10011 // 客户端心跳消息码回复
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -176,6 +178,30 @@ struct CSendMessage
     char usrAccount[CLIENT_ACCOUNT];
     char tarAccount[CLIENT_ACCOUNT];
     char message[CLIENT_CHAT_MESSAGE_MAX];
+};
+
+// 客户端心跳消息请求
+struct CHeartMessage_REQ
+{
+    CHeartMessage_REQ()
+    {
+        head.MsgCode = CLIENT_MESSAGE_HEART_REQ;
+        head.nSize = sizeof(CHeartMessage_REQ);
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+    }
+    MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT];
+};
+
+// 客户端心跳消息回复
+struct CHeartMessage_ACK
+{
+    CHeartMessage_ACK()
+    {
+        head.MsgCode = CLIENT_MESSAGE_HEART_ACK;
+        head.nSize = sizeof(CHeartMessage_ACK);
+    }
+    MsgHead head;
 };
 
 #endif // MESSAGE_H

@@ -6,6 +6,7 @@
 #include <qobjectdefs.h>
 #include <QMessageBox>
 #include <QApplication>
+#include <QTimer>
 
 IMSystem::IMSystem()
 {
@@ -31,7 +32,6 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_FriendACK,m_UsrInterface,&UsrInterface::slot_showFriendACK);
     connect(this,&IMSystem::SIG_ShowChatMessage,m_UsrInterface,&UsrInterface::slot_recvChatMessage);
 
-
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
 }
@@ -47,6 +47,12 @@ IMSystem::~IMSystem()
     {
         delete m_CommitInterface;
         m_CommitInterface = nullptr;
+    }
+
+    if(m_heartTimer)
+    {
+        killTimer(m_heartTimer->timerId());
+        delete m_heartTimer ; m_heartTimer = nullptr;
     }
 }
 
@@ -77,6 +83,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
         case CLIENT_MESSAGE_CHAT:
             HandleChatMessage(clientSocket,head);
             break;
+        case CLIENT_MESSAGE_HEART_ACK:
+            HandleHeartMessage(clientSocket,head);
+            break;
         }
     }
 }
@@ -101,6 +110,13 @@ void IMSystem::HandleCommitACK(SOCKET serverClient, MsgHead &head)
         QMetaObject::invokeMethod(m_CommitInterface , "close" ,Qt::QueuedConnection);
         // 登录成功显示界面
         QMetaObject::invokeMethod(m_UsrInterface , "show" ,Qt::QueuedConnection);
+        // 开启发送心跳包计时器
+
+        m_heartTimer = new QTimer();
+
+        connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
+        m_heartTimer->start(5000);// 没5s发送一次心跳
+
         break;
     case CLIENT_COMMIT_FAILED:
         // 登录失败提示用户
@@ -207,6 +223,11 @@ void IMSystem::HandleChatMessage(SOCKET serverClient, MsgHead &head)
     emit SIG_ShowChatMessage( QString(msg.usrAccount) , QString(msg.message));
 }
 
+void IMSystem::HandleHeartMessage(SOCKET serverClient, MsgHead &head)
+{
+
+}
+
 void IMSystem::slot_CommitREQ(QString account, QString password)
 {
     qDebug() << "slot_CommitREQ";
@@ -293,6 +314,18 @@ void IMSystem::slot_FriendAgree(QString tarAccount, QString sourceAccount, int f
     memcpy(msg.tarAccount , sourceAccount.toStdString().c_str(),sizeof(msg.sourceAccount));
     memcpy(msg.sourceAccount , tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
     msg.flag = flag;
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
+    {
+        qDebug() << "发送失败";
+    }
+}
+
+void IMSystem::slot_sendHeart()
+{
+    QString account = m_CommitInterface->GetUsrName();
+    CHeartMessage_REQ msg;
+    memcpy(msg.usrAccount , account.toStdString().c_str(),sizeof(msg.usrAccount));
 
     if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
     {
