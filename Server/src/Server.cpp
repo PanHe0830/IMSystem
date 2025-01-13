@@ -155,7 +155,7 @@ void Server::HandMsg(SOCKET clientSocket)
             HandleFriendAck(clientSocket, head);
             break;
         case CLIENT_MESSAGE_HEART_REQ:
-            
+            HandleHeartREQ(clientSocket, head);
             break;
         }
     }
@@ -446,22 +446,27 @@ long Server::GetRandomNum()
 
 void Server::HandleHeart()
 {
-    std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
-    for (auto it = m_UsrLastHeartbeat.begin(); it != m_UsrLastHeartbeat.end();)
+    while (true)
     {
-        auto duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->second).count();
-        if (duration > 10)
-        {
-            SOCKET sock = m_UsrToSocket[it->first];
-            closesocket(sock);
+        std::this_thread::sleep_for(std::chrono::seconds(2)); // 间隔2s检查一次 心跳间隔5s发一次
 
-            // 从心跳列表和SOCKET列表中移除该用户
-            m_UsrToSocket.erase(it->first);
-            it = m_UsrLastHeartbeat.erase(it);  // 删除超时用户
-        }
-        else
+        std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
+        for (auto it = m_UsrLastHeartbeat.begin(); it != m_UsrLastHeartbeat.end();)
         {
-            ++it;
+            auto duration = std::chrono::duration_cast<std::chrono::seconds>(currentTime - it->second).count();
+            if (duration > 10)
+            {
+                SOCKET sock = m_UsrToSocket[it->first];
+                closesocket(sock);
+
+                // 从心跳列表和SOCKET列表中移除该用户
+                m_UsrToSocket.erase(it->first);
+                it = m_UsrLastHeartbeat.erase(it);  // 删除超时用户
+            }
+            else
+            {
+                ++it;
+            }
         }
     }
 }
