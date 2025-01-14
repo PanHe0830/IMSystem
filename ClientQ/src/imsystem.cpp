@@ -33,6 +33,11 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_ShowChatMessage,m_UsrInterface,&UsrInterface::slot_recvChatMessage);
     connect(this,&IMSystem::SIG_AddFriend , m_UsrInterface , &UsrInterface::slot_addFriend);
 
+    m_heartTimer = new QTimer();
+    connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
+
+    connect(this , &IMSystem::SIG_MasterTimeOut , this , &IMSystem::slot_startQTimer);
+
     std::thread thread(&IMSystem::HandleMessage , this , m_Client->clientSocket);
     thread.detach();
 }
@@ -112,12 +117,7 @@ void IMSystem::HandleCommitACK(SOCKET serverClient, MsgHead &head)
         // 登录成功显示界面
         QMetaObject::invokeMethod(m_UsrInterface , "show" ,Qt::QueuedConnection);
         // 开启发送心跳包计时器
-
-        m_heartTimer = new QTimer();
-
-        connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
-        m_heartTimer->start(5000);// 没5s发送一次心跳
-
+        emit SIG_MasterTimeOut();
         break;
     case CLIENT_COMMIT_FAILED:
         // 登录失败提示用户
@@ -340,4 +340,9 @@ void IMSystem::slot_sendHeart()
     {
         qDebug() << "发送失败";
     }
+}
+
+void IMSystem::slot_startQTimer()
+{
+    m_heartTimer->start(5000);// 每5s发送一次心跳
 }

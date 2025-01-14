@@ -53,6 +53,8 @@ private slots:
 
     void slot_sendHeart();
 
+    void slot_startQTimer();
+
 signals:
     void SIG_Account(QString Account);
 
@@ -63,6 +65,8 @@ signals:
     void SIG_ShowChatMessage(QString account , QString message);
 
     void SIG_AddFriend(QString friAccount);
+
+    void SIG_MasterTimeOut();
 
 private:
     Client* m_Client; // 客户端网络指针
