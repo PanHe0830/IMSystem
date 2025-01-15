@@ -40,6 +40,12 @@ release {
 INCLUDEPATH += $$PWD/include
 
 LIBS += -L. -lws2_32
+LIBS += -L$$PWD/lib \
+        -lopencv_core \
+        -lopencv_imgcodecs \
+        -lopencv_highgui \
+        -lopencv_imgproc
+
 
 DEFINES += _WINSOCK_DEPRECATED_NO_WARNINGS
 
@@ -49,6 +55,7 @@ SOURCES += \
     $$PWD/src/client.cpp \
     src/chatinterface.cpp \
     src/addfriendinterface.cpp \
+    src/imsystemopencv.cpp \
     src/myqlabel.cpp \
     src/register.cpp \
     src/imsystem.cpp \
@@ -59,6 +66,7 @@ HEADERS += \
     $$PWD/src/client.h \
     src/chatinterface.h \
     src/addfriendinterface.h \
+    src/imsystemopencv.h \
     src/myqlabel.h \
     src/register.h \
     src/Message.h \

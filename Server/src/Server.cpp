@@ -105,25 +105,6 @@ bool Server::ClientConnent()
     std::thread thread(&Server::HandMsg, this, clientSocket);
     thread.detach();
 
-#if 0
-    int recvSize;
-    char recvBuffer[512];
-    // 接收数据
-    recvSize = recv(clientSocket, recvBuffer, sizeof(recvBuffer), 0);
-    if (recvSize == SOCKET_ERROR) {
-        std::cerr << "Receive failed!" << std::endl;
-    }
-    else {
-        recvBuffer[recvSize] = '\0'; // 确保接收到的数据以'\0'结尾
-        std::cout << "Received message: " << recvBuffer << std::endl;
-    }
-
-    // 发送数据到客户端
-    const char* msg = "Hello from server!";
-    if (send(clientSocket, msg, strlen(msg), 0) == SOCKET_ERROR) {
-        std::cerr << "Send failed!" << std::endl;
-    }
-#endif
     return true;
 }
 
