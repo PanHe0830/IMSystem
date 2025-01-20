@@ -15,6 +15,9 @@
 #define CLIENT_MESSAGE_HEART_REQ 10010 // 客户端心跳消息码请求
 #define CLIENT_MESSAGE_HEART_ACK 10011 // 客户端心跳消息码回复
 #define SERVER_FRIEND_CHECK      10012 // 服务器给客户端发送朋友信息
+#define CLIENT_VIDEO_REQ         10013 // 客户端通话请求
+#define CLIENT_VIDEO_ACK         10014 // 客户端通话回复
+#define CLIENT_VIDEO_CLOSE       10015 // 客户结束通话
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -30,6 +33,11 @@
 #define CLIENT_FRIEND_QUERY_EXIST       1     // 客户端朋友查询同意
 #define CLIENT_FRIEND_QUERY_NOEXIST     0     // 客户端朋友查询回复不同意
 #define CLIENT_FRIEND_QUERY_DEFAULT     -1    // 客户端朋友查询回复默认
+// ==========================================================
+// ==========================================================
+#define CLIENT_VIDEO_SUCCESS       1     // 视频同意
+#define CLIENT_VIDEO_FAILED        0     // 视频不同意
+#define CLIENT_VIDEO_DEFAULT       -1    // 视频默认
 // ==========================================================
 // ==========================================================
 #define CLIENT_MESSAGE_MAX      20  // 消息大小
@@ -220,5 +228,43 @@ struct SFriendCheck
     //char friGroup[CLIENT_ACCOUNT]; // 暂定
 };
 
+// 视频通话请求
+struct CVideo_REQ
+{
+    CVideo_REQ()
+    {
+        head.MsgCode = CLIENT_VIDEO_REQ;
+        head.nSize = sizeof(CVideo_REQ);
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+    }
+    MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT];
+};
+
+// 视频通话回复
+struct CVideo_ACK
+{
+    CVideo_ACK()
+    {
+        head.MsgCode = CLIENT_VIDEO_ACK;
+        head.nSize = sizeof(CVideo_ACK);
+        flag = CLIENT_VIDEO_DEFAULT;
+    }
+    MsgHead head;
+    int flag;
+};
+
+// 视频通话回复
+struct CVideo_CLOSE
+{
+    CVideo_CLOSE()
+    {
+        head.MsgCode = CLIENT_VIDEO_CLOSE;
+        head.nSize = sizeof(CVideo_CLOSE);
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+    }
+    MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT]; // 谁结束的通话
+};
 
 #endif // MESSAGE_H

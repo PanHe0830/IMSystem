@@ -1,4 +1,4 @@
-#include "imsystem.h"
+﻿#include "imsystem.h"
 #include "Message.h"
 
 #include <QDebug>
@@ -12,9 +12,9 @@
 IMSystem::IMSystem()
 {
     // ============================================
-    IMSystemOpenCV* temp = new IMSystemOpenCV();
+    //IMSystemOpenCV* temp = new IMSystemOpenCV();
 
-    return;
+    //return;
     // ============================================
 
     m_Client = new Client();

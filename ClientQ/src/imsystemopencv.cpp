@@ -1,15 +1,62 @@
-#include "imsystemopencv.h"
+﻿#include "imsystemopencv.h"
 #include <qdebug>
 
+#include <QList>
+#include <QCameraDevice>
+#include <QMediaDevices>
+
 IMSystemOpenCV::IMSystemOpenCV()
+{
+    InitFFmpeg();
+
+    QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
+    QCameraDevice cameraDevice = cameras.first();
+
+    // 获取摄像头设备的ID（可以是路径或其他标识符）
+    QString cameraId = cameraDevice.id();
+    qDebug() << "Selected Camera ID:" << cameraId;
+
+    // 如果有可用的摄像头
+    //if (!cameras.isEmpty()) {
+    //    qDebug() << "Available cameras:";
+    //    for (const QCameraDevice &camera : cameras) {
+    //        qDebug() << "Camera name:" << camera.description();
+    //        qDebug() << "Camera id:" << camera.id();
+    //    }
+    //} else {
+    //    qDebug() << "No cameras available.";
+    //}
+
+    cv::VideoCapture capture(0);
+    // 如果打开摄像头失败
+    if (!capture.isOpened()) {
+        qDebug() << "Failed to open camera.";
+        return;
+    }
+
+    // 获取视频流并显示
+    cv::Mat frame;
+    while (true) {
+        capture >> frame; // 捕获帧
+        if (frame.empty()) break; // 如果视频结束则退出
+        cv::imshow("Camera", frame); // 显示视频帧
+        if (cv::waitKey(1) == 27) break; // 按ESC退出
+    }
+
+    capture.release();
+}
+
+IMSystemOpenCV::~IMSystemOpenCV()
+{
+
+}
+
+void IMSystemOpenCV::InitFFmpeg()
 {
     //capture.open(0);
 
     // 初始化FFmpeg设备库
     avdevice_register_all();
-
-    //std::string version = av_version_info();
-    //qDebug() << version;
 
     // 在 Windows 上使用 dshow，Linux 使用 v4l2
     const char* input_format_name = "dshow";  // Windows
@@ -50,10 +97,4 @@ IMSystemOpenCV::IMSystemOpenCV()
 
     // 关闭设备
     avformat_close_input(&format_context);
-
-}
-
-IMSystemOpenCV::~IMSystemOpenCV()
-{
-
 }

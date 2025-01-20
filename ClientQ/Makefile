@@ -433,14 +433,20 @@ Makefile: Client.pro D:\QT\6.8.0\msvc2019_64\mkspecs\win32-msvc\qmake.conf D:\QT
 		D:\QT\6.8.0\msvc2019_64\mkspecs\features\yacc.prf \
 		D:\QT\6.8.0\msvc2019_64\mkspecs\features\lex.prf \
 		Client.pro \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgets.prl \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimedia.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgets.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Gui.prl \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6Network.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Core.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPoint.prl \
 		D:\QT\6.8.0\msvc2019_64\mkspecs\features\build_pass.prf \
 		Image.qrc \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgetsd.prl \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimediad.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgetsd.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Guid.prl \
+		D:\QT\6.8.0\msvc2019_64\lib\Qt6Networkd.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6Cored.prl \
 		D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPointd.prl
 	$(QMAKE) -o Makefile Client.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -793,14 +799,20 @@ D:\QT\6.8.0\msvc2019_64\mkspecs\features\exceptions.prf:
 D:\QT\6.8.0\msvc2019_64\mkspecs\features\yacc.prf:
 D:\QT\6.8.0\msvc2019_64\mkspecs\features\lex.prf:
 Client.pro:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgets.prl:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimedia.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgets.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Gui.prl:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6Network.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Core.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPoint.prl:
 D:\QT\6.8.0\msvc2019_64\mkspecs\features\build_pass.prf:
 Image.qrc:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgetsd.prl:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimediad.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgetsd.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Guid.prl:
+D:\QT\6.8.0\msvc2019_64\lib\Qt6Networkd.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6Cored.prl:
 D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPointd.prl:
 qmake: FORCE

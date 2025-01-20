@@ -1,4 +1,4 @@
-#ifndef IMSYSTEMOPENCV_H
+﻿#ifndef IMSYSTEMOPENCV_H
 #define IMSYSTEMOPENCV_H
 
 extern "C" {
@@ -14,8 +14,10 @@ class IMSystemOpenCV
 public:
     IMSystemOpenCV();
     ~IMSystemOpenCV();
+
 private:
-    //cv::VideoCapture capture;
+    void InitFFmpeg();
+private:
 };
 
 #endif // IMSYSTEMOPENCV_H
