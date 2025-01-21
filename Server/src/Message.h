@@ -236,9 +236,11 @@ struct CVideo_REQ
         head.MsgCode = CLIENT_VIDEO_REQ;
         head.nSize = sizeof(CVideo_REQ);
         memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
     }
     MsgHead head;
     char usrAccount[CLIENT_ACCOUNT];
+    char tarAccount[CLIENT_ACCOUNT];
 };
 
 // 视频通话回复
@@ -262,9 +264,11 @@ struct CVideo_CLOSE
         head.MsgCode = CLIENT_VIDEO_CLOSE;
         head.nSize = sizeof(CVideo_CLOSE);
         memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
     }
     MsgHead head;
     char usrAccount[CLIENT_ACCOUNT]; // 谁结束的通话
+    char tarAccount[CLIENT_ACCOUNT];
 };
 
 #endif // MESSAGE_H

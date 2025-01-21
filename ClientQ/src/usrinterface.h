@@ -1,4 +1,4 @@
-#ifndef USRINTERFACE_H
+﻿#ifndef USRINTERFACE_H
 #define USRINTERFACE_H
 
 #include <QWidget>
@@ -57,6 +57,8 @@ private slots:
 
     void slot_sendChatMessage(QString message , QString tarAccount);
 
+    void slot_sendVideoREQ(QString usrQQ, QString tarAccount);
+
 public slots:
     void slot_recvChatMessage(QString account , QString message);
 
@@ -74,6 +76,8 @@ signals:
     void SIG_SendMessage(QString message , QString usrAccount , QString tarAccount);
 
     void SIG_FriendAgree(QString tarAccount , QString sourceAccount , int flag);
+
+    void SIG_usrInterFaceSendVideoREQ(QString usr , QString tarAccount);
 
 private:
     QStandardItemModel* m_pModel;

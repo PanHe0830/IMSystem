@@ -39,6 +39,7 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_FriendACK,m_UsrInterface,&UsrInterface::slot_showFriendACK);
     connect(this,&IMSystem::SIG_ShowChatMessage,m_UsrInterface,&UsrInterface::slot_recvChatMessage);
     connect(this,&IMSystem::SIG_AddFriend , m_UsrInterface , &UsrInterface::slot_addFriend);
+    connect(m_UsrInterface,&UsrInterface::SIG_usrInterFaceSendVideoREQ , this , &IMSystem::slot_sendVideoREQ);
 
     m_heartTimer = new QTimer();
     connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
@@ -352,4 +353,16 @@ void IMSystem::slot_sendHeart()
 void IMSystem::slot_startQTimer()
 {
     m_heartTimer->start(5000);// 每5s发送一次心跳
+}
+
+void IMSystem::slot_sendVideoREQ(QString usrQQ , QString tarAccount)
+{
+    CVideo_REQ msg;
+    memcpy(msg.usrAccount,usrQQ.toStdString().c_str(),sizeof(msg.usrAccount));
+    memcpy(msg.tarAccount,tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
+    {
+        qDebug() << "发送失败";
+    }
 }

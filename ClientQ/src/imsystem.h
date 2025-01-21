@@ -1,4 +1,4 @@
-#ifndef IMSYSTEM_H
+﻿#ifndef IMSYSTEM_H
 #define IMSYSTEM_H
 
 #include <QObject>
@@ -54,6 +54,8 @@ private slots:
     void slot_sendHeart();
 
     void slot_startQTimer();
+
+    void slot_sendVideoREQ(QString usrQQ , QString tarAccount);
 
 signals:
     void SIG_Account(QString Account);

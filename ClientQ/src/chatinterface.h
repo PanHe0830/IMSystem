@@ -1,4 +1,4 @@
-#ifndef CHATINTERFACE_H
+﻿#ifndef CHATINTERFACE_H
 #define CHATINTERFACE_H
 
 #include <QWidget>
@@ -6,6 +6,7 @@
 
 class QScrollArea;
 class QVBoxLayout;
+class VideoInterface;
 
 namespace Ui {
 class ChatInterface;
@@ -42,6 +43,8 @@ public:
 private slots:
     void slot_textLength(QString str); // 判断新的文本是否超过规定的大小
 
+    void slot_showVideoInterface(); // 显示视频通讯界面
+
 public:
     QString GetTarAccount();
 
@@ -50,12 +53,22 @@ signals:
 
     void SIG_sendMessage(QString str , QString tarAccount);
 
+    void SIG_chatInterfaceSendVideoREQ(QString usrAccount , QString tarAccount);
+
+protected:
+    virtual void moveEvent(QMoveEvent *event) override;
+
+private:
+    void SetVideoInterfacePosition(VideoInterface* video); // 设置视频界面的位置
+
 private:
     QScrollArea* scrollArea;
     QVBoxLayout* messageLayout;
     QString m_currentUsrName;
 
     QDateTime timeCurrent;
+
+    VideoInterface* m_videoInterface = nullptr; // 视频聊天界面
 private:
     Ui::ChatInterface *ui;
 };

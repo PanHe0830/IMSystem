@@ -138,6 +138,9 @@ void Server::HandMsg(SOCKET clientSocket)
         case CLIENT_MESSAGE_HEART_REQ:
             HandleHeartREQ(clientSocket, head);
             break;
+        case CLIENT_VIDEO_REQ:
+            HandleVideoREQ(clientSocket, head);
+            break;
         }
     }
 }
@@ -359,6 +362,25 @@ void Server::HandleHeartREQ(SOCKET clientSocket, MsgHead& head)
     else
     {
         m_UsrLastHeartbeat[std::string(msg.usrAccount)] = std::chrono::steady_clock::now(); // 有就更新时间
+    }
+}
+
+void Server::HandleVideoREQ(SOCKET clientSocket, MsgHead& head)
+{
+    CVideo_REQ msg;
+    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    auto ite = m_UsrToSocket.find(msg.tarAccount);
+    if (ite == m_UsrToSocket.end()) return;
+
+    if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
+    {
+        std::cout << "发送消息失败" << std::endl;
+        return;
     }
 }
 

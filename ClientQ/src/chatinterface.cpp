@@ -1,4 +1,4 @@
-#include "chatinterface.h"
+﻿#include "chatinterface.h"
 #include "ui_chatinterface.h"
 
 #include <QVBoxLayout>
@@ -6,6 +6,8 @@
 #include <QPalette>
 #include <QListWidgetItem>
 #include <QMessageBox>
+
+#include "videointerface.h"
 
 ChatInterface::ChatInterface(QWidget *parent)
     : QWidget(parent)
@@ -43,6 +45,7 @@ void ChatInterface::Connect()
 {
     connect(ui->pb_send,&QPushButton::clicked , this , &ChatInterface::slot_sendMessage);
     connect(ui->le_message , &QLineEdit::textEdited , this , &ChatInterface::slot_textLength);
+    connect(ui->pb_video , &QPushButton::clicked , this , &ChatInterface::slot_showVideoInterface);
 }
 
 void ChatInterface::closeEvent(QCloseEvent *event)
@@ -114,8 +117,48 @@ void ChatInterface::slot_textLength(QString str)
     ui->le_message->setText(temp);
 }
 
+void ChatInterface::slot_showVideoInterface()
+{
+    m_videoInterface = new VideoInterface();
+    emit SIG_chatInterfaceSendVideoREQ(m_currentUsrName,ui->lb_tar->text());
+    SetVideoInterfacePosition(m_videoInterface);
+}
+
 QString ChatInterface::GetTarAccount()
 {
     return ui->lb_tar->text();
+}
+
+void ChatInterface::moveEvent(QMoveEvent *event)
+{
+    // 当聊天界面移动时视频界面跟着移动
+    if(m_videoInterface != nullptr)
+    {
+        SetVideoInterfacePosition(m_videoInterface);
+    }
+}
+
+void ChatInterface::SetVideoInterfacePosition(VideoInterface* video)
+{
+    ////窗口左上角的位置(含边框)
+    //qDebug() << this->frameGeometry().x() << this->frameGeometry().y() << ;//1
+    //qDebug() << this->x()  << this->y();//2
+    //qDebug() << this->pos().x() << this->pos().y();//3
+    ////窗口的宽度和高度(含边框)
+    //qDebug() << this->frameGeometry().width() << this->frameGeometry().height();
+    ////窗口左上角的位置(不含边框)
+    //qDebug() << this->geometry().x() << this->geometry().y();
+    ////窗口的宽度和高度(不含边框)
+    //qDebug() << this->geometry().width() << this->geometry().height();//1
+    //qDebug() << this->width() << this->height();//2
+    //qDebug() << this->rect().width() << this->rect().height();//3
+    //qDebug() << this->size().width() << this->size().height();//4
+
+    int wid = width();
+    int heigh = height();
+    int x = frameGeometry().x();
+    int y = frameGeometry().y();
+    video->move(wid + x , y);
+    video->show();
 }
 

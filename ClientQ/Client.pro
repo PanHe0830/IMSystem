@@ -53,7 +53,13 @@ LIBS += -lavcodec \
         -lswresample \
         -lswscale
 
-LIBS += -lopencv_world4100d
+debug{
+    LIBS += -lopencv_world4100d
+}
+
+release{
+    LIBS += -lopencv_world4100
+}
 
 DEFINES += _WINSOCK_DEPRECATED_NO_WARNINGS
 
@@ -67,7 +73,8 @@ SOURCES += \
     src/myqlabel.cpp \
     src/register.cpp \
     src/imsystem.cpp \
-    src/usrinterface.cpp
+    src/usrinterface.cpp \
+    src/videointerface.cpp
 
 HEADERS += \
     $$PWD/src/mainwindow.h \
@@ -79,14 +86,16 @@ HEADERS += \
     src/register.h \
     src/Message.h \
     src/imsystem.h \
-    src/usrinterface.h
+    src/usrinterface.h \
+    src/videointerface.h
 
 FORMS += \
     addfriendinterface.ui \
     chatinterface.ui \
     mainwindow.ui \
     register.ui \
-    usrinterface.ui
+    usrinterface.ui \
+    videointerface.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
