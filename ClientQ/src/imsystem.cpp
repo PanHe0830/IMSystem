@@ -40,6 +40,8 @@ IMSystem::IMSystem()
     connect(this,&IMSystem::SIG_ShowChatMessage,m_UsrInterface,&UsrInterface::slot_recvChatMessage);
     connect(this,&IMSystem::SIG_AddFriend , m_UsrInterface , &UsrInterface::slot_addFriend);
     connect(m_UsrInterface,&UsrInterface::SIG_usrInterFaceSendVideoREQ , this , &IMSystem::slot_sendVideoREQ);
+    connect(this,&IMSystem::SIG_VideoREQ,m_UsrInterface,&UsrInterface::slot_interfaceVideoREQ);
+    connect(m_UsrInterface,&UsrInterface::SIG_interfaceVideoACK,this , &IMSystem::slot_sendVideoACK);
 
     m_heartTimer = new QTimer();
     connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
@@ -99,6 +101,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
             break;
         case SERVER_FRIEND_CHECK:
             HandleFriendCheck(clientSocket,head);
+            break;
+        case CLIENT_VIDEO_REQ:
+            HandleVideoREQ(clientSocket,head);
             break;
         }
     }
@@ -245,6 +250,18 @@ void IMSystem::HandleFriendCheck(SOCKET serverClient, MsgHead &head)
     emit SIG_AddFriend(QString(msg.friAccount));
 }
 
+void IMSystem::HandleVideoREQ(SOCKET serverClient, MsgHead &head)
+{
+    CVideo_REQ msg;
+    if (!m_Client->client_RecvMessage((char*)&msg, head))
+    {
+        qDebug() << "HandleFriendREQ 接收失败";
+        return;
+    }
+
+    emit SIG_VideoREQ(msg.tarAccount,msg.usrAccount);
+}
+
 void IMSystem::slot_CommitREQ(QString account, QString password)
 {
     qDebug() << "slot_CommitREQ";
@@ -360,6 +377,24 @@ void IMSystem::slot_sendVideoREQ(QString usrQQ , QString tarAccount)
     CVideo_REQ msg;
     memcpy(msg.usrAccount,usrQQ.toStdString().c_str(),sizeof(msg.usrAccount));
     memcpy(msg.tarAccount,tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
+
+    if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
+    {
+        qDebug() << "发送失败";
+    }
+}
+
+void IMSystem::slot_sendVideoACK(bool bflag)
+{
+    CVideo_ACK msg;
+    if(bflag)
+    {
+        msg.flag = CLIENT_VIDEO_SUCCESS;
+    }
+    else
+    {
+        msg.flag = CLIENT_VIDEO_FAILED;
+    }
 
     if(!m_Client->client_SendMessage((char*)&msg,sizeof(msg)))
     {

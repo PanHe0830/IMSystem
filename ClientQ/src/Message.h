@@ -256,7 +256,7 @@ struct CVideo_ACK
     int flag;
 };
 
-// 视频通话回复
+// 视频关闭消息
 struct CVideo_CLOSE
 {
     CVideo_CLOSE()

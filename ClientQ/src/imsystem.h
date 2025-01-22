@@ -34,6 +34,8 @@ private:
 
     void HandleFriendCheck(SOCKET serverClient , MsgHead& head);
 
+    void HandleVideoREQ(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 
@@ -57,6 +59,8 @@ private slots:
 
     void slot_sendVideoREQ(QString usrQQ , QString tarAccount);
 
+    void slot_sendVideoACK(bool bflag);
+
 signals:
     void SIG_Account(QString Account);
 
@@ -69,6 +73,8 @@ signals:
     void SIG_AddFriend(QString friAccount);
 
     void SIG_MasterTimeOut();
+
+    void SIG_VideoREQ(QString usrAccount , QString tarAccount); //  usrAccount - 当前用户  tarAccount - 谁给我发送的请求
 
 private:
     Client* m_Client; // 客户端网络指针

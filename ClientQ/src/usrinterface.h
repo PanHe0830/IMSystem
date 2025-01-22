@@ -59,6 +59,12 @@ private slots:
 
     void slot_sendVideoREQ(QString usrQQ, QString tarAccount);
 
+    void slot_interfaceVideoACK(bool bflag);
+
+public slots:
+    void slot_interfaceVideoREQ(QString usrAccount , QString tarAccount);
+
+
 public slots:
     void slot_recvChatMessage(QString account , QString message);
 
@@ -78,6 +84,10 @@ signals:
     void SIG_FriendAgree(QString tarAccount , QString sourceAccount , int flag);
 
     void SIG_usrInterFaceSendVideoREQ(QString usr , QString tarAccount);
+
+    void SIG_usrVideoREQ(QString usrAccount , QString tarAccount);
+
+    void SIG_interfaceVideoACK(bool bflag);
 
 private:
     QStandardItemModel* m_pModel;

@@ -7,14 +7,14 @@
 
 IMSystemOpenCV::IMSystemOpenCV()
 {
-    InitFFmpeg();
+    //InitFFmpeg();
 
-    QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
-    QCameraDevice cameraDevice = cameras.first();
+    //QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
+    //QCameraDevice cameraDevice = cameras.first();
 
-    // 获取摄像头设备的ID（可以是路径或其他标识符）
-    QString cameraId = cameraDevice.id();
-    qDebug() << "Selected Camera ID:" << cameraId;
+    //// 获取摄像头设备的ID（可以是路径或其他标识符）
+    //QString cameraId = cameraDevice.id();
+    //qDebug() << "Selected Camera ID:" << cameraId;
 
     // 如果有可用的摄像头
     //if (!cameras.isEmpty()) {
@@ -26,29 +26,32 @@ IMSystemOpenCV::IMSystemOpenCV()
     //} else {
     //    qDebug() << "No cameras available.";
     //}
-
-    cv::VideoCapture capture(0);
-    // 如果打开摄像头失败
-    if (!capture.isOpened()) {
-        qDebug() << "Failed to open camera.";
-        return;
-    }
-
-    // 获取视频流并显示
-    cv::Mat frame;
-    while (true) {
-        capture >> frame; // 捕获帧
-        if (frame.empty()) break; // 如果视频结束则退出
-        cv::imshow("Camera", frame); // 显示视频帧
-        if (cv::waitKey(1) == 27) break; // 按ESC退出
-    }
-
-    capture.release();
 }
 
 IMSystemOpenCV::~IMSystemOpenCV()
 {
 
+}
+
+bool IMSystemOpenCV::openVideoStream(int deviceIndex) {
+    if (!capture.open(deviceIndex)) {
+        std::cerr << "无法打开摄像头!" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+cv::Mat IMSystemOpenCV::captureFrame() {
+    cv::Mat frame;
+    capture >> frame;  // 从摄像头获取一帧
+    if (frame.empty()) {
+        std::cerr << "无法获取帧!" << std::endl;
+    }
+    return frame;
+}
+
+void IMSystemOpenCV::release() {
+    capture.release();
 }
 
 void IMSystemOpenCV::InitFFmpeg()

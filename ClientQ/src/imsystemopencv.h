@@ -15,9 +15,18 @@ public:
     IMSystemOpenCV();
     ~IMSystemOpenCV();
 
+public:
+    bool openVideoStream(int deviceIndex = 0); // 开启视频流
+
+    cv::Mat captureFrame(); // 捕获视频帧
+
+    void release(); // 释放资源
+
 private:
     void InitFFmpeg();
+
 private:
+    cv::VideoCapture capture;
 };
 
 #endif // IMSYSTEMOPENCV_H

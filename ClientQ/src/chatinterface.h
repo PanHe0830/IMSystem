@@ -38,12 +38,16 @@ protected:
 
 private slots:
     void slot_sendMessage();
-public:
-    void recvMessage(QString msg);
-private slots:
+
     void slot_textLength(QString str); // 判断新的文本是否超过规定的大小
 
     void slot_showVideoInterface(); // 显示视频通讯界面
+
+public slots:
+    void slot_chatInterfaceVideoREQ(QString usrAccount , QString tarAccount);
+
+public:
+    void recvMessage(QString msg);
 
 public:
     QString GetTarAccount();
@@ -54,6 +58,8 @@ signals:
     void SIG_sendMessage(QString str , QString tarAccount);
 
     void SIG_chatInterfaceSendVideoREQ(QString usrAccount , QString tarAccount);
+
+    void SIG_VideoACK(bool bflag);
 
 protected:
     virtual void moveEvent(QMoveEvent *event) override;

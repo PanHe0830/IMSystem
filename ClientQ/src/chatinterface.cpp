@@ -84,24 +84,6 @@ void ChatInterface::slot_sendMessage()
     emit SIG_sendMessage(message , ui->lb_tar->text());
 }
 
-void ChatInterface::recvMessage(QString msg)
-{
-    /** 如果消息间隔大于5分钟显示时间 */
-    int minutes = timeCurrent.secsTo(showTime());
-    timeCurrent = showTime();
-
-    if(minutes > 5)
-    {
-        ui->lw_showmes->addItem(timeCurrent.toString("yyyy-MM-dd hh:mm:ss"));
-    }
-    /** */
-
-    //QString temp = ui->lb_tar->text() + ":" + msg;
-    QListWidgetItem* listItem = new QListWidgetItem(msg);
-    listItem->setTextAlignment(Qt::AlignLeft);
-    ui->lw_showmes->addItem(listItem);
-}
-
 void ChatInterface::slot_textLength(QString str)
 {
     QString temp = "";
@@ -122,6 +104,41 @@ void ChatInterface::slot_showVideoInterface()
     m_videoInterface = new VideoInterface();
     emit SIG_chatInterfaceSendVideoREQ(m_currentUsrName,ui->lb_tar->text());
     SetVideoInterfacePosition(m_videoInterface);
+}
+
+void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAccount)
+{
+    QString temp = tarAccount;
+    tarAccount += "请求和你通话";
+
+    int ret = QMessageBox::information(this, "Title", temp,QMessageBox::Yes|QMessageBox::No);
+    switch(ret)
+    {
+    case QMessageBox::No:
+        emit SIG_VideoACK(false);
+        break;
+    case QMessageBox::Yes:
+        emit SIG_VideoACK(true);
+        break;
+    }
+}
+
+void ChatInterface::recvMessage(QString msg)
+{
+    /** 如果消息间隔大于5分钟显示时间 */
+    int minutes = timeCurrent.secsTo(showTime());
+    timeCurrent = showTime();
+
+    if(minutes > 5)
+    {
+        ui->lw_showmes->addItem(timeCurrent.toString("yyyy-MM-dd hh:mm:ss"));
+    }
+    /** */
+
+    //QString temp = ui->lb_tar->text() + ":" + msg;
+    QListWidgetItem* listItem = new QListWidgetItem(msg);
+    listItem->setTextAlignment(Qt::AlignLeft);
+    ui->lw_showmes->addItem(listItem);
 }
 
 QString ChatInterface::GetTarAccount()
@@ -155,7 +172,7 @@ void ChatInterface::SetVideoInterfacePosition(VideoInterface* video)
     //qDebug() << this->size().width() << this->size().height();//4
 
     int wid = width();
-    int heigh = height();
+    //int heigh = height();
     int x = frameGeometry().x();
     int y = frameGeometry().y();
     video->move(wid + x , y);
