@@ -71,6 +71,7 @@ SOURCES += \
     src/addfriendinterface.cpp \
     src/imsystemopencv.cpp \
     src/myqlabel.cpp \
+    src/opencvwidget.cpp \
     src/register.cpp \
     src/imsystem.cpp \
     src/usrinterface.cpp \
@@ -83,6 +84,7 @@ HEADERS += \
     src/addfriendinterface.h \
     src/imsystemopencv.h \
     src/myqlabel.h \
+    src/opencvwidget.h \
     src/register.h \
     src/Message.h \
     src/imsystem.h \

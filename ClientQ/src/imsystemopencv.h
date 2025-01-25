@@ -22,11 +22,17 @@ public:
 
     void release(); // 释放资源
 
+    void setIsRelease(bool bflag); // 标志是否释放了资源
+
+    bool getReleaseflag(); // 返回是否释放了资源的标志位
+
 private:
     void InitFFmpeg();
 
 private:
     cv::VideoCapture capture;
+
+    bool m_bflag; // 是否释放资源标志位
 };
 
 #endif // IMSYSTEMOPENCV_H

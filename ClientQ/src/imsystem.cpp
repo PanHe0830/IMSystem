@@ -7,16 +7,9 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QTimer>
-#include "imsystemopencv.h"
 
 IMSystem::IMSystem()
 {
-    // ============================================
-    //IMSystemOpenCV* temp = new IMSystemOpenCV();
-
-    //return;
-    // ============================================
-
     m_Client = new Client();
     m_CommitInterface = new MainWindow();
     m_CommitInterface->show();

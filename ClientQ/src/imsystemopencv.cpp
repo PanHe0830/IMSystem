@@ -7,37 +7,23 @@
 
 IMSystemOpenCV::IMSystemOpenCV()
 {
-    //InitFFmpeg();
-
-    //QList<QCameraDevice> cameras = QMediaDevices::videoInputs();
-    //QCameraDevice cameraDevice = cameras.first();
-
-    //// 获取摄像头设备的ID（可以是路径或其他标识符）
-    //QString cameraId = cameraDevice.id();
-    //qDebug() << "Selected Camera ID:" << cameraId;
-
-    // 如果有可用的摄像头
-    //if (!cameras.isEmpty()) {
-    //    qDebug() << "Available cameras:";
-    //    for (const QCameraDevice &camera : cameras) {
-    //        qDebug() << "Camera name:" << camera.description();
-    //        qDebug() << "Camera id:" << camera.id();
-    //    }
-    //} else {
-    //    qDebug() << "No cameras available.";
-    //}
 }
 
 IMSystemOpenCV::~IMSystemOpenCV()
 {
-
+    if(!getReleaseflag())
+    {
+        release();
+    }
 }
 
-bool IMSystemOpenCV::openVideoStream(int deviceIndex) {
+bool IMSystemOpenCV::openVideoStream(int deviceIndex)
+{
     if (!capture.open(deviceIndex)) {
         std::cerr << "无法打开摄像头!" << std::endl;
         return false;
     }
+    setIsRelease(false);
     return true;
 }
 
@@ -52,6 +38,17 @@ cv::Mat IMSystemOpenCV::captureFrame() {
 
 void IMSystemOpenCV::release() {
     capture.release();
+    setIsRelease(true);
+}
+
+void IMSystemOpenCV::setIsRelease(bool bflag)
+{
+    m_bflag = bflag;
+}
+
+bool IMSystemOpenCV::getReleaseflag()
+{
+    return m_bflag;
 }
 
 void IMSystemOpenCV::InitFFmpeg()

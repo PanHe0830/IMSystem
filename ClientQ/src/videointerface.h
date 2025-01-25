@@ -17,13 +17,22 @@ public:
     explicit VideoInterface(QWidget *parent = nullptr);
     ~VideoInterface();
 
-private:
     void ShowMyVideo();
 
     void ShowTarVideo();
 
 private:
-    IMSystemOpenCV* m_videoCV; // 视频类
+    void Connect();
+
+    void threadVideoShow(IMSystemOpenCV* video);
+
+private slots:
+    void slot_CloseVideo();
+
+private:
+    IMSystemOpenCV* m_Video;
+
+    bool m_bVideoflag = true;
 
 private:
     Ui::VideoInterface *ui;

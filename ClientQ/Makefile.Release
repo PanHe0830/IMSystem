@@ -57,6 +57,7 @@ SOURCES       = src\main.cpp \
 		src\addfriendinterface.cpp \
 		src\imsystemopencv.cpp \
 		src\myqlabel.cpp \
+		src\opencvwidget.cpp \
 		src\register.cpp \
 		src\imsystem.cpp \
 		src\usrinterface.cpp \
@@ -65,6 +66,7 @@ SOURCES       = src\main.cpp \
 		bin\release\moc\moc_chatinterface.cpp \
 		bin\release\moc\moc_addfriendinterface.cpp \
 		bin\release\moc\moc_myqlabel.cpp \
+		bin\release\moc\moc_opencvwidget.cpp \
 		bin\release\moc\moc_register.cpp \
 		bin\release\moc\moc_imsystem.cpp \
 		bin\release\moc\moc_usrinterface.cpp \
@@ -76,6 +78,7 @@ OBJECTS       = bin\release\objects\main.obj \
 		bin\release\objects\addfriendinterface.obj \
 		bin\release\objects\imsystemopencv.obj \
 		bin\release\objects\myqlabel.obj \
+		bin\release\objects\opencvwidget.obj \
 		bin\release\objects\register.obj \
 		bin\release\objects\imsystem.obj \
 		bin\release\objects\usrinterface.obj \
@@ -85,6 +88,7 @@ OBJECTS       = bin\release\objects\main.obj \
 		bin\release\objects\moc_chatinterface.obj \
 		bin\release\objects\moc_addfriendinterface.obj \
 		bin\release\objects\moc_myqlabel.obj \
+		bin\release\objects\moc_opencvwidget.obj \
 		bin\release\objects\moc_register.obj \
 		bin\release\objects\moc_imsystem.obj \
 		bin\release\objects\moc_usrinterface.obj \
@@ -96,6 +100,7 @@ DIST          =  src\mainwindow.h \
 		src\addfriendinterface.h \
 		src\imsystemopencv.h \
 		src\myqlabel.h \
+		src\opencvwidget.h \
 		src\register.h \
 		src\Message.h \
 		src\imsystem.h \
@@ -107,6 +112,7 @@ DIST          =  src\mainwindow.h \
 		src\addfriendinterface.cpp \
 		src\imsystemopencv.cpp \
 		src\myqlabel.cpp \
+		src\opencvwidget.cpp \
 		src\register.cpp \
 		src\imsystem.cpp \
 		src\usrinterface.cpp \
@@ -227,7 +233,7 @@ all: Makefile.Release  bin\release\Client.exe
 
 bin\release\Client.exe: D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgets.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimedia.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgets.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6Gui.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6Network.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6Core.lib D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPoint.lib bin\release\ui\ui_addfriendinterface.h bin\release\ui\ui_chatinterface.h bin\release\ui\ui_mainwindow.h bin\release\ui\ui_register.h bin\release\ui\ui_usrinterface.h bin\release\ui\ui_videointerface.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-bin\release\objects\main.obj bin\release\objects\mainwindow.obj bin\release\objects\client.obj bin\release\objects\chatinterface.obj bin\release\objects\addfriendinterface.obj bin\release\objects\imsystemopencv.obj bin\release\objects\myqlabel.obj bin\release\objects\register.obj bin\release\objects\imsystem.obj bin\release\objects\usrinterface.obj bin\release\objects\videointerface.obj bin\release\objects\qrc_Image.obj bin\release\objects\moc_mainwindow.obj bin\release\objects\moc_chatinterface.obj bin\release\objects\moc_addfriendinterface.obj bin\release\objects\moc_myqlabel.obj bin\release\objects\moc_register.obj bin\release\objects\moc_imsystem.obj bin\release\objects\moc_usrinterface.obj bin\release\objects\moc_videointerface.obj
+bin\release\objects\main.obj bin\release\objects\mainwindow.obj bin\release\objects\client.obj bin\release\objects\chatinterface.obj bin\release\objects\addfriendinterface.obj bin\release\objects\imsystemopencv.obj bin\release\objects\myqlabel.obj bin\release\objects\opencvwidget.obj bin\release\objects\register.obj bin\release\objects\imsystem.obj bin\release\objects\usrinterface.obj bin\release\objects\videointerface.obj bin\release\objects\qrc_Image.obj bin\release\objects\moc_mainwindow.obj bin\release\objects\moc_chatinterface.obj bin\release\objects\moc_addfriendinterface.obj bin\release\objects\moc_myqlabel.obj bin\release\objects\moc_opencvwidget.obj bin\release\objects\moc_register.obj bin\release\objects\moc_imsystem.obj bin\release\objects\moc_usrinterface.obj bin\release\objects\moc_videointerface.obj
 $(LIBS)
 <<
 
@@ -237,10 +243,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) Client.zip $(SOURCES) $(DIST) Client.pro D:\QT\6.8.0\msvc2019_64\mkspecs\features\spec_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\windows-desktop.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\windows-vulkan.conf D:\QT\6.8.0\msvc2019_64\mkspecs\common\msvc-desktop.conf D:\QT\6.8.0\msvc2019_64\mkspecs\qconfig.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_libjpeg.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_openxr_loader.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3drender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_activeqt.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_activeqt_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axserver.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bodymovin_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_charts.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_charts_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_core.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualizationqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualizationqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designer.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_example_icons_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_freetype_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_graphs.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_graphs_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpc.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpcquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpcquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_gui.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_harfbuzz_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_help.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_httpserver.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_httpserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttracker.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttracker_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttrackerqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttrackerqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_jpeg_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_jsonrpc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_languageserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_location.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_location_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediaquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_network.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_networkauth.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_networkauth_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_nfc.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openxr_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdf.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdf_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_png_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioning.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobuf.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobuf_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtcoretypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtcoretypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtguitypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtguitypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufwellknowntypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufwellknowntypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatch_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatchconversions_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatchgenerators_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlbuiltins.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlbuiltins_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlls_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlnetwork.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlnetwork_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltoolingsettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltyperegistrar_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dglslparser_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpersimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpersimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticleeffects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticleeffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysics.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysics_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysicshelpers.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysicshelpers_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dspatialaudio_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dxr.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dxr_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basic.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basic_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusion.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusion_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imagine.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imagine_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2material.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2material_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universal.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universal_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickeffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimelineblendtrees.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimelineblendtrees_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimagegenerator_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_repparser.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_repparser_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxmlqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxmlqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensors.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_spatialaudio.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_spatialaudio_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sql.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachine.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachine_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachineqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachineqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svg.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_texttospeech.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_texttospeech_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboard.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboardsettings.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboardsettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannelquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannelquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_websockets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webview.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webview_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_xml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt_functions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt_config.prf D:\QT\6.8.0\msvc2019_64\mkspecs\win32-msvc\qmake.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash D:\QT\6.8.0\msvc2019_64\mkspecs\features\exclusive_builds.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\msvc-version.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\toolchain.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\default_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\default_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resolve_config.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\exclusive_builds_post.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\default_post.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\build_pass.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qml_debug.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\precompile_header.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\warn_on.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\permissions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resources_functions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resources.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\moc.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\opengl.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\uic.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qmake_use.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\file_copies.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\windows.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\testcase_targets.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\exceptions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\yacc.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\lex.prf Client.pro Image.qrc D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgets.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimedia.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgets.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Gui.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Network.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Core.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPoint.prl   Image.qrc D:\QT\6.8.0\msvc2019_64\mkspecs\features\data\dummy.cpp src\mainwindow.h src\client.h src\chatinterface.h src\addfriendinterface.h src\imsystemopencv.h src\myqlabel.h src\register.h src\Message.h src\imsystem.h src\usrinterface.h src\videointerface.h  src\main.cpp src\mainwindow.cpp src\client.cpp src\chatinterface.cpp src\addfriendinterface.cpp src\imsystemopencv.cpp src\myqlabel.cpp src\register.cpp src\imsystem.cpp src\usrinterface.cpp src\videointerface.cpp addfriendinterface.ui chatinterface.ui mainwindow.ui register.ui usrinterface.ui videointerface.ui    
+	$(ZIP) Client.zip $(SOURCES) $(DIST) Client.pro D:\QT\6.8.0\msvc2019_64\mkspecs\features\spec_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\windows-desktop.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\windows_vulkan_sdk.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\windows-vulkan.conf D:\QT\6.8.0\msvc2019_64\mkspecs\common\msvc-desktop.conf D:\QT\6.8.0\msvc2019_64\mkspecs\qconfig.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_freetype.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_libjpeg.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_libpng.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_ext_openxr_loader.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3drender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_activeqt.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_activeqt_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axserver.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_bodymovin_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_charts.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_charts_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_chartsqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_core.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_core_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualization_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualizationqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_datavisualizationqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_dbus.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designer.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designer_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_entrypoint_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_example_icons_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_freetype_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_graphs.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_graphs_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpc.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpcquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_grpcquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_gui.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_gui_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_harfbuzz_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_help.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_help_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_httpserver.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_httpserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttracker.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttracker_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttrackerqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_insighttrackerqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_jpeg_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_jsonrpc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsanimation_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsfolderlistmodel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labsqmlmodels_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labssharedimage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_labswavefrontmesh_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_languageserver_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_linguist.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_location.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_location_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediaquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_network.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_network_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_networkauth.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_networkauth_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_nfc.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_opengl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openglwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_openxr_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdf.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdf_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_pdfwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_png_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioning.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_positioningquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobuf.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobuf_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtcoretypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtcoretypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtguitypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufqtguitypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufwellknowntypes.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_protobufwellknowntypes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatch_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatchconversions_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qdoccatchgenerators_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlbuiltins.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlbuiltins_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcompiler_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlcore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmldom_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlintegration_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmllocalstorage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlls_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlmodels_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlnetwork.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlnetwork_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltoolingsettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmltyperegistrar_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlworkerscript_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_qmlxmllistmodel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3d_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetimport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dassetutils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3deffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dglslparser_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpers_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpersimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dhelpersimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3diblbaker_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticleeffects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticleeffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dparticles_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysics.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysics_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysicshelpers.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dphysicshelpers_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3druntimerender_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dspatialaudio_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dutils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dxr.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick3dxr_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basic.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basic_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2basicstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusion.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusion_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2fusionstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imagine.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imagine_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2imaginestyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2impl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2material.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2material_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2materialstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universal.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universal_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2universalstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrols2windowsstyleimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickcontrolstestutilsprivate_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2quickimpl_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickdialogs2utils_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickeffects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicklayouts_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickshapes_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktestutilsprivate_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimeline_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimelineblendtrees.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quicktimelineblendtrees_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimage.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimage_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickvectorimagegenerator_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjects_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_remoteobjectsqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_repparser.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_repparser_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxmlqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_scxmlqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensors.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sensorsquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialport.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_shadertools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_spatialaudio.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_spatialaudio_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sql.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_sql_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachine.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachine_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachineqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_statemachineqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svg.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svg_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_svgwidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_testlib.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_texttospeech.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_texttospeech_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_tools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uitools.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboard.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboardsettings.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_virtualkeyboardsettings_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannel.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannelquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webchannelquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginecore_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginequickdelegatesqml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webenginewidgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_websockets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webview.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webview_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_webviewquick_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_widgets.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_xml.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_xml_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\modules\qt_lib_zlib_private.pri D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt_functions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt_config.prf D:\QT\6.8.0\msvc2019_64\mkspecs\win32-msvc\qmake.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\spec_post.prf .qmake.stash D:\QT\6.8.0\msvc2019_64\mkspecs\features\exclusive_builds.prf D:\QT\6.8.0\msvc2019_64\mkspecs\common\msvc-version.conf D:\QT\6.8.0\msvc2019_64\mkspecs\features\toolchain.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\default_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\default_pre.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resolve_config.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\exclusive_builds_post.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\default_post.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\build_pass.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qml_debug.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\precompile_header.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\warn_on.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\permissions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qt.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resources_functions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\resources.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\moc.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\opengl.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\uic.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\qmake_use.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\file_copies.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\win32\windows.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\testcase_targets.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\exceptions.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\yacc.prf D:\QT\6.8.0\msvc2019_64\mkspecs\features\lex.prf Client.pro Image.qrc D:\QT\6.8.0\msvc2019_64\lib\Qt6MultimediaWidgets.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Multimedia.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Widgets.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Gui.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Network.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6Core.prl D:\QT\6.8.0\msvc2019_64\lib\Qt6EntryPoint.prl   Image.qrc D:\QT\6.8.0\msvc2019_64\mkspecs\features\data\dummy.cpp src\mainwindow.h src\client.h src\chatinterface.h src\addfriendinterface.h src\imsystemopencv.h src\myqlabel.h src\opencvwidget.h src\register.h src\Message.h src\imsystem.h src\usrinterface.h src\videointerface.h  src\main.cpp src\mainwindow.cpp src\client.cpp src\chatinterface.cpp src\addfriendinterface.cpp src\imsystemopencv.cpp src\myqlabel.cpp src\opencvwidget.cpp src\register.cpp src\imsystem.cpp src\usrinterface.cpp src\videointerface.cpp addfriendinterface.ui chatinterface.ui mainwindow.ui register.ui usrinterface.ui videointerface.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) bin\release\objects\main.obj bin\release\objects\mainwindow.obj bin\release\objects\client.obj bin\release\objects\chatinterface.obj bin\release\objects\addfriendinterface.obj bin\release\objects\imsystemopencv.obj bin\release\objects\myqlabel.obj bin\release\objects\register.obj bin\release\objects\imsystem.obj bin\release\objects\usrinterface.obj bin\release\objects\videointerface.obj bin\release\objects\qrc_Image.obj bin\release\objects\moc_mainwindow.obj bin\release\objects\moc_chatinterface.obj bin\release\objects\moc_addfriendinterface.obj bin\release\objects\moc_myqlabel.obj bin\release\objects\moc_register.obj bin\release\objects\moc_imsystem.obj bin\release\objects\moc_usrinterface.obj bin\release\objects\moc_videointerface.obj
+	-$(DEL_FILE) bin\release\objects\main.obj bin\release\objects\mainwindow.obj bin\release\objects\client.obj bin\release\objects\chatinterface.obj bin\release\objects\addfriendinterface.obj bin\release\objects\imsystemopencv.obj bin\release\objects\myqlabel.obj bin\release\objects\opencvwidget.obj bin\release\objects\register.obj bin\release\objects\imsystem.obj bin\release\objects\usrinterface.obj bin\release\objects\videointerface.obj bin\release\objects\qrc_Image.obj bin\release\objects\moc_mainwindow.obj bin\release\objects\moc_chatinterface.obj bin\release\objects\moc_addfriendinterface.obj bin\release\objects\moc_myqlabel.obj bin\release\objects\moc_opencvwidget.obj bin\release\objects\moc_register.obj bin\release\objects\moc_imsystem.obj bin\release\objects\moc_usrinterface.obj bin\release\objects\moc_videointerface.obj
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -271,9 +277,9 @@ compiler_moc_predefs_clean:
 bin\release\moc\moc_predefs.h: D:\QT\6.8.0\msvc2019_64\mkspecs\features\data\dummy.cpp
 	cl -BxD:\QT\6.8.0\msvc2019_64\bin\qmake.exe -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -permissive- -Zc:__cplusplus -Zc:externConstexpr -O2 -MD -std:c++17 -utf-8 -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E D:\QT\6.8.0\msvc2019_64\mkspecs\features\data\dummy.cpp 2>NUL >bin\release\moc\moc_predefs.h
 
-compiler_moc_header_make_all: bin\release\moc\moc_mainwindow.cpp bin\release\moc\moc_chatinterface.cpp bin\release\moc\moc_addfriendinterface.cpp bin\release\moc\moc_myqlabel.cpp bin\release\moc\moc_register.cpp bin\release\moc\moc_imsystem.cpp bin\release\moc\moc_usrinterface.cpp bin\release\moc\moc_videointerface.cpp
+compiler_moc_header_make_all: bin\release\moc\moc_mainwindow.cpp bin\release\moc\moc_chatinterface.cpp bin\release\moc\moc_addfriendinterface.cpp bin\release\moc\moc_myqlabel.cpp bin\release\moc\moc_opencvwidget.cpp bin\release\moc\moc_register.cpp bin\release\moc\moc_imsystem.cpp bin\release\moc\moc_usrinterface.cpp bin\release\moc\moc_videointerface.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) bin\release\moc\moc_mainwindow.cpp bin\release\moc\moc_chatinterface.cpp bin\release\moc\moc_addfriendinterface.cpp bin\release\moc\moc_myqlabel.cpp bin\release\moc\moc_register.cpp bin\release\moc\moc_imsystem.cpp bin\release\moc\moc_usrinterface.cpp bin\release\moc\moc_videointerface.cpp
+	-$(DEL_FILE) bin\release\moc\moc_mainwindow.cpp bin\release\moc\moc_chatinterface.cpp bin\release\moc\moc_addfriendinterface.cpp bin\release\moc\moc_myqlabel.cpp bin\release\moc\moc_opencvwidget.cpp bin\release\moc\moc_register.cpp bin\release\moc\moc_imsystem.cpp bin\release\moc\moc_usrinterface.cpp bin\release\moc\moc_videointerface.cpp
 bin\release\moc\moc_mainwindow.cpp: src\mainwindow.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QMainWindow \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qmainwindow.h \
@@ -1046,6 +1052,315 @@ bin\release\moc\moc_myqlabel.cpp: src\myqlabel.h \
 		bin\release\moc\moc_predefs.h \
 		D:\QT\6.8.0\msvc2019_64\bin\moc.exe
 	D:\QT\6.8.0\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include "D:/VS Project/Communciation/ClientQ/bin/release/moc/moc_predefs.h" -ID:/QT/6.8.0/msvc2019_64/mkspecs/win32-msvc -I"D:/VS Project/Communciation/ClientQ" -I"D:/VS Project/Communciation/ClientQ/include" -I"D:/VS Project/Communciation/ClientQ/include/ffmpeg" -ID:/QT/6.8.0/msvc2019_64/include -ID:/QT/6.8.0/msvc2019_64/include/QtMultimediaWidgets -ID:/QT/6.8.0/msvc2019_64/include/QtMultimedia -ID:/QT/6.8.0/msvc2019_64/include/QtWidgets -ID:/QT/6.8.0/msvc2019_64/include/QtGui -ID:/QT/6.8.0/msvc2019_64/include/QtNetwork -ID:/QT/6.8.0/msvc2019_64/include/QtCore -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include" -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\ATLMFC\include" -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" src\myqlabel.h -o bin\release\moc\moc_myqlabel.cpp
+
+bin\release\moc\moc_opencvwidget.cpp: src\opencvwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgetsglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtguiglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtversionchecks.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtconfiginclude.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qconfig.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtcore-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtconfigmacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtcoreexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompilerdetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qprocessordetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsystemdetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtdeprecationmarkers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtpreprocessorsupport.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qassert.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtnoop.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtypes.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtversion.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtclasshelpermacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtypeinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainerfwd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsysinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlogging.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qflags.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompare_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbasicatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qatomic_cxx11.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qgenericatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qyieldcpu.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qconstructormacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdarwinhelpers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qexceptionhandling.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qforeach.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qttypetraits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfunctionpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qglobalstatic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmalloc.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qminmax.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnumeric.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qoverload.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qswap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtenvironmentvariables.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtresource.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qttranslation.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qversiontagging.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtgui-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtguiexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgets-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgetsexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qwindowdefs.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobjectdefs.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnamespace.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompare.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcomparehelpers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20type_traits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtmetamacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfunctionaltools_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qwindowdefs_win.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstring.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qchar.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearray.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrefcount.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydata.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpair.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydatapointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydataops.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainertools_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qxptype_traits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20functional.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20memory.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearrayview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringfwd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringliteral.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlatin1stringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qanystringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qutf8stringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringtokenizer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringbuilder.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringconverter.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringconverter_base.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qhashfunctions.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiterator.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearraylist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringlist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringmatcher.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreevent.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qscopedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmetatype.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdatastream.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiodevicebase.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfloat16.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmath.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiterable.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmetacontainer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainerinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtaggedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qscopeguard.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbindingstorage.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmargins.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q23utility.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qaction.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qkeysequence.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qicon.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsize.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpixmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpaintdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrect.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpoint.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qcolor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qrgb.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qrgba64.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qshareddata.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qimage.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpixelformat.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtransform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpolygon.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qregion.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qline.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvariant.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdebug.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtextstream.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsharedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qset.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qhash.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvarlengtharray.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpalette.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qbrush.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfont.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qendian.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfontmetrics.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfontinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qsizepolicy.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qcursor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qbitmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qevent.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiodevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qurl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qeventpoint.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qvector2d.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qvectornd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpointingdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qinputdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qscreen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QList \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QObject \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QRect \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QSize \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QSizeF \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QTransform \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnativeinterface.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qscreen_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qeventloop.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreapplication_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfuture.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfutureinterface.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmutex.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtsan_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qresultstore.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfuture_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qthreadpool.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qthread.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrunnable.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qexception.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpromise.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qinputmethod.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlocale.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QPainter \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpainter.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
+		include\opencv2\opencv.hpp \
+		include\opencv2\opencv_modules.hpp \
+		include\opencv2\core.hpp \
+		include\opencv2\core\cvdef.h \
+		include\opencv2\core\version.hpp \
+		include\opencv2\core\hal\interface.h \
+		include\opencv2\core\cv_cpu_dispatch.h \
+		include\opencv2\core\cv_cpu_helper.h \
+		include\opencv2\core\hal\msa_macros.h \
+		include\opencv2\core\fast_math.hpp \
+		include\opencv2\core\base.hpp \
+		include\opencv2\core\cvstd.hpp \
+		include\opencv2\core\cvstd_wrapper.hpp \
+		include\opencv2\core\neon_utils.hpp \
+		include\opencv2\core\vsx_utils.hpp \
+		include\opencv2\core\check.hpp \
+		include\opencv2\core\traits.hpp \
+		include\opencv2\core\matx.hpp \
+		include\opencv2\core\saturate.hpp \
+		include\opencv2\core\matx.inl.hpp \
+		include\opencv2\core\types.hpp \
+		include\opencv2\core\mat.hpp \
+		include\opencv2\core\bufferpool.hpp \
+		include\opencv2\core\mat.inl.hpp \
+		include\opencv2\core\persistence.hpp \
+		include\opencv2\core\operations.hpp \
+		include\opencv2\core\cvstd.inl.hpp \
+		include\opencv2\core\utility.hpp \
+		include\opencv2\core\utils\instrumentation.hpp \
+		include\opencv2\core\utils\tls.hpp \
+		include\opencv2\core\optim.hpp \
+		include\opencv2\core\ovx.hpp \
+		include\opencv2\calib3d.hpp \
+		include\opencv2\features2d.hpp \
+		include\opencv2\flann\miniflann.hpp \
+		include\opencv2\flann\defines.h \
+		include\opencv2\flann\config.h \
+		include\opencv2\core\affine.hpp \
+		include\opencv2\core\utils\logger.hpp \
+		include\opencv2\core\utils\logger.defines.hpp \
+		include\opencv2\core\utils\logtag.hpp \
+		include\opencv2\dnn.hpp \
+		include\opencv2\dnn\dnn.hpp \
+		include\opencv2\core\async.hpp \
+		include\opencv2\dnn\version.hpp \
+		include\opencv2\dnn\dict.hpp \
+		include\opencv2\dnn\layer.hpp \
+		include\opencv2\dnn\dnn.inl.hpp \
+		include\opencv2\dnn\utils\inference_engine.hpp \
+		include\opencv2\flann.hpp \
+		include\opencv2\flann\flann_base.hpp \
+		include\opencv2\flann\general.h \
+		include\opencv2\flann\matrix.h \
+		include\opencv2\flann\params.h \
+		include\opencv2\flann\any.h \
+		include\opencv2\flann\saving.h \
+		include\opencv2\flann\nn_index.h \
+		include\opencv2\flann\result_set.h \
+		include\opencv2\flann\all_indices.h \
+		include\opencv2\flann\kdtree_index.h \
+		include\opencv2\flann\dynamic_bitset.h \
+		include\opencv2\flann\dist.h \
+		include\opencv2\flann\heap.h \
+		include\opencv2\flann\allocator.h \
+		include\opencv2\flann\random.h \
+		include\opencv2\flann\kdtree_single_index.h \
+		include\opencv2\flann\kmeans_index.h \
+		include\opencv2\flann\logger.h \
+		include\opencv2\flann\composite_index.h \
+		include\opencv2\flann\linear_index.h \
+		include\opencv2\flann\hierarchical_clustering_index.h \
+		include\opencv2\flann\lsh_index.h \
+		include\opencv2\flann\lsh_table.h \
+		include\opencv2\flann\autotuned_index.h \
+		include\opencv2\flann\ground_truth.h \
+		include\opencv2\flann\index_testing.h \
+		include\opencv2\flann\timer.h \
+		include\opencv2\flann\sampling.h \
+		include\opencv2\highgui.hpp \
+		include\opencv2\imgcodecs.hpp \
+		include\opencv2\videoio.hpp \
+		include\opencv2\imgproc.hpp \
+		include\opencv2\imgproc\segmentation.hpp \
+		include\opencv2\ml.hpp \
+		include\opencv2\ml\ml.inl.hpp \
+		include\opencv2\objdetect.hpp \
+		include\opencv2\objdetect\aruco_detector.hpp \
+		include\opencv2\objdetect\aruco_dictionary.hpp \
+		include\opencv2\objdetect\aruco_board.hpp \
+		include\opencv2\objdetect\graphical_code_detector.hpp \
+		include\opencv2\objdetect\detection_based_tracker.hpp \
+		include\opencv2\objdetect\face.hpp \
+		include\opencv2\objdetect\charuco_detector.hpp \
+		include\opencv2\objdetect\barcode.hpp \
+		include\opencv2\photo.hpp \
+		include\opencv2\stitching.hpp \
+		include\opencv2\stitching\warpers.hpp \
+		include\opencv2\stitching\detail\warpers.hpp \
+		include\opencv2\core\cuda.hpp \
+		include\opencv2\core\cuda_types.hpp \
+		include\opencv2\core\cuda.inl.hpp \
+		include\opencv2\stitching\detail\warpers_inl.hpp \
+		include\opencv2\stitching\detail\matchers.hpp \
+		include\opencv2\stitching\detail\motion_estimators.hpp \
+		include\opencv2\stitching\detail\util.hpp \
+		include\opencv2\stitching\detail\util_inl.hpp \
+		include\opencv2\stitching\detail\camera.hpp \
+		include\opencv2\stitching\detail\exposure_compensate.hpp \
+		include\opencv2\stitching\detail\seam_finders.hpp \
+		include\opencv2\stitching\detail\blenders.hpp \
+		include\opencv2\video.hpp \
+		include\opencv2\video\tracking.hpp \
+		include\opencv2\video\background_segm.hpp \
+		bin\release\moc\moc_predefs.h \
+		D:\QT\6.8.0\msvc2019_64\bin\moc.exe
+	D:\QT\6.8.0\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include "D:/VS Project/Communciation/ClientQ/bin/release/moc/moc_predefs.h" -ID:/QT/6.8.0/msvc2019_64/mkspecs/win32-msvc -I"D:/VS Project/Communciation/ClientQ" -I"D:/VS Project/Communciation/ClientQ/include" -I"D:/VS Project/Communciation/ClientQ/include/ffmpeg" -ID:/QT/6.8.0/msvc2019_64/include -ID:/QT/6.8.0/msvc2019_64/include/QtMultimediaWidgets -ID:/QT/6.8.0/msvc2019_64/include/QtMultimedia -ID:/QT/6.8.0/msvc2019_64/include/QtWidgets -ID:/QT/6.8.0/msvc2019_64/include/QtGui -ID:/QT/6.8.0/msvc2019_64/include/QtNetwork -ID:/QT/6.8.0/msvc2019_64/include/QtCore -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\include" -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\ATLMFC\include" -I"D:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" src\opencvwidget.h -o bin\release\moc\moc_opencvwidget.cpp
 
 bin\release\moc\moc_register.cpp: src\register.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
@@ -3340,6 +3655,313 @@ bin\release\objects\myqlabel.obj: src\myqlabel.cpp src\myqlabel.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\QMouseEvent
 
+bin\release\objects\opencvwidget.obj: src\opencvwidget.cpp src\opencvwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgetsglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtguiglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qglobal.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtversionchecks.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtconfiginclude.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qconfig.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtcore-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtconfigmacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtcoreexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompilerdetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qprocessordetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsystemdetection.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtdeprecationmarkers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtpreprocessorsupport.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qassert.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtnoop.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtypes.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtversion.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtclasshelpermacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtypeinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainerfwd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsysinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlogging.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qflags.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompare_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbasicatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qatomic_cxx11.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qgenericatomic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qyieldcpu.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qconstructormacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdarwinhelpers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qexceptionhandling.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qforeach.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qttypetraits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfunctionpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qglobalstatic.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmalloc.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qminmax.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnumeric.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qoverload.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qswap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtenvironmentvariables.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtresource.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qttranslation.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qversiontagging.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtgui-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtguiexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgets-config.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qtwidgetsexports.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qwindowdefs.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobjectdefs.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnamespace.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcompare.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcomparehelpers.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20type_traits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtmetamacros.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobjectdefs_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfunctionaltools_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qwindowdefs_win.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstring.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qchar.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearray.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrefcount.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydata.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpair.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydatapointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qarraydataops.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainertools_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qxptype_traits.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20functional.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q20memory.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearrayalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearrayview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringfwd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringliteral.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlatin1stringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qanystringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qutf8stringview.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringtokenizer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringbuilder.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringconverter.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringconverter_base.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qhashfunctions.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiterator.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbytearraylist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringlist.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qalgorithms.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qstringmatcher.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreevent.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qscopedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmetatype.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdatastream.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiodevicebase.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfloat16.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmath.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiterable.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmetacontainer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontainerinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtaggedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qscopeguard.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qobject_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbindingstorage.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmargins.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\q23utility.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qaction.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qkeysequence.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qicon.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsize.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpixmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpaintdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrect.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpoint.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qcolor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qrgb.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qrgba64.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qshareddata.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qimage.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpixelformat.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtransform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpolygon.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qregion.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qline.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvariant.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdebug.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtextstream.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcontiguouscache.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsharedpointer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qsharedpointer_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qshareddata_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qset.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qhash.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qvarlengtharray.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpalette.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qbrush.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfont.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qendian.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfontmetrics.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qfontinfo.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qsizepolicy.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qcursor.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qbitmap.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qevent.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qiodevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qurl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qeventpoint.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qvector2d.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qvectornd.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpointingdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qinputdevice.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qscreen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QList \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QObject \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QRect \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QSize \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QSizeF \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QTransform \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qnativeinterface.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qscreen_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreapplication.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qdeadlinetimer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qelapsedtimer.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qeventloop.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qcoreapplication_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfuture.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfutureinterface.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qmutex.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtsan_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qresultstore.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qfuture_impl.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qthreadpool.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qthread.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qrunnable.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qexception.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qpromise.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qinputmethod.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qlocale.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qguiapplication_platform.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QPainter \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpainter.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
+		include\opencv2\opencv.hpp \
+		include\opencv2\opencv_modules.hpp \
+		include\opencv2\core.hpp \
+		include\opencv2\core\cvdef.h \
+		include\opencv2\core\version.hpp \
+		include\opencv2\core\hal\interface.h \
+		include\opencv2\core\cv_cpu_dispatch.h \
+		include\opencv2\core\cv_cpu_helper.h \
+		include\opencv2\core\hal\msa_macros.h \
+		include\opencv2\core\fast_math.hpp \
+		include\opencv2\core\base.hpp \
+		include\opencv2\core\cvstd.hpp \
+		include\opencv2\core\cvstd_wrapper.hpp \
+		include\opencv2\core\neon_utils.hpp \
+		include\opencv2\core\vsx_utils.hpp \
+		include\opencv2\core\check.hpp \
+		include\opencv2\core\traits.hpp \
+		include\opencv2\core\matx.hpp \
+		include\opencv2\core\saturate.hpp \
+		include\opencv2\core\matx.inl.hpp \
+		include\opencv2\core\types.hpp \
+		include\opencv2\core\mat.hpp \
+		include\opencv2\core\bufferpool.hpp \
+		include\opencv2\core\mat.inl.hpp \
+		include\opencv2\core\persistence.hpp \
+		include\opencv2\core\operations.hpp \
+		include\opencv2\core\cvstd.inl.hpp \
+		include\opencv2\core\utility.hpp \
+		include\opencv2\core\utils\instrumentation.hpp \
+		include\opencv2\core\utils\tls.hpp \
+		include\opencv2\core\optim.hpp \
+		include\opencv2\core\ovx.hpp \
+		include\opencv2\calib3d.hpp \
+		include\opencv2\features2d.hpp \
+		include\opencv2\flann\miniflann.hpp \
+		include\opencv2\flann\defines.h \
+		include\opencv2\flann\config.h \
+		include\opencv2\core\affine.hpp \
+		include\opencv2\core\utils\logger.hpp \
+		include\opencv2\core\utils\logger.defines.hpp \
+		include\opencv2\core\utils\logtag.hpp \
+		include\opencv2\dnn.hpp \
+		include\opencv2\dnn\dnn.hpp \
+		include\opencv2\core\async.hpp \
+		include\opencv2\dnn\version.hpp \
+		include\opencv2\dnn\dict.hpp \
+		include\opencv2\dnn\layer.hpp \
+		include\opencv2\dnn\dnn.inl.hpp \
+		include\opencv2\dnn\utils\inference_engine.hpp \
+		include\opencv2\flann.hpp \
+		include\opencv2\flann\flann_base.hpp \
+		include\opencv2\flann\general.h \
+		include\opencv2\flann\matrix.h \
+		include\opencv2\flann\params.h \
+		include\opencv2\flann\any.h \
+		include\opencv2\flann\saving.h \
+		include\opencv2\flann\nn_index.h \
+		include\opencv2\flann\result_set.h \
+		include\opencv2\flann\all_indices.h \
+		include\opencv2\flann\kdtree_index.h \
+		include\opencv2\flann\dynamic_bitset.h \
+		include\opencv2\flann\dist.h \
+		include\opencv2\flann\heap.h \
+		include\opencv2\flann\allocator.h \
+		include\opencv2\flann\random.h \
+		include\opencv2\flann\kdtree_single_index.h \
+		include\opencv2\flann\kmeans_index.h \
+		include\opencv2\flann\logger.h \
+		include\opencv2\flann\composite_index.h \
+		include\opencv2\flann\linear_index.h \
+		include\opencv2\flann\hierarchical_clustering_index.h \
+		include\opencv2\flann\lsh_index.h \
+		include\opencv2\flann\lsh_table.h \
+		include\opencv2\flann\autotuned_index.h \
+		include\opencv2\flann\ground_truth.h \
+		include\opencv2\flann\index_testing.h \
+		include\opencv2\flann\timer.h \
+		include\opencv2\flann\sampling.h \
+		include\opencv2\highgui.hpp \
+		include\opencv2\imgcodecs.hpp \
+		include\opencv2\videoio.hpp \
+		include\opencv2\imgproc.hpp \
+		include\opencv2\imgproc\segmentation.hpp \
+		include\opencv2\ml.hpp \
+		include\opencv2\ml\ml.inl.hpp \
+		include\opencv2\objdetect.hpp \
+		include\opencv2\objdetect\aruco_detector.hpp \
+		include\opencv2\objdetect\aruco_dictionary.hpp \
+		include\opencv2\objdetect\aruco_board.hpp \
+		include\opencv2\objdetect\graphical_code_detector.hpp \
+		include\opencv2\objdetect\detection_based_tracker.hpp \
+		include\opencv2\objdetect\face.hpp \
+		include\opencv2\objdetect\charuco_detector.hpp \
+		include\opencv2\objdetect\barcode.hpp \
+		include\opencv2\photo.hpp \
+		include\opencv2\stitching.hpp \
+		include\opencv2\stitching\warpers.hpp \
+		include\opencv2\stitching\detail\warpers.hpp \
+		include\opencv2\core\cuda.hpp \
+		include\opencv2\core\cuda_types.hpp \
+		include\opencv2\core\cuda.inl.hpp \
+		include\opencv2\stitching\detail\warpers_inl.hpp \
+		include\opencv2\stitching\detail\matchers.hpp \
+		include\opencv2\stitching\detail\motion_estimators.hpp \
+		include\opencv2\stitching\detail\util.hpp \
+		include\opencv2\stitching\detail\util_inl.hpp \
+		include\opencv2\stitching\detail\camera.hpp \
+		include\opencv2\stitching\detail\exposure_compensate.hpp \
+		include\opencv2\stitching\detail\seam_finders.hpp \
+		include\opencv2\stitching\detail\blenders.hpp \
+		include\opencv2\video.hpp \
+		include\opencv2\video\tracking.hpp \
+		include\opencv2\video\background_segm.hpp \
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\QThread
+
 bin\release\objects\register.obj: src\register.cpp src\register.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qwidget.h \
@@ -3763,154 +4385,7 @@ bin\release\objects\imsystem.obj: src\imsystem.cpp src\imsystem.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qapplication.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\QTimer \
 		D:\QT\6.8.0\msvc2019_64\include\QtCore\qtimer.h \
-		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbasictimer.h \
-		src\imsystemopencv.h \
-		include\ffmpeg\libavdevice\avdevice.h \
-		include\ffmpeg\libavdevice\version_major.h \
-		include\ffmpeg\libavdevice\version.h \
-		include\ffmpeg\libavutil\version.h \
-		include\ffmpeg\libavutil\macros.h \
-		include\ffmpeg\libavutil\avconfig.h \
-		include\ffmpeg\libavutil\log.h \
-		include\ffmpeg\libavutil\attributes.h \
-		include\ffmpeg\libavutil\opt.h \
-		include\ffmpeg\libavutil\rational.h \
-		include\ffmpeg\libavutil\avutil.h \
-		include\ffmpeg\libavutil\common.h \
-		include\ffmpeg\libavutil\error.h \
-		include\ffmpeg\libavutil\mem.h \
-		include\ffmpeg\libavutil\mathematics.h \
-		include\ffmpeg\libavutil\intfloat.h \
-		include\ffmpeg\libavutil\pixfmt.h \
-		include\ffmpeg\libavutil\channel_layout.h \
-		include\ffmpeg\libavutil\dict.h \
-		include\ffmpeg\libavutil\samplefmt.h \
-		include\ffmpeg\libavformat\avformat.h \
-		include\ffmpeg\libavcodec\codec_par.h \
-		include\ffmpeg\libavcodec\codec_id.h \
-		include\ffmpeg\libavcodec\version_major.h \
-		include\ffmpeg\libavcodec\defs.h \
-		include\ffmpeg\libavcodec\packet.h \
-		include\ffmpeg\libavutil\buffer.h \
-		include\ffmpeg\libavformat\avio.h \
-		include\ffmpeg\libavformat\version_major.h \
-		include\ffmpeg\libavformat\version.h \
-		include\ffmpeg\libavutil\frame.h \
-		include\ffmpeg\libavcodec\codec.h \
-		include\ffmpeg\libavutil\hwcontext.h \
-		include\opencv2\opencv.hpp \
-		include\opencv2\opencv_modules.hpp \
-		include\opencv2\core.hpp \
-		include\opencv2\core\cvdef.h \
-		include\opencv2\core\version.hpp \
-		include\opencv2\core\hal\interface.h \
-		include\opencv2\core\cv_cpu_dispatch.h \
-		include\opencv2\core\cv_cpu_helper.h \
-		include\opencv2\core\hal\msa_macros.h \
-		include\opencv2\core\fast_math.hpp \
-		include\opencv2\core\base.hpp \
-		include\opencv2\core\cvstd.hpp \
-		include\opencv2\core\cvstd_wrapper.hpp \
-		include\opencv2\core\neon_utils.hpp \
-		include\opencv2\core\vsx_utils.hpp \
-		include\opencv2\core\check.hpp \
-		include\opencv2\core\traits.hpp \
-		include\opencv2\core\matx.hpp \
-		include\opencv2\core\saturate.hpp \
-		include\opencv2\core\matx.inl.hpp \
-		include\opencv2\core\types.hpp \
-		include\opencv2\core\mat.hpp \
-		include\opencv2\core\bufferpool.hpp \
-		include\opencv2\core\mat.inl.hpp \
-		include\opencv2\core\persistence.hpp \
-		include\opencv2\core\operations.hpp \
-		include\opencv2\core\cvstd.inl.hpp \
-		include\opencv2\core\utility.hpp \
-		include\opencv2\core\utils\instrumentation.hpp \
-		include\opencv2\core\utils\tls.hpp \
-		include\opencv2\core\optim.hpp \
-		include\opencv2\core\ovx.hpp \
-		include\opencv2\calib3d.hpp \
-		include\opencv2\features2d.hpp \
-		include\opencv2\flann\miniflann.hpp \
-		include\opencv2\flann\defines.h \
-		include\opencv2\flann\config.h \
-		include\opencv2\core\affine.hpp \
-		include\opencv2\core\utils\logger.hpp \
-		include\opencv2\core\utils\logger.defines.hpp \
-		include\opencv2\core\utils\logtag.hpp \
-		include\opencv2\dnn.hpp \
-		include\opencv2\dnn\dnn.hpp \
-		include\opencv2\core\async.hpp \
-		include\opencv2\dnn\version.hpp \
-		include\opencv2\dnn\dict.hpp \
-		include\opencv2\dnn\layer.hpp \
-		include\opencv2\dnn\dnn.inl.hpp \
-		include\opencv2\dnn\utils\inference_engine.hpp \
-		include\opencv2\flann.hpp \
-		include\opencv2\flann\flann_base.hpp \
-		include\opencv2\flann\general.h \
-		include\opencv2\flann\matrix.h \
-		include\opencv2\flann\params.h \
-		include\opencv2\flann\any.h \
-		include\opencv2\flann\saving.h \
-		include\opencv2\flann\nn_index.h \
-		include\opencv2\flann\result_set.h \
-		include\opencv2\flann\all_indices.h \
-		include\opencv2\flann\kdtree_index.h \
-		include\opencv2\flann\dynamic_bitset.h \
-		include\opencv2\flann\dist.h \
-		include\opencv2\flann\heap.h \
-		include\opencv2\flann\allocator.h \
-		include\opencv2\flann\random.h \
-		include\opencv2\flann\kdtree_single_index.h \
-		include\opencv2\flann\kmeans_index.h \
-		include\opencv2\flann\logger.h \
-		include\opencv2\flann\composite_index.h \
-		include\opencv2\flann\linear_index.h \
-		include\opencv2\flann\hierarchical_clustering_index.h \
-		include\opencv2\flann\lsh_index.h \
-		include\opencv2\flann\lsh_table.h \
-		include\opencv2\flann\autotuned_index.h \
-		include\opencv2\flann\ground_truth.h \
-		include\opencv2\flann\index_testing.h \
-		include\opencv2\flann\timer.h \
-		include\opencv2\flann\sampling.h \
-		include\opencv2\highgui.hpp \
-		include\opencv2\imgcodecs.hpp \
-		include\opencv2\videoio.hpp \
-		include\opencv2\imgproc.hpp \
-		include\opencv2\imgproc\segmentation.hpp \
-		include\opencv2\ml.hpp \
-		include\opencv2\ml\ml.inl.hpp \
-		include\opencv2\objdetect.hpp \
-		include\opencv2\objdetect\aruco_detector.hpp \
-		include\opencv2\objdetect\aruco_dictionary.hpp \
-		include\opencv2\objdetect\aruco_board.hpp \
-		include\opencv2\objdetect\graphical_code_detector.hpp \
-		include\opencv2\objdetect\detection_based_tracker.hpp \
-		include\opencv2\objdetect\face.hpp \
-		include\opencv2\objdetect\charuco_detector.hpp \
-		include\opencv2\objdetect\barcode.hpp \
-		include\opencv2\photo.hpp \
-		include\opencv2\stitching.hpp \
-		include\opencv2\stitching\warpers.hpp \
-		include\opencv2\stitching\detail\warpers.hpp \
-		include\opencv2\core\cuda.hpp \
-		include\opencv2\core\cuda_types.hpp \
-		include\opencv2\core\cuda.inl.hpp \
-		include\opencv2\stitching\detail\warpers_inl.hpp \
-		include\opencv2\stitching\detail\matchers.hpp \
-		include\opencv2\stitching\detail\motion_estimators.hpp \
-		include\opencv2\stitching\detail\util.hpp \
-		include\opencv2\stitching\detail\util_inl.hpp \
-		include\opencv2\stitching\detail\camera.hpp \
-		include\opencv2\stitching\detail\exposure_compensate.hpp \
-		include\opencv2\stitching\detail\seam_finders.hpp \
-		include\opencv2\stitching\detail\blenders.hpp \
-		include\opencv2\video.hpp \
-		include\opencv2\video\tracking.hpp \
-		include\opencv2\video\background_segm.hpp
+		D:\QT\6.8.0\msvc2019_64\include\QtCore\qbasictimer.h
 
 bin\release\objects\usrinterface.obj: src\usrinterface.cpp src\usrinterface.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\QWidget \
@@ -4348,40 +4823,12 @@ bin\release\objects\videointerface.obj: src\videointerface.cpp src\videointerfac
 		D:\QT\6.8.0\msvc2019_64\include\QtWidgets\qframe.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpicture.h \
 		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextdocument.h \
-		src\imsystemopencv.h \
-		include\ffmpeg\libavdevice\avdevice.h \
-		include\ffmpeg\libavdevice\version_major.h \
-		include\ffmpeg\libavdevice\version.h \
-		include\ffmpeg\libavutil\version.h \
-		include\ffmpeg\libavutil\macros.h \
-		include\ffmpeg\libavutil\avconfig.h \
-		include\ffmpeg\libavutil\log.h \
-		include\ffmpeg\libavutil\attributes.h \
-		include\ffmpeg\libavutil\opt.h \
-		include\ffmpeg\libavutil\rational.h \
-		include\ffmpeg\libavutil\avutil.h \
-		include\ffmpeg\libavutil\common.h \
-		include\ffmpeg\libavutil\error.h \
-		include\ffmpeg\libavutil\mem.h \
-		include\ffmpeg\libavutil\mathematics.h \
-		include\ffmpeg\libavutil\intfloat.h \
-		include\ffmpeg\libavutil\pixfmt.h \
-		include\ffmpeg\libavutil\channel_layout.h \
-		include\ffmpeg\libavutil\dict.h \
-		include\ffmpeg\libavutil\samplefmt.h \
-		include\ffmpeg\libavformat\avformat.h \
-		include\ffmpeg\libavcodec\codec_par.h \
-		include\ffmpeg\libavcodec\codec_id.h \
-		include\ffmpeg\libavcodec\version_major.h \
-		include\ffmpeg\libavcodec\defs.h \
-		include\ffmpeg\libavcodec\packet.h \
-		include\ffmpeg\libavutil\buffer.h \
-		include\ffmpeg\libavformat\avio.h \
-		include\ffmpeg\libavformat\version_major.h \
-		include\ffmpeg\libavformat\version.h \
-		include\ffmpeg\libavutil\frame.h \
-		include\ffmpeg\libavcodec\codec.h \
-		include\ffmpeg\libavutil\hwcontext.h \
+		src\opencvwidget.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QPainter \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpainter.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qtextoption.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\qpen.h \
+		D:\QT\6.8.0\msvc2019_64\include\QtGui\QImage \
 		include\opencv2\opencv.hpp \
 		include\opencv2\opencv_modules.hpp \
 		include\opencv2\core.hpp \
@@ -4494,7 +4941,41 @@ bin\release\objects\videointerface.obj: src\videointerface.cpp src\videointerfac
 		include\opencv2\stitching\detail\blenders.hpp \
 		include\opencv2\video.hpp \
 		include\opencv2\video\tracking.hpp \
-		include\opencv2\video\background_segm.hpp
+		include\opencv2\video\background_segm.hpp \
+		src\imsystemopencv.h \
+		include\ffmpeg\libavdevice\avdevice.h \
+		include\ffmpeg\libavdevice\version_major.h \
+		include\ffmpeg\libavdevice\version.h \
+		include\ffmpeg\libavutil\version.h \
+		include\ffmpeg\libavutil\macros.h \
+		include\ffmpeg\libavutil\avconfig.h \
+		include\ffmpeg\libavutil\log.h \
+		include\ffmpeg\libavutil\attributes.h \
+		include\ffmpeg\libavutil\opt.h \
+		include\ffmpeg\libavutil\rational.h \
+		include\ffmpeg\libavutil\avutil.h \
+		include\ffmpeg\libavutil\common.h \
+		include\ffmpeg\libavutil\error.h \
+		include\ffmpeg\libavutil\mem.h \
+		include\ffmpeg\libavutil\mathematics.h \
+		include\ffmpeg\libavutil\intfloat.h \
+		include\ffmpeg\libavutil\pixfmt.h \
+		include\ffmpeg\libavutil\channel_layout.h \
+		include\ffmpeg\libavutil\dict.h \
+		include\ffmpeg\libavutil\samplefmt.h \
+		include\ffmpeg\libavformat\avformat.h \
+		include\ffmpeg\libavcodec\codec_par.h \
+		include\ffmpeg\libavcodec\codec_id.h \
+		include\ffmpeg\libavcodec\version_major.h \
+		include\ffmpeg\libavcodec\defs.h \
+		include\ffmpeg\libavcodec\packet.h \
+		include\ffmpeg\libavutil\buffer.h \
+		include\ffmpeg\libavformat\avio.h \
+		include\ffmpeg\libavformat\version_major.h \
+		include\ffmpeg\libavformat\version.h \
+		include\ffmpeg\libavutil\frame.h \
+		include\ffmpeg\libavcodec\codec.h \
+		include\ffmpeg\libavutil\hwcontext.h
 
 bin\release\objects\qrc_Image.obj: release\qrc_Image.cpp 
 
@@ -4505,6 +4986,8 @@ bin\release\objects\moc_chatinterface.obj: bin\release\moc\moc_chatinterface.cpp
 bin\release\objects\moc_addfriendinterface.obj: bin\release\moc\moc_addfriendinterface.cpp 
 
 bin\release\objects\moc_myqlabel.obj: bin\release\moc\moc_myqlabel.cpp 
+
+bin\release\objects\moc_opencvwidget.obj: bin\release\moc\moc_opencvwidget.cpp 
 
 bin\release\objects\moc_register.obj: bin\release\moc\moc_register.cpp 
 

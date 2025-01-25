@@ -106,8 +106,7 @@ void ChatInterface::slot_showVideoInterface()
     SetVideoInterfacePosition(m_videoInterface);
 
     // TODO -- 显示视频
-
-
+    m_videoInterface->ShowMyVideo();
 }
 
 void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAccount)
