@@ -59,7 +59,7 @@ private slots:
 
     void slot_sendVideoREQ(QString usrQQ , QString tarAccount);
 
-    void slot_sendVideoACK(bool bflag);
+    void slot_sendVideoACK(bool bflag , QString usrAccount , QString tarAccount);
 
 signals:
     void SIG_Account(QString Account);

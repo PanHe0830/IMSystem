@@ -59,7 +59,7 @@ signals:
 
     void SIG_chatInterfaceSendVideoREQ(QString usrAccount , QString tarAccount);
 
-    void SIG_VideoACK(bool bflag);
+    void SIG_VideoACK(bool bflag,QString usrAccount , QString tarAccount);
 
 protected:
     virtual void moveEvent(QMoveEvent *event) override;

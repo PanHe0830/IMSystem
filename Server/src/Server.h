@@ -42,6 +42,9 @@ private:
 	void HandleHeartREQ(SOCKET clientSocket, MsgHead& head);
 	// 处理视频通话请求
 	void HandleVideoREQ(SOCKET clientSocket, MsgHead& head);
+	// 处理视频通话回复
+	void HandleVideoACK(SOCKET clientSocket, MsgHead& head);
+
 
 private:
 	// 处理添加好友后接收到回复后服务器上需要处理的事情

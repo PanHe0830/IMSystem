@@ -18,6 +18,7 @@
 #define CLIENT_VIDEO_REQ         10013 // 客户端通话请求
 #define CLIENT_VIDEO_ACK         10014 // 客户端通话回复
 #define CLIENT_VIDEO_CLOSE       10015 // 客户结束通话
+#define CLIENT_VIDEO_DATA        10016 // 视频数据
 // ==========================================================
 // ==========================================================
 #define CLIENT_COMMIT_SUCCESS   1     // 客户端登录成功
@@ -47,6 +48,7 @@
 
 
 #include <cstring>
+#include <vector>
 
 // 消息头
 struct MsgHead
@@ -250,9 +252,13 @@ struct CVideo_ACK
     {
         head.MsgCode = CLIENT_VIDEO_ACK;
         head.nSize = sizeof(CVideo_ACK);
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
         flag = CLIENT_VIDEO_DEFAULT;
     }
     MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT];
+    char tarAccount[CLIENT_ACCOUNT];
     int flag;
 };
 
@@ -269,6 +275,19 @@ struct CVideo_CLOSE
     MsgHead head;
     char usrAccount[CLIENT_ACCOUNT]; // 谁结束的通话
     char tarAccount[CLIENT_ACCOUNT];
+};
+
+// 视频关闭消息
+struct CVideo_Data
+{
+    CVideo_Data()
+    {
+        head.MsgCode = CLIENT_VIDEO_DATA;
+        head.nSize = sizeof(CVideo_Data);
+        videoBuff.clear();
+    }
+    MsgHead head;
+    std::vector<unsigned char> videoBuff;
 };
 
 #endif // MESSAGE_H

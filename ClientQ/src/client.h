@@ -1,4 +1,4 @@
-#ifndef CLIENT_H
+﻿#ifndef CLIENT_H
 #define CLIENT_H
 
 #include <winsock2.h>
@@ -17,12 +17,12 @@ private:
     bool InitNet();
 
 public:
-    bool client_SendMessage(char* buffer  , long size);
+    static bool client_SendMessage(char* buffer  , long size);
 
-    bool client_RecvMessage(char* buffer , MsgHead& head);
+    static bool client_RecvMessage(char* buffer , MsgHead& head);
 
 public:
-    SOCKET clientSocket;
+    static SOCKET clientSocket;
 
 private:
     WSADATA wsaData;

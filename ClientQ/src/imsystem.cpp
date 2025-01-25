@@ -384,9 +384,12 @@ void IMSystem::slot_sendVideoREQ(QString usrQQ , QString tarAccount)
     }
 }
 
-void IMSystem::slot_sendVideoACK(bool bflag)
+void IMSystem::slot_sendVideoACK(bool bflag , QString usrAccount , QString tarAccount)
 {
     CVideo_ACK msg;
+    memcpy(msg.usrAccount,usrAccount.toStdString().c_str(),sizeof(msg.usrAccount));
+    memcpy(msg.tarAccount,tarAccount.toStdString().c_str(),sizeof(msg.tarAccount));
+
     if(bflag)
     {
         msg.flag = CLIENT_VIDEO_SUCCESS;

@@ -59,7 +59,7 @@ private slots:
 
     void slot_sendVideoREQ(QString usrQQ, QString tarAccount);
 
-    void slot_interfaceVideoACK(bool bflag);
+    void slot_interfaceVideoACK(bool bflag , QString usrAccount , QString tarAccount);
 
 public slots:
     void slot_interfaceVideoREQ(QString usrAccount , QString tarAccount);
@@ -87,7 +87,7 @@ signals:
 
     void SIG_usrVideoREQ(QString usrAccount , QString tarAccount);
 
-    void SIG_interfaceVideoACK(bool bflag);
+    void SIG_interfaceVideoACK(bool bflag  , QString usrAccount , QString tarAccount);
 
 private:
     QStandardItemModel* m_pModel;

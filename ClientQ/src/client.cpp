@@ -1,6 +1,8 @@
-#include "client.h"
+﻿#include "client.h"
 #include <QDebug>
 #include "Message.h"
+
+SOCKET Client::clientSocket = 0;
 
 Client::Client()
 {

@@ -185,9 +185,9 @@ void UsrInterface::slot_interfaceVideoREQ(QString usrAccount, QString tarAccount
     emit SIG_usrVideoREQ(usrAccount,tarAccount);
 }
 
-void UsrInterface::slot_interfaceVideoACK(bool bflag)
+void UsrInterface::slot_interfaceVideoACK(bool bflag , QString usrAccount , QString tarAccount)
 {
-    emit SIG_interfaceVideoACK(bflag);
+    emit SIG_interfaceVideoACK(bflag , usrAccount,tarAccount);
 }
 
 void UsrInterface::slot_recvChatMessage(QString account , QString message)

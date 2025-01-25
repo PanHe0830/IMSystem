@@ -104,6 +104,10 @@ void ChatInterface::slot_showVideoInterface()
     m_videoInterface = new VideoInterface();
     emit SIG_chatInterfaceSendVideoREQ(m_currentUsrName,ui->lb_tar->text());
     SetVideoInterfacePosition(m_videoInterface);
+
+    // TODO -- 显示视频
+
+
 }
 
 void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAccount)
@@ -115,10 +119,10 @@ void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAc
     switch(ret)
     {
     case QMessageBox::No:
-        emit SIG_VideoACK(false);
+        emit SIG_VideoACK(false , usrAccount,tarAccount);
         break;
     case QMessageBox::Yes:
-        emit SIG_VideoACK(true);
+        emit SIG_VideoACK(true , usrAccount,tarAccount);
         break;
     }
 }
