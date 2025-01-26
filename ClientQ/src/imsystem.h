@@ -7,6 +7,7 @@
 #include "mainwindow.h"
 #include "register.h"
 #include "usrinterface.h"
+#include "imsystemopencv.h"
 
 class QTimer;
 
@@ -35,6 +36,8 @@ private:
     void HandleFriendCheck(SOCKET serverClient , MsgHead& head);
 
     void HandleVideoREQ(SOCKET serverClient , MsgHead& head);
+
+    void HandleVideoData(SOCKET serverClient , MsgHead& head);
 
 private slots:
     void slot_CommitREQ(QString account , QString password);
@@ -76,6 +79,8 @@ signals:
 
     void SIG_VideoREQ(QString usrAccount , QString tarAccount); //  usrAccount - 当前用户  tarAccount - 谁给我发送的请求
 
+    void SIG_videoReceived(cv::Mat video);
+
 private:
     Client* m_Client; // 客户端网络指针
     MainWindow* m_CommitInterface; // 客户端登录界面
@@ -84,6 +89,9 @@ private:
 
     QTimer* m_heartTimer; // 心跳包定时器
     //QString m_currentQQ; // 当前用户的QQ号码
+
+private:
+    void processFrame(cv::Mat frame);
 };
 
 #endif // IMSYSTEM_H

@@ -105,8 +105,8 @@ void ChatInterface::slot_showVideoInterface()
     emit SIG_chatInterfaceSendVideoREQ(m_currentUsrName,ui->lb_tar->text());
     SetVideoInterfacePosition(m_videoInterface);
 
-    // TODO -- 显示视频
-    m_videoInterface->ShowMyVideo();
+    // TODO -- 显示自己的视频
+    m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
 }
 
 void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAccount)
@@ -124,6 +124,11 @@ void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAc
         emit SIG_VideoACK(true , usrAccount,tarAccount);
         break;
     }
+}
+
+void ChatInterface::slot_recvVideo(cv::Mat temp)
+{
+    m_videoInterface->ShowTarVideo(temp);
 }
 
 void ChatInterface::recvMessage(QString msg)

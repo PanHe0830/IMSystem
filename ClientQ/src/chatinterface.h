@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDateTime>
+#include "imsystemopencv.h"
 
 class QScrollArea;
 class QVBoxLayout;
@@ -45,6 +46,8 @@ private slots:
 
 public slots:
     void slot_chatInterfaceVideoREQ(QString usrAccount , QString tarAccount);
+
+    void slot_recvVideo(cv::Mat temp);
 
 public:
     void recvMessage(QString msg);

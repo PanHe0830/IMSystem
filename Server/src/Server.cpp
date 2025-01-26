@@ -144,6 +144,9 @@ void Server::HandMsg(SOCKET clientSocket)
         case CLIENT_VIDEO_ACK:
             HandleVideoACK(clientSocket, head);
             break;
+        case CLIENT_VIDEO_DATA:
+            HandleVideoData(clientSocket, head);
+            break;
         }
     }
 }
@@ -390,6 +393,25 @@ void Server::HandleVideoREQ(SOCKET clientSocket, MsgHead& head)
 void Server::HandleVideoACK(SOCKET clientSocket, MsgHead& head)
 {
     CVideo_ACK msg;
+    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    {
+        std::cout << "接收消息失败" << std::endl;
+        return;
+    }
+
+    auto ite = m_UsrToSocket.find(msg.tarAccount);
+    if (ite == m_UsrToSocket.end()) return;
+
+    if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
+    {
+        std::cout << "发送消息失败" << std::endl;
+        return;
+    }
+}
+
+void Server::HandleVideoData(SOCKET clientSocket, MsgHead& head)
+{
+    CVideo_Data msg;
     if (!RecvMessages(clientSocket, (char*)&msg, head))
     {
         std::cout << "接收消息失败" << std::endl;

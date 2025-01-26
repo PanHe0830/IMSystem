@@ -24,10 +24,10 @@ void OpenCVWidget::paintEvent(QPaintEvent *)
     painter.drawImage(rect(), img);
 }
 
-void OpenCVWidget::closeEvent(QCloseEvent *event)
-{
-    emit SIG_CloseVideo();
-}
+//void OpenCVWidget::closeEvent(QCloseEvent *event)
+//{
+//    emit SIG_CloseVideo();
+//}
 
 QImage OpenCVWidget::cvMatToQImage(const cv::Mat &mat)
 {

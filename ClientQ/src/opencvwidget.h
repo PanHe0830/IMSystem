@@ -18,10 +18,10 @@ public:
 protected:
     void paintEvent(QPaintEvent *) override;
 
-    void closeEvent(QCloseEvent *event) override;
+    //void closeEvent(QCloseEvent *event) override;
 
-signals:
-    void SIG_CloseVideo();
+//signals:
+    //void SIG_CloseVideo();
 
 private:
     QImage img;

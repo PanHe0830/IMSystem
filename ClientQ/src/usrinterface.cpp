@@ -130,6 +130,7 @@ void UsrInterface::slot_showChatInterface(const QModelIndex &index)
     connect(m_chatInterface , &ChatInterface::SIG_chatInterfaceSendVideoREQ , this , &UsrInterface::slot_sendVideoREQ);
     connect(this,&UsrInterface::SIG_usrVideoREQ,m_chatInterface,&ChatInterface::slot_chatInterfaceVideoREQ);
     connect(m_chatInterface,&ChatInterface::SIG_VideoACK,this , &UsrInterface::slot_interfaceVideoACK);
+    connect(this,&UsrInterface::SIG_videoRecv,m_chatInterface,&ChatInterface::slot_recvVideo);
     m_AccountToChat.insert(std::make_pair(str,m_chatInterface));
 }
 
@@ -185,6 +186,11 @@ void UsrInterface::slot_interfaceVideoREQ(QString usrAccount, QString tarAccount
     emit SIG_usrVideoREQ(usrAccount,tarAccount);
 }
 
+void UsrInterface::slot_videoReceived(cv::Mat temp)
+{
+    emit SIG_videoRecv(temp);
+}
+
 void UsrInterface::slot_interfaceVideoACK(bool bflag , QString usrAccount , QString tarAccount)
 {
     emit SIG_interfaceVideoACK(bflag , usrAccount,tarAccount);
@@ -211,6 +217,7 @@ void UsrInterface::slot_recvChatMessage(QString account , QString message)
         connect(m_chatInterface , &ChatInterface::SIG_sendMessage,this,&UsrInterface::slot_sendChatMessage);
         connect(m_chatInterface , &ChatInterface::SIG_chatInterfaceSendVideoREQ , this , &UsrInterface::slot_sendVideoREQ);
         connect(this,&UsrInterface::SIG_usrVideoREQ,m_chatInterface,&ChatInterface::slot_chatInterfaceVideoREQ);
+        connect(this,&UsrInterface::SIG_videoRecv,m_chatInterface,&ChatInterface::slot_recvVideo);
         m_AccountToChat.insert(std::make_pair(account,m_chatInterface));
     }
 }

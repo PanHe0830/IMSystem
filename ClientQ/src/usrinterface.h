@@ -9,6 +9,8 @@
 #include "addfriendinterface.h"
 #include "chatinterface.h"
 
+#include "imsystemopencv.h"
+
 /**
 *   用户界面
 */
@@ -64,6 +66,7 @@ private slots:
 public slots:
     void slot_interfaceVideoREQ(QString usrAccount , QString tarAccount);
 
+    void slot_videoReceived(cv::Mat temp);
 
 public slots:
     void slot_recvChatMessage(QString account , QString message);
@@ -88,6 +91,8 @@ signals:
     void SIG_usrVideoREQ(QString usrAccount , QString tarAccount);
 
     void SIG_interfaceVideoACK(bool bflag  , QString usrAccount , QString tarAccount);
+
+    void SIG_videoRecv(cv::Mat temp);
 
 private:
     QStandardItemModel* m_pModel;

@@ -35,6 +35,7 @@ IMSystem::IMSystem()
     connect(m_UsrInterface,&UsrInterface::SIG_usrInterFaceSendVideoREQ , this , &IMSystem::slot_sendVideoREQ);
     connect(this,&IMSystem::SIG_VideoREQ,m_UsrInterface,&UsrInterface::slot_interfaceVideoREQ);
     connect(m_UsrInterface,&UsrInterface::SIG_interfaceVideoACK,this , &IMSystem::slot_sendVideoACK);
+    connect(this,&IMSystem::SIG_videoReceived,m_UsrInterface,&UsrInterface::slot_videoReceived);
 
     m_heartTimer = new QTimer();
     connect(m_heartTimer , &QTimer::timeout , this , &IMSystem::slot_sendHeart);
@@ -97,6 +98,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
             break;
         case CLIENT_VIDEO_REQ:
             HandleVideoREQ(clientSocket,head);
+            break;
+        case CLIENT_VIDEO_DATA:
+            HandleVideoData(clientSocket,head);
             break;
         }
     }
@@ -253,6 +257,30 @@ void IMSystem::HandleVideoREQ(SOCKET serverClient, MsgHead &head)
     }
 
     emit SIG_VideoREQ(msg.tarAccount,msg.usrAccount);
+}
+
+void IMSystem::HandleVideoData(SOCKET serverClient, MsgHead &head)
+{
+    //CVideo_Data msg;
+    std::vector<unsigned char> buffer(head.nSize);
+    if (!m_Client->client_RecvMessage(reinterpret_cast<char*>(buffer.data()), head))
+    {
+        qDebug() << "HandleFriendREQ 接收失败";
+        return;
+    }
+
+    CVideo_Data videoMsg;
+    videoMsg.deserialize(buffer.data(), head.nSize + sizeof(MsgHead));
+    cv::Mat frame = cv::imdecode(videoMsg.videoBuff, cv::IMREAD_COLOR);
+    if (frame.empty()) return ;
+
+    // 4️⃣ 让 UI 线程异步处理，避免 UI 卡顿
+    QMetaObject::invokeMethod(this, "processFrame", Qt::QueuedConnection, Q_ARG(cv::Mat, frame));
+}
+
+void IMSystem::processFrame(cv::Mat frame)
+{
+    emit SIG_videoReceived(frame);
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)

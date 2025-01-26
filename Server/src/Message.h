@@ -277,17 +277,42 @@ struct CVideo_CLOSE
     char tarAccount[CLIENT_ACCOUNT];
 };
 
-// 视频关闭消息
+// 视频数据
 struct CVideo_Data
 {
     CVideo_Data()
     {
         head.MsgCode = CLIENT_VIDEO_DATA;
-        head.nSize = sizeof(CVideo_Data);
-        videoBuff.clear();
+        head.nSize = sizeof(MsgHead); // 初始时只计算头部大小，数据大小后面再填充
+        memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
+        memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
     }
     MsgHead head;
+    char usrAccount[CLIENT_ACCOUNT];
+    char tarAccount[CLIENT_ACCOUNT];
     std::vector<unsigned char> videoBuff;
+
+    // **序列化函数：将结构体转换为可发送的字节流**
+    std::vector<unsigned char> serialize() const
+    {
+        std::vector<unsigned char> buffer;
+        int totalSize = sizeof(MsgHead) + videoBuff.size(); // 计算总大小
+
+        buffer.resize(totalSize);  // 分配足够的空间
+        std::memcpy(buffer.data(), &head, sizeof(MsgHead));  // 复制头部
+        std::memcpy(buffer.data() + sizeof(MsgHead), videoBuff.data(), videoBuff.size()); // 复制视频数据
+        return buffer;
+    }
+
+    // **反序列化函数：从字节流恢复数据**
+    void deserialize(const unsigned char* data, int dataSize)
+    {
+        if (dataSize < sizeof(MsgHead)) return; // 确保数据足够
+
+        std::memcpy(&head, data, sizeof(MsgHead)); // 读取头部
+        videoBuff.resize(dataSize - sizeof(MsgHead)); // 分配存储空间
+        std::memcpy(videoBuff.data(), data + sizeof(MsgHead), videoBuff.size()); // 复制图像数据
+    }
 };
 
 #endif // MESSAGE_H
