@@ -112,8 +112,16 @@ void Server::HandMsg(SOCKET clientSocket)
 {
     while (1)
     {
+        //MsgHead head;
+        //recv(clientSocket, (char*)&head, sizeof(head), 0);
+
         MsgHead head;
-        recv(clientSocket, (char*)&head, sizeof(head), 0);
+        int receivedBytes = recv(clientSocket, reinterpret_cast<char*>(&head), sizeof(MsgHead), 0);
+        if (receivedBytes <= 0)
+        {
+            std::cerr << "Lost connection with sender.\n";
+            break;
+        }
 
         switch (head.MsgCode)
         {
@@ -411,19 +419,37 @@ void Server::HandleVideoACK(SOCKET clientSocket, MsgHead& head)
 
 void Server::HandleVideoData(SOCKET clientSocket, MsgHead& head)
 {
-    CVideo_Data msg;
-    if (!RecvMessages(clientSocket, (char*)&msg, head))
+    int dataSize = head.nSize - sizeof(MsgHead);
+    std::vector<unsigned char> buffer(dataSize);
+
+    int totalReceived = 0;
+    while (totalReceived < dataSize)
     {
-        std::cout << "接收消息失败" << std::endl;
-        return;
+        int bytes = recv(clientSocket, reinterpret_cast<char*>(buffer.data()) + sizeof(head) + totalReceived, dataSize - totalReceived, 0);
+        if (bytes <= 0)
+        {
+            std::cerr << "Error receiving full message.\n";
+            return;
+        }
+        totalReceived += bytes;
     }
 
+    CVideo_Data msg = CVideo_Data::deserialize(buffer);
+
+    //CVideo_Data msg;
+    //msg.deserialize(buffer.data(), dataSize + sizeof(MsgHead));
+    
     auto ite = m_UsrToSocket.find(msg.tarAccount);
     if (ite == m_UsrToSocket.end()) return;
 
-    if (!SendMessages(ite->second, (char*)&msg, sizeof(msg)))
+    std::vector<unsigned char> sendBuffer;
+    sendBuffer = msg.serialize();
+
+    int bytesSent = send(ite->second, reinterpret_cast<char*>(sendBuffer.data()), sendBuffer.size(), 0);
+
+    if (bytesSent <= 0)
     {
-        std::cout << "发送消息失败" << std::endl;
+        std::cerr << "Error forwarding video data.\n";
         return;
     }
 }

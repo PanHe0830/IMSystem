@@ -227,7 +227,7 @@ void IMSystem::HandleChatMessage(SOCKET serverClient, MsgHead &head)
     CSendMessage msg;
     if (!m_Client->client_RecvMessage((char*)&msg, head))
     {
-        qDebug() << "HandleFriendREQ 接收失败";
+        qDebug() << "HandleChatMessage 接收失败";
         return;
     }
 
@@ -239,7 +239,7 @@ void IMSystem::HandleFriendCheck(SOCKET serverClient, MsgHead &head)
     SFriendCheck msg;
     if (!m_Client->client_RecvMessage((char*)&msg, head))
     {
-        qDebug() << "HandleFriendREQ 接收失败";
+        qDebug() << "HandleFriendCheck 接收失败";
         return;
     }
 
@@ -252,7 +252,7 @@ void IMSystem::HandleVideoREQ(SOCKET serverClient, MsgHead &head)
     CVideo_REQ msg;
     if (!m_Client->client_RecvMessage((char*)&msg, head))
     {
-        qDebug() << "HandleFriendREQ 接收失败";
+        qDebug() << "HandleVideoREQ 接收失败";
         return;
     }
 
@@ -265,12 +265,12 @@ void IMSystem::HandleVideoData(SOCKET serverClient, MsgHead &head)
     std::vector<unsigned char> buffer(head.nSize);
     if (!m_Client->client_RecvMessage(reinterpret_cast<char*>(buffer.data()), head))
     {
-        qDebug() << "HandleFriendREQ 接收失败";
+        qDebug() << "HandleVideoData 接收失败";
         return;
     }
 
-    CVideo_Data videoMsg;
-    videoMsg.deserialize(buffer.data(), head.nSize + sizeof(MsgHead));
+    CVideo_Data videoMsg = CVideo_Data::deserialize(buffer);
+
     cv::Mat frame = cv::imdecode(videoMsg.videoBuff, cv::IMREAD_COLOR);
     if (frame.empty()) return ;
 

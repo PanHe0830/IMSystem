@@ -73,19 +73,30 @@ void VideoInterface::threadVideoShow(IMSystemOpenCV* video , QString usrAccount 
 
         buf.clear();
         cv::imencode(".jpg", temp, buf);
+        qDebug() << buf.size();
 
         CVideo_Data videoMsg;
         memcpy(videoMsg.usrAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
         memcpy(videoMsg.tarAccount,tarAccount.toStdString().c_str(),sizeof(videoMsg.tarAccount));
         videoMsg.videoBuff = buf;
-        videoMsg.head.nSize = sizeof(MsgHead) + buf.size(); // 计算总数据大小
+        videoMsg.head.nSize += videoMsg.videoBuff.size(); // 计算总数据大小
 
         //数据序列化
         std::vector<unsigned char> serializedData = videoMsg.serialize();
 
-        std::cout << "Sent frame " << frameNumber++ << ", size: " << serializedData.size() << " bytes" << std::endl;
+        qDebug() << "Sent frame " << frameNumber++ << ", size: " << serializedData.size() << " bytes";
 
-        Client::client_SendMessage(reinterpret_cast<char*>(serializedData.data()),serializedData.size());
+        //CVideo_Data datatemp = CVideo_Data::deserialize(serializedData);
+
+        //qDebug() << datatemp.tarAccount;
+        //qDebug() << datatemp.usrAccount;
+
+        bool bflag = Client::client_SendMessage(reinterpret_cast<char*>(serializedData.data()),serializedData.size());
+        if(!bflag)
+        {
+            qDebug() << "发送失败";
+            return;
+        }
     }
 }
 

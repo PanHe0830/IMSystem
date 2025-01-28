@@ -283,7 +283,7 @@ struct CVideo_Data
     CVideo_Data()
     {
         head.MsgCode = CLIENT_VIDEO_DATA;
-        head.nSize = sizeof(MsgHead); // 初始时只计算头部大小，数据大小后面再填充
+        head.nSize = sizeof(MsgHead) + sizeof(usrAccount) + sizeof(tarAccount);
         memset(usrAccount, 0, sizeof(CLIENT_ACCOUNT));
         memset(tarAccount, 0, sizeof(CLIENT_ACCOUNT));
     }
@@ -292,26 +292,44 @@ struct CVideo_Data
     char tarAccount[CLIENT_ACCOUNT];
     std::vector<unsigned char> videoBuff;
 
-    // **序列化函数：将结构体转换为可发送的字节流**
-    std::vector<unsigned char> serialize() const
-    {
-        std::vector<unsigned char> buffer;
-        int totalSize = sizeof(MsgHead) + videoBuff.size(); // 计算总大小
+    // 序列化函数
+    std::vector<unsigned char> serialize() const {
+        std::vector<unsigned char> result;
 
-        buffer.resize(totalSize);  // 分配足够的空间
-        std::memcpy(buffer.data(), &head, sizeof(MsgHead));  // 复制头部
-        std::memcpy(buffer.data() + sizeof(MsgHead), videoBuff.data(), videoBuff.size()); // 复制视频数据
-        return buffer;
+        // 序列化头部
+        result.resize(result.size() + sizeof(head));
+        memcpy(result.data() + result.size() - sizeof(head), &head, sizeof(head));
+
+        // 序列化用户和目标账户
+        result.resize(result.size() + sizeof(usrAccount) + sizeof(tarAccount));
+        memcpy(result.data() + result.size() - sizeof(usrAccount) - sizeof(tarAccount), usrAccount, sizeof(usrAccount));
+        memcpy(result.data() + result.size() - sizeof(tarAccount), tarAccount, sizeof(tarAccount));
+
+        // 序列化视频数据缓冲区
+        result.insert(result.end(), videoBuff.begin(), videoBuff.end());
+
+        return result;
     }
 
-    // **反序列化函数：从字节流恢复数据**
-    void deserialize(const unsigned char* data, int dataSize)
-    {
-        if (dataSize < sizeof(MsgHead)) return; // 确保数据足够
+    // 反序列化函数
+    static CVideo_Data deserialize(const std::vector<unsigned char>& data) {
+        CVideo_Data videoData;
+        size_t offset = 0;
 
-        std::memcpy(&head, data, sizeof(MsgHead)); // 读取头部
-        videoBuff.resize(dataSize - sizeof(MsgHead)); // 分配存储空间
-        std::memcpy(videoBuff.data(), data + sizeof(MsgHead), videoBuff.size()); // 复制图像数据
+        // 反序列化头部
+        memcpy(&videoData.head, data.data() + offset, sizeof(videoData.head));
+        offset += sizeof(videoData.head);
+
+        // 反序列化用户和目标账户
+        memcpy(videoData.usrAccount, data.data() + offset, sizeof(videoData.usrAccount));
+        offset += sizeof(videoData.usrAccount);
+        memcpy(videoData.tarAccount, data.data() + offset, sizeof(videoData.tarAccount));
+        offset += sizeof(videoData.tarAccount);
+
+        // 反序列化视频数据缓冲区
+        videoData.videoBuff.assign(data.begin() + offset, data.end());
+
+        return videoData;
     }
 };
 

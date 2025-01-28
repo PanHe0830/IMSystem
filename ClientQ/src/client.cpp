@@ -63,7 +63,7 @@ bool Client::client_SendMessage(char* buffer , long size)
     while(sendbytes < size)
     {
         int senddatas = send(clientSocket, buffer, size, 0);
-        if(senddatas < 0)
+        if(senddatas <= 0)
         {
             qDebug() << "Send failed!";
             closesocket(clientSocket);
@@ -72,6 +72,7 @@ bool Client::client_SendMessage(char* buffer , long size)
         }
         sendbytes += senddatas;
     }
+    qDebug() << "发送数据的大小:" << sendbytes;
     return true;
 }
 
