@@ -58,11 +58,11 @@ bool Client::InitNet()
 bool Client::client_SendMessage(char* buffer , long size)
 {
     // 发送数据到服务器
-    qDebug() << size;
+    //qDebug() << size;
     int sendbytes = 0;
     while(sendbytes < size)
     {
-        int senddatas = send(clientSocket, buffer, size, 0);
+        int senddatas = send(clientSocket, buffer + sendbytes, size - sendbytes, 0);
         if(senddatas <= 0)
         {
             qDebug() << "Send failed!";
@@ -72,7 +72,7 @@ bool Client::client_SendMessage(char* buffer , long size)
         }
         sendbytes += senddatas;
     }
-    qDebug() << "发送数据的大小:" << sendbytes;
+    //qDebug() << "发送数据的大小:" << sendbytes;
     return true;
 }
 

@@ -115,12 +115,27 @@ void Server::HandMsg(SOCKET clientSocket)
         //MsgHead head;
         //recv(clientSocket, (char*)&head, sizeof(head), 0);
 
+        //MsgHead head;
+        //int receivedBytes = recv(clientSocket, reinterpret_cast<char*>(&head), sizeof(MsgHead), 0);
+        //if (receivedBytes <= 0)
+        //{
+        //    std::cerr << "Lost connection with sender.\n";
+        //    break;
+        //}
+
         MsgHead head;
-        int receivedBytes = recv(clientSocket, reinterpret_cast<char*>(&head), sizeof(MsgHead), 0);
-        if (receivedBytes <= 0)
-        {
-            std::cerr << "Lost connection with sender.\n";
-            break;
+        size_t totalReceived = 0;
+        size_t headSize = sizeof(MsgHead);
+
+        while (totalReceived < headSize) {
+            int bytes = recv(clientSocket, reinterpret_cast<char*>(&head) + totalReceived, headSize - totalReceived, 0);
+
+            if (bytes <= 0) {
+                std::cerr << "Error receiving MsgHead. Connection error.\n";
+                break;
+            }
+
+            totalReceived += bytes;
         }
 
         switch (head.MsgCode)
@@ -435,6 +450,7 @@ void Server::HandleVideoData(SOCKET clientSocket, MsgHead& head)
     }
 
     CVideo_Data msg = CVideo_Data::deserialize(buffer);
+    msg.head = head;
 
     //CVideo_Data msg;
     //msg.deserialize(buffer.data(), dataSize + sizeof(MsgHead));
@@ -442,14 +458,13 @@ void Server::HandleVideoData(SOCKET clientSocket, MsgHead& head)
     auto ite = m_UsrToSocket.find(msg.tarAccount);
     if (ite == m_UsrToSocket.end()) return;
 
-    std::vector<unsigned char> sendBuffer;
-    sendBuffer = msg.serialize();
+    std::vector<unsigned char> sendBuffer = msg.serialize();
 
-    int bytesSent = send(ite->second, reinterpret_cast<char*>(sendBuffer.data()), sendBuffer.size(), 0);
-
-    if (bytesSent <= 0)
+    //CVideo_ACK msgtemp;
+    //msgtemp.head.MsgCode = CLIENT_VIDEO_DATA;
+    if (!SendMessages(ite->second, reinterpret_cast<char*>(sendBuffer.data()), sendBuffer.size()))
     {
-        std::cerr << "Error forwarding video data.\n";
+        std::cout << "发送消息失败" << std::endl;
         return;
     }
 }
@@ -496,13 +511,14 @@ bool Server::SendMessages(SOCKET clientSocket, char* buffer , long size)
     int sendbytes = 0;
     while (sendbytes < size)
     {
-        int senddatas = send(clientSocket, buffer, size, 0);
-        if (senddatas < 0)
+        int senddatas = send(clientSocket, buffer + sendbytes, size - sendbytes, 0);
+        if (senddatas <= 0)
         {
             return false;
         }
         sendbytes += senddatas;
     }
+    //qDebug() << "发送数据的大小:" << sendbytes;
     return true;
 }
 

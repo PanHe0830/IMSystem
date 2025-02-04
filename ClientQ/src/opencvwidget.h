@@ -15,6 +15,8 @@ public:
 
     void setImage(const cv::Mat &mat);
 
+    void setFriImage(const cv::Mat &mat);
+
 protected:
     void paintEvent(QPaintEvent *) override;
 

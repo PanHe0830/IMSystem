@@ -45,14 +45,19 @@ void VideoInterface::ShowMyVideo( QString usrAccount , QString tarAccount )
 void VideoInterface::ShowTarVideo(cv::Mat video)
 {
     //ui->wid_fri;
-    static QElapsedTimer timer;
-    static const int frameInterval = 1000 / 30; // 限制 30 FPS
-    if (!timer.isValid() || timer.elapsed() >= frameInterval)
+    if(video.empty())
     {
-        timer.restart();
-
-        ui->wid_fri->setImage(video);
+        return;
     }
+
+    ui->wid_fri->setImage(video);
+
+    //static QElapsedTimer timer;
+    //static const int frameInterval = 1000 / 30; // 限制 30 FPS
+    //if (!timer.isValid() || timer.elapsed() >= frameInterval)
+    //{
+    //    timer.restart();
+    //}
 }
 
 void VideoInterface::Connect()
@@ -60,7 +65,7 @@ void VideoInterface::Connect()
     connect(this,&VideoInterface::SIG_VideoClose,this,&VideoInterface::slot_CloseVideo);
 }
 
-int frameNumber = 0;
+//int frameNumber = 0;
 
 void VideoInterface::threadVideoShow(IMSystemOpenCV* video , QString usrAccount , QString tarAccount)
 {
@@ -77,19 +82,15 @@ void VideoInterface::threadVideoShow(IMSystemOpenCV* video , QString usrAccount 
 
         CVideo_Data videoMsg;
         memcpy(videoMsg.usrAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
-        memcpy(videoMsg.tarAccount,tarAccount.toStdString().c_str(),sizeof(videoMsg.tarAccount));
+        memcpy(videoMsg.tarAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
+        //memcpy(videoMsg.tarAccount,tarAccount.toStdString().c_str(),sizeof(videoMsg.tarAccount));
         videoMsg.videoBuff = buf;
         videoMsg.head.nSize += videoMsg.videoBuff.size(); // 计算总数据大小
 
         //数据序列化
         std::vector<unsigned char> serializedData = videoMsg.serialize();
 
-        qDebug() << "Sent frame " << frameNumber++ << ", size: " << serializedData.size() << " bytes";
-
-        //CVideo_Data datatemp = CVideo_Data::deserialize(serializedData);
-
-        //qDebug() << datatemp.tarAccount;
-        //qDebug() << datatemp.usrAccount;
+        //qDebug() << "Sent frame " << frameNumber++ << ", size: " << serializedData.size() << " bytes";
 
         bool bflag = Client::client_SendMessage(reinterpret_cast<char*>(serializedData.data()),serializedData.size());
         if(!bflag)

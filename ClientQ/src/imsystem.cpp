@@ -70,8 +70,28 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
 {
     while (1)
     {
+        //MsgHead head;
+        //int receivedBytes = recv(clientSocket, reinterpret_cast<char*>(&head), sizeof(MsgHead), 0);
+        //if (receivedBytes <= 0)
+        //{
+        //    std::cerr << "Lost connection with sender.\n";
+        //    break;
+        //}
+
         MsgHead head;
-        recv(clientSocket, (char*)&head, sizeof(head), 0);
+        size_t totalReceived = 0;
+        size_t headSize = sizeof(MsgHead);
+
+        while (totalReceived < headSize) {
+            int bytes = recv(clientSocket, reinterpret_cast<char*>(&head) + totalReceived, headSize - totalReceived, MSG_WAITALL);
+
+            if (bytes <= 0) {
+                std::cerr << "Error receiving MsgHead. Connection error.\n";
+                break;
+            }
+
+            totalReceived += bytes;
+        }
 
         switch (head.MsgCode)
         {
@@ -274,13 +294,14 @@ void IMSystem::HandleVideoData(SOCKET serverClient, MsgHead &head)
     cv::Mat frame = cv::imdecode(videoMsg.videoBuff, cv::IMREAD_COLOR);
     if (frame.empty()) return ;
 
+    emit SIG_videoReceived(frame);
+
     // 4️⃣ 让 UI 线程异步处理，避免 UI 卡顿
-    QMetaObject::invokeMethod(this, "processFrame", Qt::QueuedConnection, Q_ARG(cv::Mat, frame));
+    //QMetaObject::invokeMethod(this, "processFrame", Qt::QueuedConnection, Q_ARG(cv::Mat, frame));
 }
 
 void IMSystem::processFrame(cv::Mat frame)
 {
-    emit SIG_videoReceived(frame);
 }
 
 void IMSystem::slot_CommitREQ(QString account, QString password)

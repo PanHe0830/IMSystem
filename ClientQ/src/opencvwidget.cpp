@@ -15,6 +15,13 @@ void OpenCVWidget::setImage(const cv::Mat &mat)
     QThread::msleep(30);
 }
 
+void OpenCVWidget::setFriImage(const cv::Mat &mat)
+{
+    img = cvMatToQImage(mat);
+    update(); // 触发重绘
+    QThread::msleep(30);
+}
+
 void OpenCVWidget::paintEvent(QPaintEvent *)
 {
     if (img.isNull())
