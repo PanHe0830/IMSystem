@@ -451,17 +451,12 @@ void Server::HandleVideoData(SOCKET clientSocket, MsgHead& head)
 
     CVideo_Data msg = CVideo_Data::deserialize(buffer);
     msg.head = head;
-
-    //CVideo_Data msg;
-    //msg.deserialize(buffer.data(), dataSize + sizeof(MsgHead));
     
     auto ite = m_UsrToSocket.find(msg.tarAccount);
     if (ite == m_UsrToSocket.end()) return;
 
     std::vector<unsigned char> sendBuffer = msg.serialize();
 
-    //CVideo_ACK msgtemp;
-    //msgtemp.head.MsgCode = CLIENT_VIDEO_DATA;
     if (!SendMessages(ite->second, reinterpret_cast<char*>(sendBuffer.data()), sendBuffer.size()))
     {
         std::cout << "·¢ËÍÏûÏ¢Ê§°Ü" << std::endl;

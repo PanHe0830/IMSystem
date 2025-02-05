@@ -39,6 +39,8 @@ private:
 
     void HandleVideoData(SOCKET serverClient , MsgHead& head);
 
+    void HandleVideoACK(SOCKET serverClient , MsgHead& head);
+
 private slots:
     void slot_CommitREQ(QString account , QString password);
 

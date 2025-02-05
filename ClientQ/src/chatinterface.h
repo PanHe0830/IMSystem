@@ -25,6 +25,10 @@ public:
 
     void setUsr(QString usrAccount);
 
+    void closeVideoThread();
+
+    void openVideoThread();
+
 private:
     void Init();
 

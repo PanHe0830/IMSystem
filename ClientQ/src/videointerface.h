@@ -24,6 +24,10 @@ public:
 
     void ShowTarVideo(cv::Mat video);
 
+    void OpenVideoSend();
+
+    void CloseVideoSend();
+
 private:
     void Connect();
 
@@ -41,7 +45,10 @@ signals:
 private:
     IMSystemOpenCV* m_Video;
 
-    bool m_bVideoflag = true;
+    std::atomic<bool> m_bVideoflag = true;
+    //bool m_bVideoflag = true;
+
+    bool m_bVideoSend = false;
 
     std::vector<unsigned char> buf;
 

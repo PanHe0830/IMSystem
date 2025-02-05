@@ -76,6 +76,26 @@ void UsrInterface::setUsrName(QString name)
     ui->le_usrname->setText(name);
 }
 
+void UsrInterface::closeVideo(QString tarNumber)
+{
+    auto ite = m_AccountToChat.find(tarNumber);
+    if(ite != m_AccountToChat.end())
+    {
+        ChatInterface* temp = ite->second;
+        temp->closeVideoThread();
+    }
+}
+
+void UsrInterface::openVideo(QString tarNumber)
+{
+    auto ite = m_AccountToChat.find(tarNumber);
+    if(ite != m_AccountToChat.end())
+    {
+        ChatInterface* temp = ite->second;
+        temp->openVideoThread();
+    }
+}
+
 void UsrInterface::slot_showContextMenu(const QPoint &pos)
 {
     QMenu* menu = new QMenu();
@@ -142,22 +162,6 @@ void UsrInterface::slot_clickedEvent(const QModelIndex &index)
 
 void UsrInterface::slot_closeChatInterface(QString tarAccount)
 {
-#if 0
-    ChatInterface* temp = qobject_cast<ChatInterface*>(sender());
-    if(temp != nullptr)
-    {
-        for(auto ite = m_chat.begin() ; ite != m_chat.end() ; ite++)
-        {
-            if(*ite == temp)
-            {
-                delete (*ite);
-                *ite = nullptr;
-                m_chat.erase(ite);
-                break;
-            }
-        }
-    }
-#endif
     auto ite = m_AccountToChat.find(tarAccount);
     if(ite != m_AccountToChat.end())
     {

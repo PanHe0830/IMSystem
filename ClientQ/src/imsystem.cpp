@@ -122,6 +122,9 @@ void IMSystem::HandleMessage(SOCKET clientSocket)
         case CLIENT_VIDEO_DATA:
             HandleVideoData(clientSocket,head);
             break;
+        case CLIENT_VIDEO_ACK:
+            HandleVideoACK(clientSocket,head);
+            break;
         }
     }
 }
@@ -292,12 +295,44 @@ void IMSystem::HandleVideoData(SOCKET serverClient, MsgHead &head)
     CVideo_Data videoMsg = CVideo_Data::deserialize(buffer);
 
     cv::Mat frame = cv::imdecode(videoMsg.videoBuff, cv::IMREAD_COLOR);
+
+    //qDebug() << "Received Mat: " << frame.cols << "x" << frame.rows
+    //         << " Channels: " << frame.channels();
+
     if (frame.empty()) return ;
 
     emit SIG_videoReceived(frame);
 
     // 4️⃣ 让 UI 线程异步处理，避免 UI 卡顿
     //QMetaObject::invokeMethod(this, "processFrame", Qt::QueuedConnection, Q_ARG(cv::Mat, frame));
+}
+
+void IMSystem::HandleVideoACK(SOCKET serverClient, MsgHead &head)
+{
+    // 当前时收到对方给的回复了
+    CVideo_ACK msg;
+    if (!m_Client->client_RecvMessage((char*)&msg, head))
+    {
+        qDebug() << "HandleVideoREQ 接收失败";
+        return;
+    }
+
+    // 9 -- 数字代表当前号码的位数，char数组的大小是20，号码是9位数字，只想取前9位数
+    switch(msg.flag)
+    {
+    case CLIENT_VIDEO_FAILED:
+        // TODO -- 对方不同意视频 -- 给出提示，让对方的视频界面关闭
+        m_UsrInterface->closeVideo(QString::fromLocal8Bit(msg.usrAccount,9));
+        break;
+    case CLIENT_VIDEO_SUCCESS:
+        // TODO -- 对方同意 -- 给对方用户发送消息
+        m_UsrInterface->openVideo(QString::fromLocal8Bit(msg.usrAccount,9));
+        break;
+    case CLIENT_VIDEO_DEFAULT:
+        // TODO -- 消息错误
+
+        break;
+    }
 }
 
 void IMSystem::processFrame(cv::Mat frame)

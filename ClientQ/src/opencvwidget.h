@@ -13,9 +13,9 @@ class OpenCVWidget : public QWidget
 public:
     explicit OpenCVWidget(QWidget *parent = nullptr);
 
-    void setImage(const cv::Mat &mat);
+    Q_INVOKABLE void setImage(const cv::Mat &mat);
 
-    void setFriImage(const cv::Mat &mat);
+    //void setFriImage(const cv::Mat &mat);
 
 protected:
     void paintEvent(QPaintEvent *) override;
@@ -26,9 +26,11 @@ protected:
     //void SIG_CloseVideo();
 
 private:
-    QImage img;
+    QImage usrimg;
+    //QImage friimg;
 
     QImage cvMatToQImage(const cv::Mat &mat);
+    //QImage cvMatQImage(const cv::Mat &mat);
 };
 
 #endif // OPENCVWIDGET_H

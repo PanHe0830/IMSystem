@@ -33,6 +33,16 @@ void ChatInterface::setUsr(QString usrAccount)
     m_currentUsrName = usrAccount;
 }
 
+void ChatInterface::closeVideoThread()
+{
+    m_videoInterface->CloseVideoSend();
+}
+
+void ChatInterface::openVideoThread()
+{
+    m_videoInterface->OpenVideoSend();
+}
+
 void ChatInterface::Init()
 {
     m_currentUsrName = "";
@@ -111,8 +121,7 @@ void ChatInterface::slot_showVideoInterface()
 
 void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAccount)
 {
-    QString temp = tarAccount;
-    tarAccount += "请求和你通话";
+    QString temp = tarAccount + "请求和你通话";
 
     int ret = QMessageBox::information(this, "Title", temp,QMessageBox::Yes|QMessageBox::No);
     switch(ret)
@@ -121,7 +130,22 @@ void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAc
         emit SIG_VideoACK(false , usrAccount,tarAccount);
         break;
     case QMessageBox::Yes:
+    {
         emit SIG_VideoACK(true , usrAccount,tarAccount);
+        // 想通话
+        if(m_videoInterface == nullptr)
+        {
+            m_videoInterface = new VideoInterface();
+            SetVideoInterfacePosition(m_videoInterface);
+            m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
+        }
+        else
+        {
+            SetVideoInterfacePosition(m_videoInterface);
+            m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
+            m_videoInterface->OpenVideoSend();
+        }
+    }
         break;
     }
 }

@@ -3,6 +3,7 @@
 
 #include <thread>
 #include <vector>
+#include <QThread>
 
 #include "opencvwidget.h"
 #include "Message.h"
@@ -51,21 +52,24 @@ void VideoInterface::ShowTarVideo(cv::Mat video)
     }
 
     ui->wid_fri->setImage(video);
+}
 
-    //static QElapsedTimer timer;
-    //static const int frameInterval = 1000 / 30; // 限制 30 FPS
-    //if (!timer.isValid() || timer.elapsed() >= frameInterval)
-    //{
-    //    timer.restart();
-    //}
+void VideoInterface::OpenVideoSend()
+{
+    m_bVideoSend = true;
+}
+
+void VideoInterface::CloseVideoSend()
+{
+    this->close();
+    m_bVideoflag = false;
+    m_bVideoSend = false;
 }
 
 void VideoInterface::Connect()
 {
     connect(this,&VideoInterface::SIG_VideoClose,this,&VideoInterface::slot_CloseVideo);
 }
-
-//int frameNumber = 0;
 
 void VideoInterface::threadVideoShow(IMSystemOpenCV* video , QString usrAccount , QString tarAccount)
 {
@@ -74,31 +78,33 @@ void VideoInterface::threadVideoShow(IMSystemOpenCV* video , QString usrAccount 
     {
         cv::Mat temp = video->captureFrame();
         if(temp.empty()) break;
-        ui->wid_usr->setImage(temp);
+        //ui->wid_usr->setImage(temp);
+        QMetaObject::invokeMethod(ui->wid_usr, "setImage", Qt::QueuedConnection, Q_ARG(cv::Mat, temp));
 
-        buf.clear();
-        cv::imencode(".jpg", temp, buf);
-        qDebug() << buf.size();
 
-        CVideo_Data videoMsg;
-        memcpy(videoMsg.usrAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
-        memcpy(videoMsg.tarAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
-        //memcpy(videoMsg.tarAccount,tarAccount.toStdString().c_str(),sizeof(videoMsg.tarAccount));
-        videoMsg.videoBuff = buf;
-        videoMsg.head.nSize += videoMsg.videoBuff.size(); // 计算总数据大小
-
-        //数据序列化
-        std::vector<unsigned char> serializedData = videoMsg.serialize();
-
-        //qDebug() << "Sent frame " << frameNumber++ << ", size: " << serializedData.size() << " bytes";
-
-        bool bflag = Client::client_SendMessage(reinterpret_cast<char*>(serializedData.data()),serializedData.size());
-        if(!bflag)
+        if(m_bVideoSend)
         {
-            qDebug() << "发送失败";
-            return;
+            cv::imencode(".jpg", temp, buf);
+
+            CVideo_Data videoMsg;
+            memcpy(videoMsg.usrAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
+            //memcpy(videoMsg.tarAccount,usrAccount.toStdString().c_str(),sizeof(videoMsg.usrAccount));
+            memcpy(videoMsg.tarAccount,tarAccount.toStdString().c_str(),sizeof(videoMsg.tarAccount));
+            videoMsg.videoBuff = buf;
+            videoMsg.head.nSize += videoMsg.videoBuff.size(); // 计算总数据大小
+
+            //数据序列化
+            std::vector<unsigned char> serializedData = videoMsg.serialize();
+
+            bool bflag = Client::client_SendMessage(reinterpret_cast<char*>(serializedData.data()),serializedData.size());
+            if(!bflag)
+            {
+                QThread::msleep(100);
+                continue; // 继续尝试发送下一帧，而不是直接退出
+            }
         }
     }
+    qDebug() << "this thread is close";
 }
 
 void VideoInterface::closeEvent(QCloseEvent *event)

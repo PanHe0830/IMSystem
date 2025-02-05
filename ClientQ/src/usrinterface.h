@@ -38,6 +38,10 @@ private:
 public:
     void setUsrName(QString name);
 
+    void closeVideo(QString tarNumber);
+
+    void openVideo(QString tarNumber);
+
 private slots:
     void slot_showContextMenu(const QPoint &pos);
 
