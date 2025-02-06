@@ -19,7 +19,12 @@ IMSystemOpenCV::~IMSystemOpenCV()
 
 bool IMSystemOpenCV::openVideoStream(int deviceIndex)
 {
-    if (!capture.open(deviceIndex)) {
+    //https://www.bilibili.com/video/BV1XuFKecEU8/?spm_id_from=333.1007.tianma.1-1-1.click -- 测试的视频数据
+    //if (!capture.open(deviceIndex)) {
+    //    std::cerr << "无法打开摄像头!" << std::endl;
+    //    return false;
+    //}
+    if (!capture.open("E:\\video\\20250206\\2025-02-06-18-55-34.mp4")) {
         std::cerr << "无法打开摄像头!" << std::endl;
         return false;
     }

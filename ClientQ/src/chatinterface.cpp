@@ -137,13 +137,14 @@ void ChatInterface::slot_chatInterfaceVideoREQ(QString usrAccount, QString tarAc
         {
             m_videoInterface = new VideoInterface();
             SetVideoInterfacePosition(m_videoInterface);
+            m_videoInterface->OpenVideoSend();
             m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
         }
         else
         {
             SetVideoInterfacePosition(m_videoInterface);
-            m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
             m_videoInterface->OpenVideoSend();
+            m_videoInterface->ShowMyVideo(m_currentUsrName,ui->lb_tar->text());
         }
     }
         break;
